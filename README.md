@@ -145,3 +145,4 @@ Aplikasi ini telah dirancang untuk siap diterapkan langsung di **Vercel** dengan
 ## 📄 Hak Cipta & Lisensi
 
 Diterbitkan di bawah lisensi **MIT License**. Dikembangkan untuk tujuan riset akademis dan portofolio Project-Based Learning (PBL) Big Data 2026, Universitas Riau.
+
