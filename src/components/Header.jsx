@@ -28,16 +28,11 @@ export default function Header({ onOpenAnalyzeModal }) {
     <header
       className="fixed top-3 left-3 right-3 sm:left-4 sm:right-4 h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] z-30 px-3.5 sm:px-5 flex items-center justify-between transition-all duration-200 select-none"
     >
-      {/* Left side: Brand Monogram + Clean Minimalist Breadcrumb */}
-      <div className="flex items-center gap-2.5 sm:gap-3">
-        <div className="w-6 h-6 rounded-[4px] bg-navy-950 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
-          GH
-        </div>
-        <div className="flex items-center gap-2 text-[13px] font-sans">
-          <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
-          <span className="text-slate-300 font-light">/</span>
-          <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
-        </div>
+      {/* Left side: Clean Minimalist Breadcrumb (No Monogram) */}
+      <div className="flex items-center gap-2 text-[13px] font-sans">
+        <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
+        <span className="text-slate-300 font-light">/</span>
+        <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
       </div>
 
       {/* Right side: Dataset Meta Info + Action Button */}
