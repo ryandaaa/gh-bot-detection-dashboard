@@ -30,7 +30,7 @@ export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenSidebar}
-          className="lg:hidden p-1.5 -ml-1 text-slate-600 hover:text-navy-950 hover:bg-slate-100 rounded transition-colors focus:outline-none"
+          className="lg:hidden p-1.5 -ml-1 text-slate-600 hover:text-navy-950 hover:bg-slate-100 rounded-[4px] transition-colors focus:outline-none"
           aria-label="Open navigation menu"
         >
           <Menu className="w-4 h-4" />
@@ -48,7 +48,7 @@ export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenAnalyzeModal}
-          className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded transition-colors border border-navy-800"
+          className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs"
           type="button"
         >
           <span>Analyze Account</span>

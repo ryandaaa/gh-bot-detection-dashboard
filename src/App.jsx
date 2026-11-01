@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import AccountInspectorPane from './components/AccountInspectorPane';
@@ -8,6 +8,47 @@ import AccountExplorer from './pages/AccountExplorer';
 import Clusters from './pages/Clusters';
 import Evaluation from './pages/Evaluation';
 import Methodology from './pages/Methodology';
+
+/**
+ * Top Progress Bar (Page Route Loader)
+ * A thin 2px high-tech navy/blue bar indicating instant page navigation.
+ */
+function TopProgressBar() {
+  const location = useLocation();
+  const [progress, setProgress] = useState(0);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+    setProgress(30);
+    const t1 = setTimeout(() => setProgress(75), 100);
+    const t2 = setTimeout(() => setProgress(100), 240);
+    const t3 = setTimeout(() => {
+      setVisible(false);
+      setProgress(0);
+    }, 400);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [location.pathname]);
+
+  if (!visible && progress === 0) return null;
+
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none h-[2px] overflow-hidden">
+      <div
+        className="h-full bg-navy-600 shadow-[0_0_8px_rgba(37,99,235,0.7)] transition-all duration-200 ease-out"
+        style={{
+          width: `${progress}%`,
+          opacity: progress === 100 ? 0 : 1,
+        }}
+      />
+    </div>
+  );
+}
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,6 +66,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+      {/* Top Route Progress Bar */}
+      <TopProgressBar />
+
       {/* Sidebar (Desktop fixed 240px + Mobile drawer) */}
       <Sidebar
         isOpen={isSidebarOpen}

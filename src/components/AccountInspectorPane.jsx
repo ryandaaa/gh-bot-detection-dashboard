@@ -314,16 +314,16 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
   return (
     <>
-      {/* Subtle backdrop overlay for mobile/small screens */}
+      {/* Dark overlay backdrop dimming page on left, click to close */}
       <div
-        className="fixed inset-0 bg-navy-950/20 z-40 backdrop-blur-2xs lg:hidden"
+        className="fixed inset-0 bg-slate-950/40 backdrop-blur-[2px] z-40 transition-opacity cursor-pointer"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Split-Screen Side Inspector Pane */}
       <aside
-        className="fixed top-0 right-0 h-full w-full sm:w-[480px] xl:w-[520px] bg-white border-l border-slate-200 shadow-xl z-50 flex flex-col pane-slide-in select-none text-slate-900"
+        className="fixed top-0 right-0 h-full w-full sm:w-[480px] xl:w-[500px] bg-white border-l border-slate-200 shadow-2xl z-50 flex flex-col pane-slide-in select-none text-slate-900"
         aria-label="Account Inspector Pane"
       >
         {/* Pane Header - Pure Typography, No decorative icons */}
@@ -338,7 +338,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-navy-950 hover:bg-slate-100 rounded transition-colors"
+            className="p-1.5 text-slate-400 hover:text-navy-950 hover:bg-slate-100 rounded-[4px] transition-colors"
             aria-label="Close Inspector Pane"
           >
             <X className="w-4 h-4" />
@@ -350,7 +350,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
           <div className="flex gap-1">
             <button
               onClick={() => setActiveTab('live')}
-              className={`px-3 py-1 text-[12px] font-sans font-medium rounded transition-colors ${
+              className={`px-3 py-1 text-[12px] font-sans font-medium rounded-[4px] transition-colors ${
                 activeTab === 'live'
                   ? 'bg-navy-950 text-white shadow-2xs'
                   : 'text-slate-600 hover:text-navy-950 hover:bg-slate-200/50'
@@ -360,7 +360,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
             </button>
             <button
               onClick={() => setActiveTab('simulation')}
-              className={`px-3 py-1 text-[12px] font-sans font-medium rounded transition-colors ${
+              className={`px-3 py-1 text-[12px] font-sans font-medium rounded-[4px] transition-colors ${
                 activeTab === 'simulation'
                   ? 'bg-navy-950 text-white shadow-2xs'
                   : 'text-slate-600 hover:text-navy-950 hover:bg-slate-200/50'
@@ -396,12 +396,12 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                     value={liveUsername}
                     onChange={(e) => setLiveUsername(e.target.value)}
                     placeholder="e.g. torvalds or username"
-                    className="flex-1 bg-white border border-slate-300 font-mono text-[12px] text-navy-950 px-3 py-2 rounded outline-none focus:border-navy-800 transition-colors"
+                    className="flex-1 bg-white border border-slate-300 font-mono text-[12px] text-navy-950 px-3 py-2 rounded-[4px] outline-none focus:border-navy-800 transition-colors"
                   />
                   <button
                     type="submit"
                     disabled={loading || !liveUsername.trim()}
-                    className="px-4 py-2 bg-navy-950 text-white hover:bg-navy-900 font-sans text-[12px] font-medium rounded transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                    className="px-4 py-2 bg-navy-950 text-white hover:bg-navy-900 font-sans text-[12px] font-medium rounded-[4px] transition-colors disabled:opacity-50 flex items-center gap-1.5 shadow-2xs"
                   >
                     {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
                     <span>Lookup</span>
@@ -424,7 +424,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                         key={chip.id}
                         type="button"
                         onClick={() => handleLiveLookup(null, chip.id)}
-                        className="px-2 py-0.5 text-[11px] font-mono bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded transition-colors"
+                        className="px-2 py-0.5 text-[11px] font-mono bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-[4px] transition-colors"
                       >
                         {chip.label}
                       </button>
@@ -433,18 +433,18 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 </div>
 
                 {errorMessage && (
-                  <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 font-mono text-[11px] rounded">
+                  <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 font-mono text-[11px] rounded-[4px]">
                     Error: {errorMessage}
                   </div>
                 )}
 
                 {liveUserData && (
-                  <div className="p-3.5 border border-slate-200 bg-slate-50 flex items-start gap-3">
+                  <div className="p-3.5 border border-slate-200 bg-slate-50 flex items-start gap-3 rounded-[4px]">
                     {liveUserData.avatar_url && (
                       <img
                         src={liveUserData.avatar_url}
                         alt={liveUserData.username}
-                        className="w-10 h-10 border border-slate-300 rounded shrink-0"
+                        className="w-10 h-10 border border-slate-300 rounded-[4px] shrink-0"
                       />
                     )}
                     <div className="flex-1 min-w-0">
@@ -494,7 +494,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                       <button
                         key={p.id}
                         onClick={() => applyPreset(p.id)}
-                        className={`px-2.5 py-1.5 text-left rounded text-[11px] border transition-colors ${
+                        className={`px-2.5 py-1.5 text-left rounded-[4px] text-[11px] border transition-colors ${
                           isSelected
                             ? 'bg-navy-950 text-white border-navy-950 font-medium'
                             : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -627,7 +627,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <button
                   onClick={() => runPrediction()}
                   disabled={loading}
-                  className="w-full py-2 bg-navy-950 text-white hover:bg-navy-900 font-sans text-[12px] font-medium rounded transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 border border-navy-800"
+                  className="w-full py-2 bg-navy-950 text-white hover:bg-navy-900 font-sans text-[12px] font-medium rounded-[4px] transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 border border-navy-800 shadow-2xs"
                 >
                   {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
                   <span>Run Anomaly Inference</span>
@@ -649,7 +649,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
             {/* Score & Verdict Banner */}
             <div
-              className={`p-4 border ${
+              className={`p-4 border rounded-[4px] ${
                 isAnomaly
                   ? 'border-rose-300 bg-rose-50/50'
                   : 'border-emerald-300 bg-emerald-50/50'
@@ -688,7 +688,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               </div>
 
               {/* Progress bar line */}
-              <div className="mt-3 relative w-full h-1.5 bg-slate-200 overflow-hidden">
+              <div className="mt-3 relative w-full h-1.5 bg-slate-200 overflow-hidden rounded-[2px]">
                 <div
                   className={`h-full transition-all duration-300 ${
                     isAnomaly ? 'bg-rose-600' : 'bg-emerald-600'
@@ -704,7 +704,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <span className="font-mono text-[11px] text-slate-500 uppercase font-medium">
                   Attributed Cluster
                 </span>
-                <span className="font-mono text-[11px] font-semibold text-navy-950 bg-slate-100 px-1.5 py-0.5 border border-slate-200 rounded-xs">
+                <span className="font-mono text-[11px] font-semibold text-navy-950 bg-slate-100 px-1.5 py-0.5 border border-slate-200 rounded-[4px]">
                   Cluster {result?.cluster_id ?? 0}
                 </span>
               </div>
@@ -736,13 +736,13 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
-                <div className="p-2.5 bg-slate-50 border border-slate-200">
+                <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-[4px]">
                   <span className="text-slate-500 text-[10px] uppercase block">PC1 (Velocity)</span>
                   <span className="text-base font-bold text-navy-950">
                     {result?.pc1 != null ? result.pc1.toFixed(3) : '0.000'}
                   </span>
                 </div>
-                <div className="p-2.5 bg-slate-50 border border-slate-200">
+                <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-[4px]">
                   <span className="text-slate-500 text-[10px] uppercase block">PC2 (Circadian)</span>
                   <span className="text-base font-bold text-navy-950">
                     {result?.pc2 != null ? result.pc2.toFixed(3) : '0.000'}
