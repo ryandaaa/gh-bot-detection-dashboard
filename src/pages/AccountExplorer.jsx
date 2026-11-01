@@ -63,7 +63,7 @@ function CustomDropdown({ labelPrefix, value, onChange, options, align = 'right'
         <div
           className={`absolute ${
             align === 'left' ? 'left-0' : 'right-0'
-          } top-full mt-1 min-w-[210px] max-h-[300px] overflow-y-auto bg-white border border-slate-200 rounded-[4px] shadow-lg py-1 z-30 animate-in fade-in zoom-in-95 duration-100 divide-y divide-slate-100`}
+          } top-full mt-1.5 min-w-[210px] max-h-[320px] overflow-y-auto bg-white border border-slate-200 rounded-[4px] shadow-xl py-1 z-50 animate-in fade-in zoom-in-95 duration-100 divide-y divide-slate-100`}
         >
           <div className="py-0.5">
             {options.map((option) => {
@@ -215,9 +215,9 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
       </div>
 
       {/* Unified Table Container with Full-Height Integrated Toolbar (Anti Box-in-a-Box) */}
-      <section className="bg-white border border-slate-200/90 rounded-[4px] shadow-2xs overflow-hidden">
+      <section className="bg-white border border-slate-200/90 rounded-[4px] shadow-2xs relative overflow-visible">
         {/* Full-Height Integrated Toolbar */}
-        <div className="h-11 border-b border-slate-200 flex flex-col md:flex-row items-stretch divide-y md:divide-y-0 md:divide-x divide-slate-200 bg-white">
+        <div className="h-11 border-b border-slate-200 flex flex-col md:flex-row items-stretch divide-y md:divide-y-0 md:divide-x divide-slate-200 bg-white relative z-20 overflow-visible rounded-t-[4px]">
           {/* Integrated Search Input (Full Height, No Inner Border or Whitespace) */}
           <div className="flex-1 h-full flex items-center px-4 gap-2.5 min-w-0">
             <Search className="w-4 h-4 text-slate-400 shrink-0" />
@@ -247,11 +247,12 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
           </div>
 
           {/* Full-Height Filter Dropdowns with Custom CSS Popovers */}
-          <div className="flex items-stretch divide-x divide-slate-200 shrink-0 overflow-x-auto">
+          <div className="flex items-stretch divide-x divide-slate-200 shrink-0 relative overflow-visible">
             {/* Block Selector */}
             <CustomDropdown
               labelPrefix="Block:"
               value={selectedBlock}
+              align="left"
               onChange={(val) => {
                 setSelectedBlock(val);
                 setCurrentPage(1);
@@ -267,6 +268,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
             <CustomDropdown
               labelPrefix="Cluster:"
               value={selectedCluster}
+              align="right"
               onChange={(val) => {
                 setSelectedCluster(val);
                 setCurrentPage(1);
@@ -287,6 +289,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
             <CustomDropdown
               labelPrefix="Status:"
               value={selectedStatus}
+              align="right"
               onChange={(val) => {
                 setSelectedStatus(val);
                 setCurrentPage(1);
@@ -301,7 +304,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
         </div>
 
         {/* Data Table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-b-[4px]">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-sans text-[11px] font-semibold select-none">
