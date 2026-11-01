@@ -512,6 +512,15 @@ async def analyze_github(
         "Accept": "application/vnd.github.v3+json",
     }
     gh_token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
+    if not gh_token:
+        try:
+            import subprocess
+            _res = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True, timeout=2)
+            if _res.returncode == 0 and _res.stdout.strip():
+                gh_token = _res.stdout.strip()
+        except Exception:
+            pass
+
     if gh_token:
         headers["Authorization"] = f"Bearer {gh_token}"
 
