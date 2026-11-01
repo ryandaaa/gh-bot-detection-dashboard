@@ -7,10 +7,9 @@ import {
   BarChart3,
   BookOpen,
   ChevronLeft,
-  ChevronRight,
   Search,
   X,
-  Database
+  Menu
 } from 'lucide-react';
 
 export default function Sidebar({
@@ -62,54 +61,58 @@ export default function Sidebar({
       >
         {/* TOP BRAND & MINIMIZE TOGGLE */}
         <div className="p-3 border-b border-slate-100 flex flex-col gap-2 shrink-0">
-          <div className="flex items-center justify-between h-9">
-            {/* Brand Title (fades when minimized) */}
-            <div
-              className={`flex items-center gap-2 overflow-hidden transition-all duration-200 ${
-                isMinimized ? 'w-0 opacity-0 pointer-events-none' : 'w-auto opacity-100'
-              }`}
-            >
-              <div className="w-6 h-6 rounded-[4px] bg-navy-950 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
-                GH
-              </div>
-              <span className="font-sans text-[13px] font-bold text-slate-900 tracking-tight truncate">
-                GH Intelligence
-              </span>
+          {isMinimized ? (
+            /* Minimized Mode: Centered clean hamburger button to expand */
+            <div className="flex items-center justify-center h-9">
+              <button
+                type="button"
+                onClick={onToggleMinimize}
+                className="w-10 h-10 flex items-center justify-center rounded-[4px] text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+                title="Expand sidebar"
+                aria-label="Expand sidebar"
+              >
+                <Menu className="w-5 h-5 text-slate-700" />
+              </button>
             </div>
-
-            {/* Minimized Monogram icon when collapsed */}
-            {isMinimized && (
-              <div className="w-8 h-8 mx-auto rounded-[4px] bg-navy-950 text-white flex items-center justify-center font-bold text-[12px] shrink-0">
-                GH
+          ) : (
+            /* Expanded Mode: Hamburger + GH Intelligence brand + Collapse toggle */
+            <div className="flex items-center justify-between h-9">
+              <div className="flex items-center gap-2 min-w-0">
+                <button
+                  type="button"
+                  onClick={onToggleMinimize}
+                  className="w-8 h-8 flex items-center justify-center rounded-[4px] text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors shrink-0"
+                  title="Minimize sidebar"
+                  aria-label="Minimize sidebar"
+                >
+                  <Menu className="w-4 h-4 text-slate-700" />
+                </button>
+                <span className="font-sans text-[13px] font-bold text-slate-900 tracking-tight truncate select-none">
+                  GH Intelligence
+                </span>
               </div>
-            )}
 
-            {/* Desktop Minimize Toggle Button (< or >) */}
-            <button
-              onClick={onToggleMinimize}
-              className={`hidden lg:flex w-7 h-7 items-center justify-center rounded-[4px] text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors ${
-                isMinimized ? 'mx-auto mt-2' : ''
-              }`}
-              title={isMinimized ? 'Expand sidebar' : 'Minimize sidebar'}
-              aria-label={isMinimized ? 'Expand sidebar' : 'Minimize sidebar'}
-              type="button"
-            >
-              {isMinimized ? (
-                <ChevronRight className="w-4 h-4" />
-              ) : (
+              {/* Desktop Chevron Minimize Toggle */}
+              <button
+                onClick={onToggleMinimize}
+                className="hidden lg:flex w-7 h-7 items-center justify-center rounded-[4px] text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors shrink-0"
+                title="Minimize sidebar"
+                aria-label="Minimize sidebar"
+                type="button"
+              >
                 <ChevronLeft className="w-4 h-4" />
-              )}
-            </button>
+              </button>
 
-            {/* Mobile Close Button */}
-            <button
-              onClick={onClose}
-              className="lg:hidden p-1.5 text-slate-400 hover:text-slate-800 rounded-[4px]"
-              type="button"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
+              {/* Mobile Close Button */}
+              <button
+                onClick={onClose}
+                className="lg:hidden p-1.5 text-slate-400 hover:text-slate-800 rounded-[4px]"
+                type="button"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
 
           {/* Quick Search Input (Only when expanded) */}
           {!isMinimized && (
@@ -135,8 +138,12 @@ export default function Sidebar({
           )}
         </div>
 
-        {/* MIDDLE SECTION: VERTICALLY CENTERED NAVIGATION ITEMS ("ditengah gitu dia elemennya") */}
-        <div className="my-auto py-4 flex flex-col justify-center px-2.5 gap-1.5 overflow-y-auto">
+        {/* MIDDLE SECTION: VERTICALLY CENTERED NAVIGATION ITEMS */}
+        <div
+          className={`my-auto py-4 flex flex-col justify-center px-2.5 gap-1.5 ${
+            isMinimized ? 'overflow-visible' : 'overflow-y-auto overflow-x-hidden'
+          }`}
+        >
           {filteredNavItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -159,19 +166,15 @@ export default function Sidebar({
               >
                 {({ isActive }) => (
                   <>
-                    {/* Active Left Indicator Bar (like ryanda.space active indicator) */}
+                    {/* Active Left Indicator Bar */}
                     {isActive && (
-                      <span
-                        className={`absolute left-0 top-2 bottom-2 w-[3px] bg-navy-950 rounded-r-[2px] ${
-                          isMinimized ? 'left-[-3px]' : ''
-                        }`}
-                      />
+                      <span className="absolute left-0 top-2 bottom-2 w-[3px] bg-navy-950 rounded-r-[2px]" />
                     )}
 
                     <Icon
-                      className={`shrink-0 transition-colors ${
-                        isMinimized ? 'w-4 h-4' : 'w-4 h-4'
-                      } ${isActive ? 'text-navy-950' : 'text-slate-400 group-hover:text-slate-700'}`}
+                      className={`shrink-0 transition-colors w-4 h-4 ${
+                        isActive ? 'text-navy-950' : 'text-slate-400 group-hover:text-slate-700'
+                      }`}
                     />
 
                     {/* Nav Label (when expanded) */}
@@ -192,26 +195,7 @@ export default function Sidebar({
           })}
         </div>
 
-        {/* BOTTOM SECTION: MINIMAL STATUS FOOTER */}
-        <div className="p-3 border-t border-slate-100 shrink-0">
-          {!isMinimized ? (
-            <div className="flex flex-col gap-1 text-[11px] text-slate-500">
-              <div className="flex items-center justify-between">
-                <span className="font-medium text-slate-700">GH Archive</span>
-                <span className="text-[10px] text-navy-800 bg-navy-50 border border-navy-200/80 px-1.5 py-0.2 rounded-[3px] font-medium">
-                  Active
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-400">
-                152h · 9.88M Events
-              </span>
-            </div>
-          ) : (
-            <div className="flex justify-center" title="GH Archive: 152h · Active">
-              <Database className="w-4 h-4 text-slate-400 hover:text-navy-900 transition-colors" />
-            </div>
-          )}
-        </div>
+        {/* Footer deleted as requested */}
       </aside>
     </>
   );
