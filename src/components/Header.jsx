@@ -26,12 +26,12 @@ function StandaloneGitHubBrand() {
       onMouseLeave={handleMouseLeave}
     >
       <a
-        href="https://github.com/ryandaaa/gh-bot-data-detection"
+        href="https://github.com/ryandaaa/gh-bot-detection-dashboard"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="GitHub Repository ryandaaa/gh-bot-data-detection"
+        aria-label="GitHub Repository ryandaaa/gh-bot-detection-dashboard"
         className="w-8 h-8 rounded-full bg-navy-950 dark:bg-[#101010] border border-navy-800 dark:border-[#262626] shadow-[0_2px_10px_rgba(10,25,47,0.18)] dark:shadow-none hover:shadow-[0_4px_14px_rgba(10,25,47,0.3)] hover:bg-navy-900 dark:hover:border-[#3f3f46] text-white flex items-center justify-center transition-all group shrink-0 outline-none focus:outline-none focus-visible:outline-none"
-        title="View GitHub Repository: ryandaaa/gh-bot-data-detection"
+        title="View GitHub Repository: ryandaaa/gh-bot-detection-dashboard"
       >
         <Github className="w-4 h-4 text-white dark:text-[#f5f5f5] group-hover:scale-105 transition-transform" />
       </a>
@@ -42,7 +42,7 @@ function StandaloneGitHubBrand() {
           <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-slate-100">
             <div className="min-w-0">
               <div className="font-semibold text-[12px] text-slate-900 truncate">
-                ryandaaa/gh-bot-data-detection
+                ryandaaa/gh-bot-detection-dashboard
               </div>
               <div className="text-[11px] text-slate-500 mt-0.5">
                 Analitika Bot Big Data · PBL Universitas Riau
@@ -73,7 +73,7 @@ function StandaloneGitHubBrand() {
           </div>
 
           <a
-            href="https://github.com/ryandaaa/gh-bot-data-detection"
+            href="https://github.com/ryandaaa/gh-bot-detection-dashboard"
             target="_blank"
             rel="noopener noreferrer"
             className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-navy-800 hover:text-navy-950 transition-colors"
