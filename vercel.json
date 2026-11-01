@@ -1,6 +1,11 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/**/*.py": {
+      "excludeFiles": "{node_modules/**,dist/**,src/**,public/**,_legacy_html/**,models/*.joblib}"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

@@ -16,7 +16,10 @@ from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 
 import httpx
-import joblib
+try:
+    import joblib
+except ImportError:
+    joblib = None
 import numpy as np
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -43,17 +46,115 @@ app.add_middleware(
 )
 
 # ---------------------------------------------------------
+# Compact Pure-NumPy Inference Engine (Zero Scipy/Scikit-Learn Dependency)
+# Reduces Serverless Function bundle size by >200MB to fit within Vercel limits.
+# ---------------------------------------------------------
+class CompactMLPipeline:
+    """
+    High-performance pure-NumPy inference pipeline for:
+    - StandardScaler: (X - mean) / scale
+    - PCA 2D: (X_scaled - mean) @ components.T
+    - K-Means (k=7): argmin(sum((X_scaled - center)^2))
+    - Isolation Forest (300 trees): exact tree traversal & path-length anomaly scoring
+    """
+    def __init__(self, npz_path: Path):
+        data = np.load(npz_path)
+        self.s_mean = data['scaler_mean']
+        self.s_scale = data['scaler_scale']
+        self.pca_mean = data['pca_mean']
+        self.pca_comp = data['pca_components']
+        self.k_centers = data['kmeans_centers']
+        self.iso_max_samples = int(data['iso_max_samples'][0])
+        self.offsets = data['offsets']
+        self.c_left = data['children_left']
+        self.c_right = data['children_right']
+        self.feat = data['feature']
+        self.thresh = data['threshold']
+        self.n_samples = data['n_node_samples']
+        self.n_trees = len(self.offsets) - 1
+
+        def _c(n):
+            if n <= 1:
+                return 0.0
+            if n == 2:
+                return 1.0
+            return 2.0 * (np.log(n - 1.0) + 0.5772156649) - (2.0 * (n - 1.0) / n)
+
+        self.c_factor = _c(self.iso_max_samples)
+        self._c_func = _c
+
+    def transform_scaler(self, X: np.ndarray) -> np.ndarray:
+        return (X - self.s_mean) / self.s_scale
+
+    def transform_pca(self, X_scaled: np.ndarray) -> tuple:
+        pc = (X_scaled - self.pca_mean) @ self.pca_comp.T
+        return float(pc[0, 0]), float(pc[0, 1])
+
+    def predict_cluster(self, X_scaled: np.ndarray) -> int:
+        dist = np.sum((X_scaled[:, None, :] - self.k_centers[None, :, :]) ** 2, axis=2)
+        return int(np.argmin(dist, axis=1)[0])
+
+    def score_anomaly(self, X_scaled: np.ndarray) -> float:
+        x = X_scaled[0]
+        c_left = self.c_left
+        c_right = self.c_right
+        feat = self.feat
+        thresh = self.thresh
+        n_samples = self.n_samples
+        offsets = self.offsets
+        n_trees = self.n_trees
+        _c = self._c_func
+
+        total_depth = 0.0
+        for t in range(n_trees):
+            base = offsets[t]
+            node = 0
+            depth = 0
+            while True:
+                idx = base + node
+                left = c_left[idx]
+                if left == -1:
+                    total_depth += depth + _c(n_samples[idx])
+                    break
+                f = feat[idx]
+                if x[f] <= thresh[idx]:
+                    node = left
+                else:
+                    node = c_right[idx]
+                depth += 1
+
+        avg_path = total_depth / n_trees
+        return float(2.0 ** (-avg_path / self.c_factor))
+
+
+# ---------------------------------------------------------
 # Model & Metadata Loading (Relative to index.py or root)
 # ---------------------------------------------------------
 MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
 if not MODELS_DIR.exists():
     MODELS_DIR = Path("models").resolve()
 
+ml_pipeline: Optional[CompactMLPipeline] = None
+scaler = None
+iso_forest = None
+kmeans = None
+pca = None
+
 try:
-    scaler = joblib.load(MODELS_DIR / "scaler.joblib")
-    iso_forest = joblib.load(MODELS_DIR / "iso_forest.joblib")
-    kmeans = joblib.load(MODELS_DIR / "kmeans.joblib")
-    pca = joblib.load(MODELS_DIR / "pca.joblib")
+    compact_path = MODELS_DIR / "compact_pipeline.npz"
+    if compact_path.exists():
+        ml_pipeline = CompactMLPipeline(compact_path)
+        MODELS_LOADED = True
+        logger.info("Loaded compact pure-NumPy ML pipeline successfully")
+    elif joblib is not None and (MODELS_DIR / "iso_forest.joblib").exists():
+        scaler = joblib.load(MODELS_DIR / "scaler.joblib")
+        iso_forest = joblib.load(MODELS_DIR / "iso_forest.joblib")
+        kmeans = joblib.load(MODELS_DIR / "kmeans.joblib")
+        pca = joblib.load(MODELS_DIR / "pca.joblib")
+        MODELS_LOADED = True
+        logger.info("Loaded scikit-learn joblib artifacts successfully")
+    else:
+        MODELS_LOADED = False
 
     with open(MODELS_DIR / "model_metadata.json", "r", encoding="utf-8") as f:
         MODEL_METADATA = json.load(f)
@@ -61,7 +162,6 @@ try:
     with open(MODELS_DIR / "cluster_profiles.json", "r", encoding="utf-8") as f:
         CLUSTER_PROFILES = json.load(f)
 
-    MODELS_LOADED = True
     THRESHOLD = float(MODEL_METADATA.get("threshold_skor", 0.55139))
     FITUR_COLS = MODEL_METADATA.get("fitur", [
         "log_n", "frac_push", "frac_create", "frac_pr", "frac_issue", "frac_social",
@@ -460,23 +560,22 @@ def predict(payload: PredictRequest):
 
     feature_vector = np.array([[features[col] for col in FITUR_COLS]], dtype=np.float64)
 
-    # 2. Scale features
-    X_scaled = scaler.transform(feature_vector)
-
-    # 3. Isolation Forest Anomaly Score
-    score = -float(iso_forest.score_samples(X_scaled)[0])
+    # 2. Scale features & Model Predictions
+    if ml_pipeline is not None:
+        X_scaled = ml_pipeline.transform_scaler(feature_vector)
+        score = ml_pipeline.score_anomaly(X_scaled)
+        cluster_id = ml_pipeline.predict_cluster(X_scaled)
+        pc1, pc2 = ml_pipeline.transform_pca(X_scaled)
+    else:
+        X_scaled = scaler.transform(feature_vector)
+        score = -float(iso_forest.score_samples(X_scaled)[0])
+        cluster_id = int(kmeans.predict(X_scaled)[0])
+        pc = pca.transform(X_scaled)[0]
+        pc1, pc2 = float(pc[0]), float(pc[1])
 
     # 4. Anomaly Decision
     is_anomaly = bool(score >= THRESHOLD)
     status_label = "Anomaly (Bot-like)" if is_anomaly else "Normal"
-
-    # 5. K-Means Cluster Assignment
-    cluster_id = int(kmeans.predict(X_scaled)[0])
-
-    # 6. PCA 2D coordinates
-    pc = pca.transform(X_scaled)[0]
-    pc1 = float(pc[0])
-    pc2 = float(pc[1])
 
     # 7. Cluster Profile Metadata
     cluster_info = CLUSTER_PROFILES.get(str(cluster_id), {})
@@ -685,14 +784,20 @@ async def analyze_github(
     }
 
     feature_vector = np.array([[features[col] for col in FITUR_COLS]], dtype=np.float64)
-    X_scaled = scaler.transform(feature_vector)
-    score = -float(iso_forest.score_samples(X_scaled)[0])
+    if ml_pipeline is not None:
+        X_scaled = ml_pipeline.transform_scaler(feature_vector)
+        score = ml_pipeline.score_anomaly(X_scaled)
+        cluster_id = ml_pipeline.predict_cluster(X_scaled)
+        pc1, pc2 = ml_pipeline.transform_pca(X_scaled)
+    else:
+        X_scaled = scaler.transform(feature_vector)
+        score = -float(iso_forest.score_samples(X_scaled)[0])
+        cluster_id = int(kmeans.predict(X_scaled)[0])
+        pc = pca.transform(X_scaled)[0]
+        pc1, pc2 = float(pc[0]), float(pc[1])
+
     is_anomaly = bool(score >= THRESHOLD)
     status_label = "Anomaly (Bot-like)" if is_anomaly else "Normal"
-    cluster_id = int(kmeans.predict(X_scaled)[0])
-    pc = pca.transform(X_scaled)[0]
-    pc1 = float(pc[0])
-    pc2 = float(pc[1])
 
     cluster_info = CLUSTER_PROFILES.get(str(cluster_id), {})
     cluster_badge = cluster_info.get("badge", f"Cluster {cluster_id}")
