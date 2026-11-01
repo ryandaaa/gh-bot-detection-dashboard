@@ -49,7 +49,7 @@ const CLUSTER_META = {
     color: '#64748b',
     anomalyRate: '0.0%',
     scoreMean: 0.375,
-    characteristics: 'Distribusi jam kerja natural manusia dengan ritme sirkadian normal pada 1 repositori utama.',
+    characteristics: 'Distribusi jam kerja natural manusia dengan pola sirkadian normal pada 1 repositori utama.',
     features: {
       frac_push: 0.9441,
       frac_create: 0.0386,
@@ -725,8 +725,8 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
 
                 <p className="text-[12px] text-slate-600 mt-2 leading-relaxed">
                   {modeledAccountState.is_anomaly
-                    ? 'Skor anomali empiris akun ini melampaui ambang batas cutoff Isolation Forest (τ = 0.5514). Pola interaksi menunjukkan deviasi signifikan dari perilaku organik manusia.'
-                    : 'Skor akun berada di bawah ambang batas anomali, mengindikasikan ritme pengembangan perangkat lunak yang konsisten dengan pola kerja alami manusia.'}
+                    ? 'Skor anomali empiris akun ini melampaui ambang batas cutoff Isolation Forest (τ = 0.5514). Distribusi temporal dan struktur aksi menunjukkan deviasi signifikan dari pola kontribusi manusia normal.'
+                    : 'Skor anomali berada di bawah ambang batas cutoff (τ = 0.5514). Pola kontribusi dan dispersi waktu konsisten dengan karakteristik pengembang manusia organik.'}
                 </p>
 
                 {/* Score & Gauge Bar */}
@@ -1070,10 +1070,10 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
                       </span>
                     </div>
 
-                    <p className="text-[12px] text-slate-600 mt-1">
+                    <p className="text-[12px] text-slate-600 mt-1 leading-relaxed">
                       {isAnomaly
-                        ? 'Konsentrasi commit berkecepatan tinggi atau ketiadaan variasi sirkadian menyimpang dari pola aktivitas alami manusia.'
-                        : 'Irama aktivitas dan distribusi tindakan selaras dengan karakteristik pengembangan perangkat lunak secara organik.'}
+                        ? 'Distribusi temporal aktivitas dan konsentrasi jenis tindakan menyimpang signifikan dari pola kontributor manusia, mengindikasikan otomasi terprogram (bot-like).'
+                        : 'Distribusi temporal aktivitas dan diversitas jenis tindakan konsisten dengan karakteristik kontributor manusia (organik) tanpa anomali otomasi mesin.'}
                     </p>
 
                     {/* Score & Gauge Bar */}

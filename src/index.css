@@ -304,7 +304,7 @@ html.dark body {
   border-color: #262626 !important;
 }
 
-/* 10. Range Sliders in Dark Mode */
+/* 10. Range Sliders in Dark Mode (Pure White Accents) */
 .dark input[type="range"].metric-slider {
   background: #262626;
 }
@@ -314,24 +314,29 @@ html.dark body {
 }
 
 .dark input[type="range"].metric-slider::-webkit-slider-thumb {
-  background: #f6821f; /* Cloudflare orange */
-  border-color: #ea580c;
+  background: #ffffff;
+  border-color: #e5e5e5;
 }
 
 .dark input[type="range"].metric-slider::-moz-range-thumb {
-  background: #f6821f;
-  border-color: #ea580c;
+  background: #ffffff;
+  border-color: #e5e5e5;
 }
 
-/* 11. Buttons & Accents */
+/* 11. Buttons & Primary Actions (Pure White Accent with Dark Text in Dark Mode) */
 .dark .bg-navy-950 {
-  background-color: #f6821f !important; /* Cloudflare orange */
-  color: #ffffff !important;
-  border-color: #ea580c !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+  font-weight: 600;
 }
 
 .dark .bg-navy-950:hover {
-  background-color: #ea580c !important;
+  background-color: #e5e5e5 !important;
+}
+
+.dark .bg-navy-950 * {
+  color: #000000 !important;
 }
 
 .dark .text-navy-950,
@@ -360,5 +365,5 @@ html.dark body {
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #f6821f;
+  background: #525252;
 }

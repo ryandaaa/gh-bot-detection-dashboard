@@ -137,7 +137,7 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
                   aria-label="Toggle Color Theme"
                 >
                   {theme === 'dark' ? (
-                    <Sun className="w-4 h-4 text-amber-400" />
+                    <Sun className="w-4 h-4 text-slate-100" />
                   ) : (
                     <Moon className="w-4 h-4 text-slate-600" />
                   )}

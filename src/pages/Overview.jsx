@@ -195,7 +195,7 @@ export default function Overview({ onOpenAnalyzeModal }) {
             value={liveInput}
             onChange={(e) => setLiveInput(e.target.value)}
             placeholder="Masukkan username atau URL profil GitHub (contoh: torvalds, dependabot[bot], ryandaaa)..."
-            className="w-full bg-slate-50 dark:bg-[#101010] border border-slate-200 dark:border-[#262626] font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] pl-10 pr-28 sm:pr-32 py-2 rounded-[4px] outline-none focus:border-navy-900 dark:focus:border-orange-500 transition-colors"
+            className="w-full bg-slate-50 dark:bg-[#101010] border border-slate-200 dark:border-[#262626] font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] pl-10 pr-28 sm:pr-32 py-2 rounded-[4px] outline-none focus:border-navy-900 dark:focus:border-white transition-colors"
           />
           <button
             type="submit"
@@ -220,7 +220,7 @@ export default function Overview({ onOpenAnalyzeModal }) {
                   onOpenAnalyzeModal(handle);
                 }
               }}
-              className="font-mono text-slate-600 dark:text-[#a1a1a1] hover:text-navy-950 dark:hover:text-[#f6821f] transition-colors hover:underline"
+              className="font-mono text-slate-600 dark:text-[#a1a1a1] hover:text-navy-950 dark:hover:text-white transition-colors hover:underline"
             >
               @{handle}
             </button>
