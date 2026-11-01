@@ -1,0 +1,140 @@
+/* GH Intelligence Dashboard - Enhanced UI & Responsive Styles */
+
+@layer utilities {
+  /* Mobile Responsive Sidebar & Layout Adjustments */
+  @media (max-width: 1023px) {
+    aside.sidebar-drawer {
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    aside.sidebar-drawer.drawer-open {
+      transform: translateX(0);
+    }
+    .layout-content-wrapper {
+      padding-left: 0 !important;
+    }
+    .layout-header {
+      left: 0 !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    aside.sidebar-drawer {
+      transform: translateX(0) !important;
+    }
+  }
+}
+
+/* Custom Range Slider Styling for Metric Inputs */
+input[type="range"].metric-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e2e8f5;
+  border-radius: 9999px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+input[type="range"].metric-slider:hover {
+  background: #d1d5db;
+}
+
+input[type="range"].metric-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #151c25;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"].metric-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #2563eb;
+}
+
+input[type="range"].metric-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #151c25;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"].metric-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: #2563eb;
+}
+
+/* Modal Animations */
+@keyframes modalBackdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalContentPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-backdrop-animate {
+  animation: modalBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-card-animate {
+  animation: modalContentPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulse Glow & Badges */
+.pulse-anomaly {
+  box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  animation: pulseAnomalyGlow 2s infinite;
+}
+
+@keyframes pulseAnomalyGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+/* Scrollbar refinement */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  display: block;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c6c6cd;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #76777d;
+}

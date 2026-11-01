@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary":"#ffffff","surface-container-high":"#e2e8f5","secondary":"#555f6d","inverse-on-surface":"#eaf1fe","accent-cluster-1":"#2563eb","accent-blue":"#2563eb","outline":"#76777d","surface-hover":"#f3f4f6","surface-bright":"#f8f9ff","border-strong":"#d1d5db","secondary-fixed":"#d9e3f4","on-surface-variant":"#45464c","tertiary":"#000000","on-secondary-container":"#596372","primary":"#000000","primary-fixed-dim":"#c0c6db","surface-container-highest":"#dce3f0","on-primary":"#ffffff","on-background":"#151c25","border-subtle":"#e5e7eb","on-secondary-fixed":"#121c28","on-primary-fixed-variant":"#404758","surface-container-low":"#eef4ff","surface-variant":"#dce3f0","tertiary-fixed-dim":"#dcc2a4","primary-container":"#141b2b","tertiary-container":"#261906","accent-cluster-2":"#7c3aed","on-tertiary":"#ffffff","inverse-surface":"#2a313b","on-tertiary-fixed-variant":"#55442d","on-error-container":"#93000a","secondary-container":"#d6e0f1","surface-dim":"#d4dae7","surface-bg":"#ffffff","accent-anomaly":"#dc2626","accent-success":"#16a34a","on-tertiary-fixed":"#261906","accent-cluster-3":"#059669","inverse-primary":"#c0c6db","surface-container-lowest":"#ffffff","error":"#ba1a1a","surface-container":"#e7eefb","background":"#f8f9ff","on-primary-container":"#7d8497","surface-muted":"#f9fafb","accent-cluster-4":"#d97706","surface":"#f8f9ff","primary-fixed":"#dce2f7","secondary-fixed-dim":"#bdc7d8","on-surface":"#151c25","on-secondary-fixed-variant":"#3e4755","error-container":"#ffdad6","on-tertiary-container":"#968065","tertiary-fixed":"#f9debf","on-primary-fixed":"#141b2b","surface-tint":"#575e70","on-error":"#ffffff","outline-variant":"#c6c6cd"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter-sm":"1rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2.5rem","gutter":"1.5rem","space-xs":"0.25rem","margin-sm":"1rem","margin":"2rem","space-sm":"0.5rem"},"fontFamily":{"body-lg":["Geist"],"body-sm":["Geist"],"code-sm":["JetBrains Mono"],"code-md":["JetBrains Mono"],"metric-display":["Geist"],"label-md":["Geist"],"headline-xl":["Geist"],"headline-md":["Geist"],"label-sm":["Geist"],"headline-lg":["Geist"],"headline-xl-mobile":["Geist"],"body-md":["Geist"],"headline-sm":["Geist"]},"fontSize":{"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"code-sm":["11px",{"lineHeight":"16px","fontWeight":"400"}],"code-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"metric-display":["30px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script><link href="public/css/style.css" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-fixed"><aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-container-lowest border-r border-border-subtle z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-16 px-gutter flex items-center gap-space-sm border-b border-border-subtle/50"><svg aria-hidden="true" class="w-5 h-5 text-on-surface shrink-0" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">GH Intelligence</span></div><nav class="flex flex-col gap-1 py-4 px-2" data-active-classes="bg-surface-hover text-on-surface font-semibold border-r-2 border-primary"><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-hover hover:text-on-surface transition-colors" data-path="overview" href="/"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Overview</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-hover hover:text-on-surface transition-colors" data-path="accounts" href="/accounts"><span class="material-symbols-outlined text-[18px]">group</span><span>Accounts</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-hover hover:text-on-surface transition-colors" data-path="clusters" href="/clusters"><span class="material-symbols-outlined text-[18px]">hub</span><span>Clusters</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors bg-surface-hover text-on-surface font-semibold border-r-2 border-primary" data-path="evaluation" href="/evaluation"><span class="material-symbols-outlined text-[18px]">query_stats</span><span>Evaluation</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-hover hover:text-on-surface transition-colors" data-path="methodology" href="/methodology"><span class="material-symbols-outlined text-[18px]">menu_book</span><span>Methodology</span></a></nav></div><div class="p-gutter border-t border-border-subtle bg-surface-muted/50"><div class="font-label-md text-label-md text-on-surface font-semibold">GH Archive Dataset</div><div class="font-code-sm text-code-sm text-secondary mt-space-xs">152 hours · 2 blocks</div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-border-subtle z-40 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="font-code-sm text-code-sm text-secondary uppercase tracking-wider">Node: prod-primary-alpha</span></div><div class="flex items-center gap-space-md"><button class="inline-flex items-center gap-space-xs bg-primary text-on-primary hover:bg-primary-container px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors" type="button"><span>Analyze an account</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></button><div class="h-4 w-px bg-border-subtle"></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 min-h-screen bg-surface"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1440px] mx-auto px-margin py-space-xl flex flex-col gap-space-xl">
+<!-- Header Block -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Model Evaluation</h1>
+<p class="font-body-md text-body-md text-secondary mt-1 max-w-2xl">
+          Performance, temporal stability, and database benchmarks of the proposed approach.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm self-start sm:self-auto">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm text-code-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-accent-cluster-3 animate-pulse"></span>
+          Benchmark Verified: Block A/B
+        </span>
+</div>
+</div>
+<!-- Section 1: Model Performance & ROC Visualizations -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Left Column: Metrics & Evaluation Matrix -->
+<div class="lg:col-span-6 flex flex-col justify-between gap-space-lg">
+<!-- Metric Callouts -->
+<div class="grid grid-cols-2 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">ROC-AUC</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-accent-cluster-1/10 text-accent-cluster-1 font-semibold">+36.0%</span>
+</div>
+<div class="font-metric-display text-metric-display text-on-surface mt-2 tracking-tight">0.809</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-2">
+              Isolation Forest vs. 0.595 Volume Baseline
+            </p>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">PR-AUC</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-accent-cluster-3/10 text-accent-cluster-3 font-semibold">+153%</span>
+</div>
+<div class="font-metric-display text-metric-display text-on-surface mt-2 tracking-tight">0.301</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-2">
+              Precision-Recall Area under curve
+            </p>
+</div>
+</div>
+<!-- Comparison Matrix Panel -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between flex-1">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Model Performance</h2>
+<p class="font-body-sm text-body-sm text-secondary">Supervised evaluation on labeled synthetic and curated anomalies.</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">leaderboard</span>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-muted text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-2.5 px-3 font-medium">Method</th>
+<th class="py-2.5 px-3 font-medium text-right">ROC-AUC ↑</th>
+<th class="py-2.5 px-3 font-medium text-right">PR-AUC ↑</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm text-body-sm">
+<tr class="bg-surface-container-low/40 hover:bg-surface-hover transition-colors">
+<td class="py-3 px-3 font-medium flex items-center gap-2">
+<span class="w-2.5 h-0.5 bg-primary inline-block"></span>
+<span>Isolation Forest</span>
+<span class="px-1.5 py-0.2 rounded bg-primary/10 text-primary font-code-sm text-code-sm">Proposed</span>
+</td>
+<td class="py-3 px-3 text-right font-code-md text-code-md font-semibold text-on-surface">0.809</td>
+<td class="py-3 px-3 text-right font-code-md text-code-md font-semibold text-on-surface">0.301</td>
+</tr>
+<tr class="hover:bg-surface-hover transition-colors">
+<td class="py-3 px-3 text-secondary flex items-center gap-2">
+<span class="w-2.5 h-0.5 bg-secondary-fixed-dim inline-block"></span>
+<span>Volume baseline</span>
+</td>
+<td class="py-3 px-3 text-right font-code-md text-code-md text-secondary">0.595</td>
+<td class="py-3 px-3 text-right font-code-md text-code-md text-secondary">0.119</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 pt-3 flex items-center gap-2 font-code-sm text-code-sm text-secondary">
+<span class="material-symbols-outlined text-[15px] text-accent-cluster-1">info</span>
+<span>Evaluated over 239.6K feature vectors from 152 observation hours.</span>
+</div>
+</div>
+</div>
+<!-- Right Column: ROC Curve Visualizer Panel -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">ROC Curve</h2>
+<p class="font-body-sm text-body-sm text-secondary">Trade-off between true positive rate and false positive rate</p>
+</div>
+<!-- Chart Legend -->
+<div class="flex flex-col gap-1 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="w-4 h-[2px] bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface">Isolation Forest <span class="font-code-sm text-secondary">(AUC = 0.809)</span></span>
+</div>
+<div class="flex items-center justify-end gap-2">
+<span class="w-4 h-[2px] bg-secondary-fixed-dim border-b border-dashed border-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary">Volume baseline <span class="font-code-sm text-secondary">(AUC = 0.595)</span></span>
+</div>
+</div>
+</div>
+<!-- Scaled High Fidelity SVG ROC Chart -->
+<div class="w-full relative py-2">
+<svg aria-label="ROC Chart" class="w-full h-auto overflow-visible select-none" viewbox="0 0 460 280">
+<!-- Background Grid lines -->
+<defs>
+<pattern height="42" id="grid" patternunits="userSpaceOnUse" width="70">
+<path class="text-surface-container" d="M 70 0 L 0 0 0 42" fill="none" stroke="currentColor" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="210" width="350" x="50" y="20"></rect>
+<!-- Axis base lines -->
+<line class="text-border-strong" stroke="currentColor" stroke-width="1.2" x1="50" x2="400" y1="230" y2="230"></line>
+<line class="text-border-strong" stroke="currentColor" stroke-width="1.2" x1="50" x2="50" y1="20" y2="230"></line>
+<!-- Y Axis Labels & Ticks -->
+<g class="font-code-sm text-code-sm fill-secondary text-[11px]" text-anchor="end">
+<text x="42" y="234">0.0</text>
+<text x="42" y="192">0.2</text>
+<text x="42" y="150">0.4</text>
+<text x="42" y="108">0.6</text>
+<text x="42" y="66">0.8</text>
+<text x="42" y="24">1.0</text>
+</g>
+<!-- X Axis Labels & Ticks -->
+<g class="font-code-sm text-code-sm fill-secondary text-[11px]" text-anchor="middle">
+<text x="50" y="248">0.0</text>
+<text x="120" y="248">0.2</text>
+<text x="190" y="248">0.4</text>
+<text x="260" y="248">0.6</text>
+<text x="330" y="248">0.8</text>
+<text x="400" y="248">1.0</text>
+</g>
+<!-- Axis Titles -->
+<text class="font-label-sm text-label-sm fill-secondary tracking-wider uppercase font-medium" text-anchor="middle" x="225" y="272">FPR (False Positive Rate)</text>
+<text class="font-label-sm text-label-sm fill-secondary tracking-wider uppercase font-medium" text-anchor="middle" transform="rotate(-90)" x="-125" y="18">TPR (True Positive Rate)</text>
+<!-- Diagonal Baseline (Random Guessing AUC 0.5) -->
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="3,3" stroke-width="1" x1="50" x2="400" y1="230" y2="20"></line>
+<!-- Curve 2: Volume baseline (AUC 0.595) -->
+<path class="text-secondary-fixed-dim" d="M 50 230 C 130 185, 230 115, 400 20" fill="none" stroke="currentColor" stroke-dasharray="4,3" stroke-width="2"></path>
+<!-- Curve 1 Area Fill subtle -->
+<path class="text-primary/[0.03]" d="M 50 230 C 70 90, 140 40, 400 20 L 400 230 Z" fill="currentColor"></path>
+<!-- Curve 1: Isolation Forest (AUC 0.809) -->
+<path class="text-primary" d="M 50 230 C 70 90, 140 40, 400 20" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<!-- Key inspection point -->
+<circle class="text-primary" cx="110" cy="68" fill="currentColor" r="4"></circle>
+<line class="text-border-subtle" stroke="currentColor" stroke-dasharray="2,2" x1="110" x2="110" y1="68" y2="230"></line>
+<line class="text-border-subtle" stroke="currentColor" stroke-dasharray="2,2" x1="50" x2="110" y1="68" y2="68"></line>
+<!-- Tooltip Anchor -->
+<g transform="translate(120, 60)">
+<rect class="shadow-sm" fill="white" height="42" rx="4" stroke="currentColor" stroke-opacity="0.15" width="135" x="0" y="0"></rect>
+<text class="font-code-sm text-code-sm fill-on-surface font-semibold" x="8" y="16">TPR: 0.771</text>
+<text class="font-code-sm text-code-sm fill-secondary" x="8" y="32">FPR: 0.171 @ Score > 0.68</text>
+</g>
+</svg>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="font-body-sm text-body-sm text-secondary">Optimal threshold cutoff: <span class="font-code-sm text-code-sm text-on-surface font-medium">τ = 0.682</span></span>
+<span class="font-label-sm text-label-sm text-accent-cluster-3 font-semibold uppercase tracking-wider">High Discrimination</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Temporal Stability -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Temporal Stability</h2>
+<p class="font-body-sm text-body-sm text-secondary">
+            Anomaly persistence evaluated across two disjoint 76-hour observation windows (Block A vs. Block B).
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm text-code-sm">Δt = 76 hours</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center">
+<!-- Metric 1: Spearman's rho -->
+<div class="md:col-span-3 flex flex-col justify-center bg-surface-muted p-space-md rounded-lg">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Spearman ρ</span>
+<div class="font-metric-display text-metric-display text-on-surface mt-1">0.720</div>
+<p class="font-body-sm text-body-sm text-secondary mt-1">
+            Rank correlation of anomaly scores between time slices
+          </p>
+</div>
+<!-- Metric 2: Recurrence Rate Display -->
+<div class="md:col-span-3 flex flex-col justify-center bg-surface-muted p-space-md rounded-lg">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Recurrence Rate</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-metric-display text-metric-display text-on-surface">52.9%</span>
+<span class="font-code-sm text-code-sm text-secondary">(baseline: 5.2%)</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-1">
+            Candidate re-identification in subsequent observation
+          </p>
+</div>
+<!-- Visual Comparison Bars -->
+<div class="md:col-span-6 flex flex-col justify-center gap-space-md pl-0 md:pl-space-md">
+<!-- Bar 1: Anomaly recurrence -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="font-medium text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                Anomaly Recurrence (Proposed IF Model)
+              </span>
+<span class="font-code-md text-code-md font-semibold text-on-surface">52.9%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-700 ease-out" style="width: 52.9%"></div>
+</div>
+</div>
+<!-- Bar 2: Random baseline -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-secondary flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+                Uniform Random Baseline
+              </span>
+<span class="font-code-md text-code-md text-secondary">5.2%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3 overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full rounded-full transition-all duration-700 ease-out" style="width: 5.2%"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+            The 10.2× lift over baseline confirms behavioral fingerprint durability across observation windows, demonstrating robust resilience against temporal variance and transient activity spikes.
+          </p>
+</div>
+</div>
+</div>
+<!-- Section 3: Database Benchmark & Query Plans -->
+<div class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Database Benchmark & Query Plans</h2>
+<span class="px-2 py-0.5 rounded bg-accent-cluster-3/15 text-accent-cluster-3 font-label-sm text-label-sm font-semibold">
+              9x Faster (best case)
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-1">
+            MongoDB Atlas cluster benchmark with compound indices on <code class="font-code-sm bg-surface-muted px-1 py-0.5 rounded text-on-surface">account_id</code> and <code class="font-code-sm bg-surface-muted px-1 py-0.5 rounded text-on-surface">created_at</code>.
+          </p>
+</div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-secondary bg-surface-muted px-3 py-1.5 rounded">
+<span class="material-symbols-outlined text-[16px]">database</span>
+<span>Atlas M30 · 8 vCPU · 16GB RAM</span>
+</div>
+</div>
+<!-- Benchmark Execution Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-muted text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-2.5 px-4 font-medium">Query (Window Range)</th>
+<th class="py-2.5 px-4 font-medium text-right">COLLSCAN (Unindexed)</th>
+<th class="py-2.5 px-4 font-medium text-right">IXSCAN (Compound Index)</th>
+<th class="py-2.5 px-4 font-medium text-right">Speedup Factor</th>
+<th class="py-2.5 px-4 font-medium text-center">Plan Ratio</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm text-body-sm">
+<tr class="hover:bg-surface-hover transition-colors">
+<td class="py-3.5 px-4 font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-code-md text-code-md">24 hours</span>
+</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md text-secondary">8.42 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-accent-cluster-3">0.93 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-on-surface">9.05×</td>
+<td class="py-3.5 px-4 text-center">
+<div class="w-24 bg-surface-container rounded-full h-2 mx-auto overflow-hidden">
+<div class="bg-accent-cluster-3 h-full rounded-full" style="width: 11%"></div>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-hover transition-colors">
+<td class="py-3.5 px-4 font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-code-md text-code-md">48 hours</span>
+</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md text-secondary">17.66 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-accent-cluster-3">2.11 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-on-surface">8.37×</td>
+<td class="py-3.5 px-4 text-center">
+<div class="w-24 bg-surface-container rounded-full h-2 mx-auto overflow-hidden">
+<div class="bg-accent-cluster-3 h-full rounded-full" style="width: 12%"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-hover transition-colors">
+<td class="py-3.5 px-4 font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-code-md text-code-md">78 hours</span>
+</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md text-secondary">31.70 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-accent-cluster-3">3.25 s</td>
+<td class="py-3.5 px-4 text-right font-code-md text-code-md font-semibold text-on-surface">9.75×</td>
+<td class="py-3.5 px-4 text-center">
+<div class="w-24 bg-surface-container rounded-full h-2 mx-auto overflow-hidden">
+<div class="bg-accent-cluster-3 h-full rounded-full" style="width: 10%"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Execution Plan Summary Footer -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md pt-2">
+<div class="bg-surface-muted p-space-sm rounded flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-anomaly text-[20px]">warning</span>
+<div class="font-body-sm text-body-sm">
+<span class="font-medium text-on-surface">COLLSCAN Stage:</span>
+<span class="text-secondary"> Scans 100% of event documents linearly with disk spilling at >48 hours.</span>
+</div>
+</div>
+<div class="bg-surface-muted p-space-sm rounded flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-accent-cluster-3 text-[20px]">verified</span>
+<div class="font-body-sm text-body-sm">
+<span class="font-medium text-on-surface">IXSCAN + FETCH Stage:</span>
+<span class="text-secondary"> Bounds queries using B-Tree index, reducing scanned doc ratio to 0.04%.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></div><script src="public/js/nav.js"></script>
+<script src="public/js/modal.js"></script>
+</body></html>
+

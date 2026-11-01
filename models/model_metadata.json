@@ -1,0 +1,37 @@
+{
+  "blok": "B",
+  "fitur": [
+    "log_n",
+    "frac_push",
+    "frac_create",
+    "frac_pr",
+    "frac_issue",
+    "frac_social",
+    "log_events_per_repo",
+    "max_repo_share",
+    "hour_entropy",
+    "active_frac",
+    "log_max_per_hour"
+  ],
+  "jumlah_fitur": 11,
+  "threshold_skor": 0.55139,
+  "top_persen_anomali": 5.0,
+  "total_akun_latih": 15213,
+  "k_terpilih": 7,
+  "silhouette_scores": {
+    "2": 0.2373,
+    "3": 0.2361,
+    "4": 0.2478,
+    "5": 0.2507,
+    "6": 0.2539,
+    "7": 0.2606,
+    "8": 0.2601
+  },
+  "pca_variance_ratio": [
+    0.2748,
+    0.1963
+  ],
+  "seed": 42,
+  "min_model_events": 20,
+  "waktu_ekspor": "2026-11-01T08:42:58.290327+00:00"
+}
