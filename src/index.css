@@ -138,3 +138,25 @@ input[type="range"].metric-slider::-moz-range-thumb:hover {
   animation: pageFadeSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Thin Active Navy Hover Border on all visible cards, panels, and boxes */
+[class*="rounded"][class*="border"],
+.bg-white.border,
+.bg-white\/95.border,
+.bg-white\/90.border,
+section.border,
+header.border,
+aside [class*="border"] {
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+[class*="rounded"][class*="border"]:hover,
+.bg-white.border:hover,
+.bg-white\/95.border:hover,
+.bg-white\/90.border:hover,
+section.border:hover,
+header.border:hover,
+aside [class*="border"]:hover {
+  border-color: #0a192f !important;
+}
+
+
