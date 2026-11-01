@@ -32,8 +32,8 @@ export default function Sidebar({ isOpen, onClose }) {
 
       {/* Sidebar Drawer */}
       <aside
-        className={`fixed left-0 top-0 h-full w-[240px] bg-white border-r border-slate-200 z-50 flex flex-col justify-between select-none transition-transform duration-200 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        className={`fixed left-0 top-0 h-full w-[240px] bg-white border-r border-slate-200 z-30 flex flex-col justify-between select-none transition-transform duration-200 ease-in-out ${
+          isOpen ? 'translate-x-0 !z-50' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         <div className="flex flex-col">

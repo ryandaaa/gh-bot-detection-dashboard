@@ -311,16 +311,16 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
   return (
     <>
-      {/* Dark overlay backdrop dimming page on left, click to close */}
+      {/* Dark overlay backdrop dimming everything on left (including sidebar & header), click to close */}
       <div
-        className="fixed inset-0 bg-slate-950/40 backdrop-blur-[2px] z-40 transition-opacity cursor-pointer"
+        className="fixed inset-0 bg-slate-950/40 backdrop-blur-[2px] z-50 transition-opacity cursor-pointer"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Split-Screen Side Inspector Pane */}
       <aside
-        className="fixed top-0 right-0 h-full w-full sm:w-[480px] xl:w-[500px] bg-white border-l border-slate-200 shadow-2xl z-50 flex flex-col pane-slide-in select-none text-slate-900"
+        className="fixed top-0 right-0 h-full w-full sm:w-[480px] xl:w-[500px] bg-white border-l border-slate-200 shadow-2xl z-[60] flex flex-col pane-slide-in select-none text-slate-900"
         aria-label="Account Inspector"
       >
         {/* Pane Header - Clean, Focused Typography */}

@@ -25,7 +25,7 @@ export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
   const pageTitle = getPageTitle(location.pathname);
 
   return (
-    <header className="fixed top-0 left-0 lg:left-[240px] right-0 h-14 bg-white border-b border-slate-200 z-40 px-5 sm:px-6 flex items-center justify-between transition-all duration-200 select-none">
+    <header className="fixed top-0 left-0 lg:left-[240px] right-0 h-14 bg-white border-b border-slate-200 z-20 px-5 sm:px-6 flex items-center justify-between transition-all duration-200 select-none">
       {/* Left side: Mobile menu toggle + Clean Minimalist Breadcrumb */}
       <div className="flex items-center gap-3">
         <button
