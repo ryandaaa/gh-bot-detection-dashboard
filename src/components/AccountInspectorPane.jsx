@@ -570,7 +570,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-[4px] transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-[4px] transition-colors outline-none focus:outline-none focus-visible:outline-none"
             aria-label="Close Inspector"
           >
             <X className="w-4 h-4" />
@@ -587,7 +587,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
                   setErrorMessage(null);
                   if (modeledAccountState) setResult(modeledAccountState);
                 }}
-                className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
+                className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all outline-none focus:outline-none focus-visible:outline-none ${
                   activeTab === 'modeled'
                     ? 'bg-white text-navy-950 shadow-2xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900'
@@ -604,7 +604,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
                   runPrediction(features);
                 }
               }}
-              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
+              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all outline-none focus:outline-none focus-visible:outline-none ${
                 activeTab === 'simulation'
                   ? 'bg-white text-navy-950 shadow-2xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -617,7 +617,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount,
                 setActiveTab('live');
                 setErrorMessage(null);
               }}
-              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
+              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all outline-none focus:outline-none focus-visible:outline-none ${
                 activeTab === 'live'
                   ? 'bg-white text-navy-950 shadow-2xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'

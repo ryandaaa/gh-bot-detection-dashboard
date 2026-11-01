@@ -194,13 +194,13 @@ export default function Overview({ onOpenAnalyzeModal }) {
               value={liveInput}
               onChange={(e) => setLiveInput(e.target.value)}
               placeholder="Masukkan username atau URL profil GitHub (contoh: torvalds, dependabot[bot], ryandaaa)..."
-              className="w-full h-full bg-transparent border-0 font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] placeholder:text-slate-400 dark:placeholder:text-[#666666] outline-none"
+              className="w-full h-full bg-transparent border-0 font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] placeholder:text-slate-400 dark:placeholder:text-[#666666] outline-none focus:outline-none focus-visible:outline-none"
             />
           </div>
           <button
             type="submit"
             disabled={!liveInput.trim()}
-            className="px-5 bg-navy-950 hover:bg-navy-900 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black font-sans text-[12px] font-medium flex items-center gap-1.5 border-l border-slate-200 dark:border-[#262626] transition-colors disabled:opacity-40 shrink-0"
+            className="px-5 bg-navy-950 hover:bg-navy-900 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black font-sans text-[12px] font-medium flex items-center gap-1.5 border-l border-slate-200 dark:border-[#262626] transition-colors disabled:opacity-40 shrink-0 outline-none focus:outline-none focus-visible:outline-none"
           >
             <span>Inspect</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -220,7 +220,7 @@ export default function Overview({ onOpenAnalyzeModal }) {
                   onOpenAnalyzeModal(handle);
                 }
               }}
-              className="font-mono text-slate-600 dark:text-[#a1a1a1] hover:text-navy-950 dark:hover:text-white transition-colors hover:underline"
+              className="font-mono text-slate-600 dark:text-[#a1a1a1] hover:text-navy-950 dark:hover:text-white transition-colors hover:underline outline-none focus:outline-none focus-visible:outline-none"
             >
               @{handle}
             </button>
@@ -653,7 +653,7 @@ export default function Overview({ onOpenAnalyzeModal }) {
                     type="button"
                     onMouseEnter={() => setHoveredCluster(cl.id)}
                     onMouseLeave={() => setHoveredCluster(null)}
-                    className={`flex items-center justify-between text-[12px] p-1.5 rounded-[4px] transition-colors text-left ${
+                    className={`flex items-center justify-between text-[12px] p-1.5 rounded-[4px] transition-colors text-left outline-none focus:outline-none focus-visible:outline-none ${
                       isHovered ? 'bg-slate-100 font-semibold text-slate-900' : 'hover:bg-slate-50 text-slate-700'
                     }`}
                   >

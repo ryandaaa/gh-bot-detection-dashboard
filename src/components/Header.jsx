@@ -30,7 +30,7 @@ function StandaloneGitHubBrand() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub Repository ryandaaa/gh-bot-data-detection"
-        className="w-8 h-8 rounded-full bg-navy-950 dark:bg-[#101010] border border-navy-800 dark:border-[#262626] shadow-[0_2px_10px_rgba(10,25,47,0.18)] dark:shadow-none hover:shadow-[0_4px_14px_rgba(10,25,47,0.3)] hover:bg-navy-900 dark:hover:border-[#3f3f46] text-white flex items-center justify-center transition-all group shrink-0"
+        className="w-8 h-8 rounded-full bg-navy-950 dark:bg-[#101010] border border-navy-800 dark:border-[#262626] shadow-[0_2px_10px_rgba(10,25,47,0.18)] dark:shadow-none hover:shadow-[0_4px_14px_rgba(10,25,47,0.3)] hover:bg-navy-900 dark:hover:border-[#3f3f46] text-white flex items-center justify-center transition-all group shrink-0 outline-none focus:outline-none focus-visible:outline-none"
         title="View GitHub Repository: ryandaaa/gh-bot-data-detection"
       >
         <Github className="w-4 h-4 text-white dark:text-[#f5f5f5] group-hover:scale-105 transition-transform" />
@@ -132,7 +132,7 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
                 <button
                   type="button"
                   onClick={onToggleTheme}
-                  className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-[#a1a1a1] dark:hover:text-white rounded-[4px] transition-colors"
+                  className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-[#a1a1a1] dark:hover:text-white rounded-[4px] transition-colors outline-none focus:outline-none focus-visible:outline-none"
                   title={theme === 'dark' ? 'Beralih ke mode terang' : 'Beralih ke Cloudflare dark mode'}
                   aria-label="Toggle Color Theme"
                 >
@@ -147,7 +147,7 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
               {/* Action Button */}
               <button
                 onClick={onOpenAnalyzeModal}
-                className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs"
+                className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs outline-none focus:outline-none focus-visible:outline-none"
                 type="button"
               >
                 <span>Analyze Account</span>

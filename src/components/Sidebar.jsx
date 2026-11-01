@@ -49,7 +49,7 @@ export default function Sidebar() {
               to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
-                `group relative flex items-center rounded-[6px] transition-all duration-150 ${
+                `group relative flex items-center rounded-[6px] transition-all duration-150 outline-none focus:outline-none focus-visible:outline-none ${
                   isActive
                     ? 'bg-slate-100 text-navy-950 font-semibold shadow-2xs'
                     : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-normal'

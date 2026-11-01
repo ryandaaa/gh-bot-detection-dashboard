@@ -11,6 +11,34 @@
     color: #0f172a;
     transition: background-color 0.15s ease, color 0.15s ease;
   }
+
+  /* Disable native browser focus ring / outline trigger on keyboard Tab & click */
+  *,
+  *::before,
+  *::after {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus,
+  :focus-visible,
+  button:focus,
+  button:focus-visible,
+  a:focus,
+  a:focus-visible,
+  input:focus,
+  input:focus-visible,
+  select:focus,
+  select:focus-visible,
+  textarea:focus,
+  textarea:focus-visible,
+  [tabindex]:focus,
+  [tabindex]:focus-visible {
+    outline: none !important;
+    outline-style: none !important;
+    outline-width: 0 !important;
+    outline-color: transparent !important;
+    -webkit-focus-ring-color: transparent !important;
+  }
   
   /* Hairline borders & crisp rendering */
   * {
@@ -366,4 +394,31 @@ html.dark body {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #525252;
+}
+
+/* ==========================================================================
+   14. Complete Browser Focus Ring / Outline Suppressor (Light & Dark Mode)
+   Removes user-agent outline / trigger box when navigating with Tab or clicking
+   ========================================================================== */
+:focus,
+:focus-visible,
+*:focus,
+*:focus-visible,
+button:focus,
+button:focus-visible,
+a:focus,
+a:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible {
+  outline: none !important;
+  outline-style: none !important;
+  outline-width: 0 !important;
+  outline-color: transparent !important;
+  -webkit-focus-ring-color: transparent !important;
 }
