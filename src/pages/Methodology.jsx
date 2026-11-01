@@ -1,17 +1,4 @@
 import React, { useState } from 'react';
-import {
-  Archive,
-  Database,
-  Cpu,
-  Layers,
-  Network,
-  CheckCircle2,
-  Shield,
-  Clock,
-  Code2,
-  BarChart,
-  ArrowRight
-} from 'lucide-react';
 
 export default function Methodology() {
   const [activeSection, setActiveSection] = useState('pipeline-architecture');
@@ -49,36 +36,31 @@ export default function Methodology() {
   ];
 
   return (
-    <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-margin py-space-xl">
-      {/* Title & Breadcrumb Block */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-xl">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-space-xs font-code-sm text-code-sm text-secondary uppercase tracking-widest mb-space-xs">
-            <span>Documentation</span>
-            <span>/</span>
-            <span className="text-on-surface font-semibold">Research Architecture</span>
-          </div>
-          <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight font-semibold">
-            Methodology
+    <div className="w-full flex flex-col font-sans">
+      {/* Editorial Header Bar - Full Bleed Edge-to-Edge */}
+      <section className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
+            Methodology & Architecture
           </h1>
-          <p className="font-body-md text-body-md text-secondary mt-1 max-w-2xl">
+          <p className="text-[13px] text-slate-500 mt-0.5">
             Research design, data pipeline, behavioral feature definitions, and analytical approach for anomaly detection across GitHub public activity streams.
           </p>
         </div>
-        <div className="flex items-center gap-space-sm self-start md:self-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-muted text-secondary rounded-full font-code-sm text-code-sm border border-border-subtle shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Pipeline v1.4.2 · Verified
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 uppercase tracking-wider">
+            PIPELINE V1.4.2 · VERIFIED
           </span>
         </div>
-      </div>
+      </section>
 
-      {/* Main Content Layout: Two-Column Step/Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
-        {/* Left Column: Sticky Step Navigation Index (4 cols) */}
-        <aside className="lg:col-span-4 sticky top-24 flex flex-col gap-space-lg">
-          <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle">
-            <div className="font-label-md text-label-md text-secondary uppercase tracking-wider mb-space-md font-semibold">
+      {/* Main Two-Column Layout with Hairline Divider */}
+      <section className="w-full grid grid-cols-1 lg:grid-cols-12 border-b border-slate-200 bg-white divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+        {/* Left Column (4 cols): Sticky Navigation Index & Quick Specs */}
+        <aside className="lg:col-span-4 p-6 flex flex-col gap-6 bg-slate-50/30">
+          {/* Navigation Index */}
+          <div>
+            <div className="text-[11px] text-slate-500 uppercase tracking-wider font-bold mb-3">
               Execution Stages
             </div>
             <nav className="flex flex-col space-y-1">
@@ -88,24 +70,24 @@ export default function Methodology() {
                   <button
                     key={st.id}
                     onClick={() => scrollTo(st.id)}
-                    className={`flex items-start gap-3 p-2.5 rounded-lg text-left transition-all ${
+                    className={`flex items-start gap-3 p-2.5 text-left border transition-colors ${
                       isActive
-                        ? 'bg-surface-hover text-on-surface font-semibold shadow-2xs'
-                        : 'text-on-surface-variant hover:bg-surface-hover hover:text-on-surface'
+                        ? 'bg-white border-navy-950 text-navy-950 font-medium'
+                        : 'bg-transparent border-transparent text-slate-600 hover:bg-white hover:border-slate-200 hover:text-navy-900'
                     }`}
                   >
                     <span
-                      className={`w-6 h-6 rounded-full font-code-sm text-code-sm flex items-center justify-center shrink-0 mt-0.5 ${
-                        isActive ? 'bg-primary text-on-primary' : 'bg-surface-container text-secondary'
+                      className={`w-5 h-5 text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5 ${
+                        isActive ? 'bg-navy-950 text-white' : 'bg-slate-200 text-slate-700'
                       }`}
                     >
                       {st.num}
                     </span>
                     <div className="flex flex-col">
-                      <span className="font-headline-sm text-headline-sm text-sm leading-tight">
+                      <span className="text-[13px] font-semibold leading-tight">
                         {st.title}
                       </span>
-                      <span className="font-body-sm text-body-sm text-xs text-secondary font-normal mt-0.5">
+                      <span className="text-[11px] text-slate-500 mt-0.5">
                         {st.desc}
                       </span>
                     </div>
@@ -115,144 +97,109 @@ export default function Methodology() {
             </nav>
           </div>
 
-          {/* Quick Spec Card */}
-          <div className="bg-surface-container-lowest rounded-xl p-space-md text-on-surface border border-border-subtle shadow-sm">
-            <div className="flex items-center gap-space-xs mb-space-sm text-secondary">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span className="font-label-md text-label-md font-semibold text-on-surface">
-                Dataset Specification
-              </span>
+          {/* Dataset Specification */}
+          <div className="border border-slate-200 bg-white p-4">
+            <div className="text-[11px] font-bold text-navy-950 uppercase tracking-wider mb-3">
+              Dataset Specification
             </div>
-            <dl className="space-y-2 font-body-sm text-body-sm text-xs">
-              <div className="flex justify-between py-1 bg-surface-muted px-2.5 rounded">
-                <dt className="text-secondary font-medium">Source</dt>
-                <dd className="font-code-sm font-semibold">GH Archive (APIv3)</dd>
+            <dl className="space-y-2 text-[12px]">
+              <div className="flex justify-between py-1 border-b border-slate-100">
+                <dt className="text-slate-500">Source</dt>
+                <dd className="font-semibold text-navy-950">GH Archive (APIv3)</dd>
               </div>
-              <div className="flex justify-between py-1 px-2.5">
-                <dt className="text-secondary font-medium">Interval Block A</dt>
-                <dd className="font-code-sm">76h (T0 → T76)</dd>
+              <div className="flex justify-between py-1 border-b border-slate-100">
+                <dt className="text-slate-500">Interval Block A</dt>
+                <dd className="text-navy-950">76h (T0 → T76)</dd>
               </div>
-              <div className="flex justify-between py-1 bg-surface-muted px-2.5 rounded">
-                <dt className="text-secondary font-medium">Interval Block B</dt>
-                <dd className="font-code-sm">76h (T76 → T152)</dd>
+              <div className="flex justify-between py-1 border-b border-slate-100">
+                <dt className="text-slate-500">Interval Block B</dt>
+                <dd className="text-navy-950">76h (T76 → T152)</dd>
               </div>
-              <div className="flex justify-between py-1 px-2.5">
-                <dt className="text-secondary font-medium">Storage Engine</dt>
-                <dd className="font-code-sm">MongoDB WiredTiger</dd>
+              <div className="flex justify-between py-1">
+                <dt className="text-slate-500">Storage Engine</dt>
+                <dd className="text-navy-950">MongoDB WiredTiger</dd>
               </div>
             </dl>
           </div>
         </aside>
 
-        {/* Right Column: Structured Documentation Sections (8 cols) */}
-        <section className="lg:col-span-8 flex flex-col gap-space-xl">
+        {/* Right Column (8 cols): Structured Documentation Sections */}
+        <div className="lg:col-span-8 p-6 flex flex-col divide-y divide-slate-200">
           {/* Section 1: Research Pipeline */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="pipeline-architecture"
-          >
-            <div className="flex items-center justify-between mb-space-md">
+          <article className="pb-8 scroll-mt-20" id="pipeline-architecture">
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
+                <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
                   Section 01
                 </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
+                <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5">
                   Research Pipeline
                 </h2>
               </div>
-              <span className="px-2 py-1 bg-surface-container text-secondary rounded font-code-sm text-code-sm">
-                Flow Architecture
+              <span className="text-[10px] text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 uppercase">
+                FLOW ARCHITECTURE
               </span>
             </div>
-            <p className="font-body-md text-body-md text-on-surface-variant mb-space-lg leading-relaxed">
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
               The processing framework consumes raw activity streams directly from the GitHub public timeline archive, normalizes events into an indexed document schema, derives temporal and structural behavioral matrices, and trains unsupervised learning nodes for cluster and outlier estimation.
             </p>
 
-            {/* Interactive Node Pipeline Diagram */}
-            <div className="bg-surface-muted rounded-xl p-space-lg mb-space-md overflow-x-auto border border-border-subtle">
-              <div className="min-w-[620px] flex items-center justify-between gap-2">
-                {/* Step A */}
-                <div className="flex-1 bg-surface-container-lowest rounded-lg p-3 text-center shadow-xs border border-border-subtle">
-                  <Archive className="w-5 h-5 mx-auto text-secondary mb-1" />
-                  <div className="font-headline-sm text-sm font-semibold text-on-surface">GH Archive</div>
-                  <div className="font-code-sm text-[10px] text-secondary mt-0.5">Public events (JSON)</div>
-                </div>
-                <div className="text-secondary font-bold">→</div>
-
-                {/* Step B */}
-                <div className="flex-1 bg-surface-container-lowest rounded-lg p-3 text-center shadow-xs border border-border-subtle">
-                  <Database className="w-5 h-5 mx-auto text-secondary mb-1" />
-                  <div className="font-headline-sm text-sm font-semibold text-on-surface">MongoDB</div>
-                  <div className="font-code-sm text-[10px] text-secondary mt-0.5">Aggregation pipeline</div>
-                </div>
-                <div className="text-secondary font-bold">→</div>
-
-                {/* Step C */}
-                <div className="flex-1 bg-surface-container-lowest rounded-lg p-3 text-center shadow-xs border border-border-subtle">
-                  <Cpu className="w-5 h-5 mx-auto text-accent-cluster-1 mb-1" />
-                  <div className="font-headline-sm text-sm font-semibold text-on-surface">11 Features</div>
-                  <div className="font-code-sm text-[10px] text-secondary mt-0.5">Behavioral matrices</div>
-                </div>
-                <div className="text-secondary font-bold">→</div>
-
-                {/* Step D */}
-                <div className="flex-1 bg-surface-container-lowest rounded-lg p-3 text-center shadow-xs border border-border-subtle">
-                  <Layers className="w-5 h-5 mx-auto text-rose-600 mb-1" />
-                  <div className="font-headline-sm text-sm font-semibold text-on-surface">Isolation Forest</div>
-                  <div className="font-code-sm text-[10px] text-secondary mt-0.5">Anomaly Scoring</div>
-                </div>
-                <div className="text-secondary font-bold">→</div>
-
-                {/* Step E */}
-                <div className="flex-1 bg-surface-container-lowest rounded-lg p-3 text-center shadow-xs border border-border-subtle">
-                  <Network className="w-5 h-5 mx-auto text-purple-600 mb-1" />
-                  <div className="font-headline-sm text-sm font-semibold text-on-surface">K-Means (k=7)</div>
-                  <div className="font-code-sm text-[10px] text-secondary mt-0.5">Archetype Clusters</div>
-                </div>
+            {/* Pipeline Step Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 border border-slate-200 divide-x divide-y sm:divide-y-0 divide-slate-200 text-center bg-slate-50/50">
+              <div className="p-3">
+                <div className="text-[10px] text-slate-400 font-bold uppercase">Step 1</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">GH Archive</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">JSON Timeline</div>
+              </div>
+              <div className="p-3">
+                <div className="text-[10px] text-slate-400 font-bold uppercase">Step 2</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">MongoDB</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">Aggregation</div>
+              </div>
+              <div className="p-3">
+                <div className="text-[10px] text-slate-400 font-bold uppercase">Step 3</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">11 Features</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">Matrices</div>
+              </div>
+              <div className="p-3">
+                <div className="text-[10px] text-slate-400 font-bold uppercase">Step 4</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">Isolation Forest</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">Anomaly Scoring</div>
+              </div>
+              <div className="p-3 col-span-2 sm:col-span-1">
+                <div className="text-[10px] text-slate-400 font-bold uppercase">Step 5</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">K-Means (k=7)</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">Archetypes</div>
               </div>
             </div>
           </article>
 
           {/* Section 2: Dataset Sampling */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="dataset-sampling"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 02
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  Dataset Sampling & Observation Windows
-                </h2>
-              </div>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          <article className="py-8 scroll-mt-20" id="dataset-sampling">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 02
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              Dataset Sampling & Observation Windows
+            </h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed">
               To evaluate model reliability and temporal robustness, the timeline is partitioned into two disjoint observation blocks of 76 hours each (total 152 continuous hours). In total, 9.88 million raw events were indexed across 239.6K active actors, resulting in 44,200 modeled accounts meeting the activity threshold criteria.
             </p>
           </article>
 
           {/* Section 3: Data Engineering */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="data-engineering"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 03
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  Data Engineering & Index Optimization
-                </h2>
-              </div>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4">
-              To support rapid aggregation across millions of documents without table scanning, compound B-Tree indices were constructed on <code className="font-code-sm bg-surface-muted px-1.5 py-0.5 rounded font-semibold text-on-surface">&#123; account_id: 1, created_at: 1 &#125;</code>.
+          <article className="py-8 scroll-mt-20" id="data-engineering">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 03
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              Data Engineering & Index Optimization
+            </h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+              To support rapid aggregation across millions of documents without full collection scans, compound B-Tree indices were constructed on <code className="bg-slate-100 text-navy-950 px-1.5 py-0.5 border border-slate-200 font-medium">&#123; account_id: 1, created_at: 1 &#125;</code>.
             </p>
-            <div className="p-4 rounded-xl bg-surface-muted border border-border-subtle text-xs font-code-sm">
-              <span className="text-secondary block mb-1 font-semibold">// Aggregation Query Pipeline</span>
+            <div className="p-3 bg-slate-50 border border-slate-200 text-[11px] text-slate-800 font-mono">
+              <span className="text-slate-400 block mb-1">// MongoDB Aggregation Pipeline</span>
               db.events.aggregate([<br />
               &nbsp;&nbsp;&#123; $match: &#123; created_at: &#123; $gte: ISODate("T0"), $lt: ISODate("T76") &#125; &#125; &#125;,<br />
               &nbsp;&nbsp;&#123; $group: &#123; _id: "$actor.id", total: &#123; $sum: 1 &#125;, repos: &#123; $addToSet: "$repo.id" &#125;, hours: &#123; $addToSet: &#123; $hour: "$created_at" &#125; &#125; &#125; &#125;<br />
@@ -261,107 +208,76 @@ export default function Methodology() {
           </article>
 
           {/* Section 4: Behavioral Features */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="feature-engineering"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 04
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  11 Behavioral Features
-                </h2>
-              </div>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4">
+          <article className="py-8 scroll-mt-20" id="feature-engineering">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 04
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              11 Behavioral Features
+            </h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
               Feature vectors quantify action diversity, repository distribution focus, circadian rhythm entropy, and hourly burst velocities.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {featuresList.map((feat) => (
-                <div key={feat.name} className="p-3.5 rounded-xl bg-surface-bright border border-border-subtle shadow-2xs">
+                <div key={feat.name} className="p-3 border border-slate-200 bg-white">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-headline-sm text-xs font-bold text-on-surface">{feat.label}</span>
-                    <code className="font-code-sm text-[11px] text-accent-cluster-1 font-semibold bg-blue-50 px-1 rounded">
+                    <span className="text-[12px] font-bold text-navy-950">{feat.label}</span>
+                    <span className="text-[10px] text-navy-700 bg-slate-100 px-1.5 py-0.5 border border-slate-200">
                       {feat.name}
-                    </code>
+                    </span>
                   </div>
-                  <p className="font-body-sm text-xs text-secondary leading-relaxed">{feat.desc}</p>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">{feat.desc}</p>
                 </div>
               ))}
             </div>
           </article>
 
           {/* Section 5: Machine Learning */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="machine-learning"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 05
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  Machine Learning & Anomaly Detection
-                </h2>
-              </div>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-3">
+          <article className="py-8 scroll-mt-20" id="machine-learning">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 05
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              Machine Learning & Anomaly Detection
+            </h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
               We employ <strong>Isolation Forest</strong> for unsupervised outlier isolation without requiring clean negative labels. Trees isolate anomalies with short path lengths because anomalous vectors sit isolated in feature space.
             </p>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            <p className="text-[13px] text-slate-600 leading-relaxed">
               <strong>K-Means (k=7)</strong> partitions normal and anomalous actors into distinct behavioral archetypes: burst pushers, regular developers, multi-repo committers, tooling bots, and 24/7 continuous loggers.
             </p>
           </article>
 
           {/* Section 6: Evaluation Metrics */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="evaluation-methodology"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 06
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  Evaluation Methodology & Benchmarks
-                </h2>
-              </div>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          <article className="py-8 scroll-mt-20" id="evaluation-methodology">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 06
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              Evaluation Methodology & Benchmarks
+            </h2>
+            <p className="text-[13px] text-slate-600 leading-relaxed">
               We evaluate using receiver operating characteristic (ROC-AUC 0.809 vs 0.595 baseline), precision-recall area (PR-AUC 0.301 vs 0.119), Spearman rank correlation (ρ = 0.720), and recurrence rate (52.9% vs 5.2% uniform baseline).
             </p>
           </article>
 
           {/* Section 7: Privacy & Limitations */}
-          <article
-            className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-border-subtle scroll-mt-24"
-            id="privacy-boundaries"
-          >
-            <div className="flex items-center justify-between mb-space-md">
-              <div>
-                <span className="font-code-sm text-code-sm text-secondary uppercase font-semibold">
-                  Section 07
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface mt-0.5 font-bold">
-                  Privacy Preservation & Ethical Boundaries
-                </h2>
-              </div>
-            </div>
-            <div className="p-4 rounded-xl bg-surface-muted border border-border-subtle text-xs text-secondary flex items-start gap-3 leading-relaxed">
-              <Shield className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-on-surface mb-1">Pseudonymization Policy</p>
-                All account IDs are irreversibly hashed and pseudonymized. No repository code bodies, personal emails, or private commit messages were scraped or processed during feature extraction.
-              </div>
+          <article className="pt-8 scroll-mt-20" id="privacy-boundaries">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+              Section 07
+            </span>
+            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+              Privacy Preservation & Ethical Boundaries
+            </h2>
+            <div className="p-3.5 bg-slate-50 border border-slate-200 text-[12px] text-slate-600 leading-relaxed">
+              <strong className="text-navy-950 block mb-1">Pseudonymization Policy</strong>
+              All account IDs are irreversibly hashed and pseudonymized. No repository code bodies, personal emails, or private commit messages were scraped or processed during feature extraction.
             </div>
           </article>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,48 +1,59 @@
 import React from 'react';
-import { Menu, ArrowRight, User, Cpu } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { Menu, ArrowRight } from 'lucide-react';
 
 export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
+  const location = useLocation();
+
+  const getPageTitle = (pathname) => {
+    switch (pathname) {
+      case '/':
+        return 'Overview';
+      case '/accounts':
+        return 'Accounts';
+      case '/clusters':
+        return 'Clusters';
+      case '/evaluation':
+        return 'Evaluation';
+      case '/methodology':
+        return 'Methodology';
+      default:
+        return 'Overview';
+    }
+  };
+
+  const pageTitle = getPageTitle(location.pathname);
+
   return (
-    <header className="fixed top-0 left-0 lg:left-[260px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-border-subtle z-40 px-4 sm:px-gutter flex items-center justify-between transition-all duration-300">
-      {/* Left side */}
-      <div className="flex items-center gap-space-sm">
-        {/* Mobile menu trigger */}
+    <header className="fixed top-0 left-0 lg:left-[240px] right-0 h-14 bg-white border-b border-slate-200 z-40 px-5 sm:px-6 flex items-center justify-between transition-all duration-200 select-none">
+      {/* Left side: Mobile menu toggle + Clean Minimalist Breadcrumb */}
+      <div className="flex items-center gap-3">
         <button
           onClick={onOpenSidebar}
-          className="lg:hidden p-1.5 -ml-1 text-on-surface hover:bg-surface-hover rounded-lg flex items-center justify-center transition-colors focus:outline-none"
+          className="lg:hidden p-1.5 -ml-1 text-slate-600 hover:text-navy-950 hover:bg-slate-100 rounded transition-colors focus:outline-none"
           aria-label="Open navigation menu"
         >
-          <Menu className="w-5 h-5" />
+          <Menu className="w-4 h-4" />
         </button>
 
-        <div className="flex items-center gap-2">
-          <Cpu className="w-4 h-4 text-secondary hidden sm:inline-block" />
-          <span className="font-code-sm text-code-sm text-secondary uppercase tracking-wider">
-            Node: <span className="text-on-surface font-medium">prod-primary-alpha</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-medium border border-emerald-200">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Online
-          </span>
+        {/* Minimalist Clean Breadcrumb */}
+        <div className="flex items-center gap-2 text-[13px] font-sans">
+          <span className="text-slate-400 font-medium tracking-tight">GH Intelligence</span>
+          <span className="text-slate-300 font-light">/</span>
+          <span className="text-navy-950 font-semibold tracking-tight">{pageTitle}</span>
         </div>
       </div>
 
-      {/* Right side */}
-      <div className="flex items-center gap-space-md">
+      {/* Right side: Action Button */}
+      <div className="flex items-center gap-3">
         <button
           onClick={onOpenAnalyzeModal}
-          className="inline-flex items-center gap-space-xs bg-primary text-on-primary hover:bg-primary-container px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all shadow-sm hover:shadow active:scale-95"
+          className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded transition-colors border border-navy-800"
           type="button"
         >
-          <span>Analyze an account</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>Analyze Account</span>
+          <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
         </button>
-
-        <div className="h-4 w-px bg-border-subtle hidden sm:block"></div>
-
-        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 text-on-primary shadow-xs">
-          <User className="w-4 h-4" />
-        </div>
       </div>
     </header>
   );

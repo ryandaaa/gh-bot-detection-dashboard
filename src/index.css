@@ -6,23 +6,29 @@
   html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
   }
   
-  /* Custom scrollbar */
+  /* Hairline borders & crisp rendering */
+  * {
+    border-color: #e2e8f0;
+  }
+
+  /* Sleek custom scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 9999px;
+    background: #cbd5e1;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: #94a3b8;
   }
 }
 
@@ -31,71 +37,59 @@ input[type="range"].metric-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
-  background: #e2e8f5;
-  border-radius: 9999px;
+  height: 4px;
+  background: #e2e8f0;
   outline: none;
-  transition: background 0.2s ease;
+  border-radius: 0;
+  transition: background 0.15s ease;
 }
 
 input[type="range"].metric-slider:hover {
-  background: #d1d5db;
+  background: #cbd5e1;
 }
 
 input[type="range"].metric-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #151c25;
-  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  background: #0a192f;
+  border: 1px solid #1e3a8a;
+  border-radius: 2px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.1s ease, background-color 0.1s ease;
 }
 
 input[type="range"].metric-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  background: #2563eb;
+  background: #1d4ed8;
+  transform: scale(1.1);
 }
 
 input[type="range"].metric-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #151c25;
-  border: none;
-  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  background: #0a192f;
+  border: 1px solid #1e3a8a;
+  border-radius: 2px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.1s ease, background-color 0.1s ease;
 }
 
 input[type="range"].metric-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
-  background: #2563eb;
+  background: #1d4ed8;
+  transform: scale(1.1);
 }
 
-/* Modal and Element Animations */
-@keyframes modalBackdropFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes modalContentPopIn {
+/* Side Inspector Pane Animations */
+@keyframes paneSlideInRight {
   from {
-    opacity: 0;
-    transform: scale(0.96) translateY(8px);
+    transform: translateX(100%);
   }
   to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateX(0);
   }
 }
 
-.modal-backdrop-animate {
-  animation: modalBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.modal-card-animate {
-  animation: modalContentPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.pane-slide-in {
+  animation: paneSlideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

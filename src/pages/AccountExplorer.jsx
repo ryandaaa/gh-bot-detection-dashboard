@@ -1,13 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import {
   Search,
-  Fingerprint,
   ChevronRight,
   ChevronLeft,
-  Shield,
-  ArrowRight,
-  SlidersHorizontal,
-  Filter
+  ArrowRight
 } from 'lucide-react';
 
 const ACCOUNTS_DATA = [
@@ -199,35 +195,35 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
   }, [filteredAccounts, currentPage, itemsPerPage]);
 
   return (
-    <div className="w-full max-w-[1440px] px-4 sm:px-margin py-margin flex flex-col gap-space-lg mx-auto">
-      {/* Header Section */}
-      <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
-        <div className="flex flex-col gap-space-xs">
-          <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight font-semibold">
+    <div className="w-full flex flex-col font-sans">
+      {/* Editorial Header Bar - Full Bleed Edge-to-Edge */}
+      <section className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
             Account Explorer
           </h1>
-          <p className="font-body-md text-body-md text-secondary">
-            Browse and filter accounts based on behavioral features and anomaly scores across observation blocks.
+          <p className="text-[13px] text-slate-500 mt-0.5">
+            Filter, inspect, and evaluate modeled accounts based on 11 behavioral features and anomaly scores across observation blocks.
           </p>
         </div>
-        <div className="shrink-0 flex items-center gap-space-sm">
+        <div className="flex items-center gap-3">
           <button
-            onClick={onOpenAnalyzeModal}
-            className="inline-flex items-center gap-space-xs bg-primary text-on-primary hover:bg-primary-container px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all shadow-sm active:scale-95"
+            onClick={() => onOpenAnalyzeModal(null)}
+            className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white px-3.5 py-1.5 rounded text-[12px] font-medium transition-colors border border-navy-800"
             type="button"
           >
-            <span>Analyze an account</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Analyze Account</span>
+            <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
           </button>
         </div>
       </section>
 
-      {/* Filters & Query Bar */}
-      <section className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+      {/* Query & Filter Toolbar - Edge-to-Edge */}
+      <section className="px-6 py-3 border-b border-slate-200 bg-slate-50/70 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
         {/* Search Input */}
-        <div className="relative flex-1 min-w-[280px]">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-secondary">
-            <Search className="w-4 h-4" />
+        <div className="relative flex-1 min-w-[260px]">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <Search className="w-3.5 h-3.5" />
           </div>
           <input
             type="text"
@@ -236,211 +232,197 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               setSearch(e.target.value);
               setCurrentPage(1);
             }}
-            placeholder="Search account ID (e.g. a91f, c7d2)..."
-            className="w-full bg-surface-container-lowest text-on-surface font-code-md text-code-md pl-9 pr-3.5 py-2 rounded-lg outline-none border border-border-subtle focus:border-primary/50 transition-colors shadow-2xs"
+            placeholder="Search pseudonymized ID (e.g. a91f, c7d2)..."
+            className="w-full bg-white text-navy-950 font-mono text-[12px] pl-8 pr-3 py-1.5 rounded border border-slate-300 outline-none focus:border-navy-800 transition-colors"
           />
         </div>
 
-        {/* Dropdown Selectors */}
-        <div className="flex flex-wrap items-center gap-space-sm">
+        {/* Dropdowns */}
+        <div className="flex flex-wrap items-center gap-2">
           {/* Block Selector */}
-          <div className="relative inline-block">
-            <select
-              value={selectedBlock}
-              onChange={(e) => {
-                setSelectedBlock(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="appearance-none bg-surface-container-lowest hover:bg-surface-hover text-on-surface font-label-md text-label-md py-2 pl-3.5 pr-8 rounded-lg outline-none border border-border-subtle cursor-pointer transition-colors shadow-2xs"
-            >
-              <option value="all">Block: All</option>
-              <option value="block-a">Block: Block A</option>
-              <option value="block-b">Block: Block B</option>
-            </select>
-            <SlidersHorizontal className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary" />
-          </div>
+          <select
+            value={selectedBlock}
+            onChange={(e) => {
+              setSelectedBlock(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+          >
+            <option value="all">BLOCK: ALL</option>
+            <option value="block-a">BLOCK: BLOCK A</option>
+            <option value="block-b">BLOCK: BLOCK B</option>
+          </select>
 
           {/* Cluster Selector */}
-          <div className="relative inline-block">
-            <select
-              value={selectedCluster}
-              onChange={(e) => {
-                setSelectedCluster(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="appearance-none bg-surface-container-lowest hover:bg-surface-hover text-on-surface font-label-md text-label-md py-2 pl-3.5 pr-8 rounded-lg outline-none border border-border-subtle cursor-pointer transition-colors shadow-2xs"
-            >
-              <option value="all">Cluster: All</option>
-              <option value="c0">Cluster: C0 (Burst Push)</option>
-              <option value="c1">Cluster: C1 (Moderate Push)</option>
-              <option value="c2">Cluster: C2 (Multi-repo Push)</option>
-              <option value="c3">Cluster: C3 (Automated CI)</option>
-              <option value="c5">Cluster: C5 (Push & Create)</option>
-            </select>
-            <Filter className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary" />
-          </div>
+          <select
+            value={selectedCluster}
+            onChange={(e) => {
+              setSelectedCluster(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+          >
+            <option value="all">CLUSTER: ALL</option>
+            <option value="c0">CLUSTER: C0 (BURST PUSH)</option>
+            <option value="c1">CLUSTER: C1 (MODERATE PUSH)</option>
+            <option value="c2">CLUSTER: C2 (MULTI-REPO)</option>
+            <option value="c3">CLUSTER: C3 (AUTOMATED CI)</option>
+            <option value="c5">CLUSTER: C5 (PUSH & CREATE)</option>
+          </select>
 
           {/* Status Filter */}
-          <div className="relative inline-block">
-            <select
-              value={selectedStatus}
-              onChange={(e) => {
-                setSelectedStatus(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="appearance-none bg-surface-container-lowest hover:bg-surface-hover text-on-surface font-label-md text-label-md py-2 pl-3.5 pr-8 rounded-lg outline-none border border-border-subtle cursor-pointer transition-colors shadow-2xs"
-            >
-              <option value="all">Status: All</option>
-              <option value="anomaly">Anomaly candidate (≥ 0.5514)</option>
-              <option value="normal">Normal behavior</option>
-            </select>
-            <Shield className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary" />
-          </div>
+          <select
+            value={selectedStatus}
+            onChange={(e) => {
+              setSelectedStatus(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+          >
+            <option value="all">STATUS: ALL</option>
+            <option value="anomaly">ANOMALY CANDIDATE (≥ 0.5514)</option>
+            <option value="normal">NORMAL BEHAVIOR</option>
+          </select>
         </div>
       </section>
 
-      {/* Data Table Container */}
-      <section className="w-full bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-border-subtle">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-surface-muted text-secondary font-label-md text-label-md select-none border-b border-border-subtle">
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold" scope="col">
-                  Account ID
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-right" scope="col">
-                  Events
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-right" scope="col">
-                  Repositories
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-right" scope="col">
-                  Active Hours
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-right" scope="col">
-                  Anomaly Score
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-center" scope="col">
-                  Cluster
-                </th>
-                <th className="py-3 px-4 uppercase tracking-wider font-semibold text-right w-12" scope="col">
-                  <span className="sr-only">Inspect</span>
-                </th>
+      {/* Edge-to-Edge Data Table - Clean Hairline Grid */}
+      <section className="w-full bg-white border-b border-slate-200 overflow-x-auto">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider select-none">
+              <th className="py-2.5 px-6 font-semibold" scope="col">
+                Account ID
+              </th>
+              <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                Events
+              </th>
+              <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                Repos
+              </th>
+              <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                Active Window
+              </th>
+              <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                Anomaly Score
+              </th>
+              <th className="py-2.5 px-4 font-semibold text-center" scope="col">
+                Cluster
+              </th>
+              <th className="py-2.5 px-6 font-semibold text-right w-16" scope="col">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 text-slate-900 font-sans text-[13px]">
+            {paginatedAccounts.length === 0 ? (
+              <tr>
+                <td colSpan={7} className="py-12 text-center text-slate-500 font-mono text-[12px]">
+                  No matching accounts found for the current query parameters.
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-border-subtle/50 text-on-surface font-body-sm text-body-sm">
-              {paginatedAccounts.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="py-8 text-center text-secondary">
-                    No matching accounts found for the selected query filters.
+            ) : (
+              paginatedAccounts.map((account) => (
+                <tr
+                  key={account.id}
+                  onClick={() => onOpenAnalyzeModal(account)}
+                  className="hover:bg-slate-50 transition-colors cursor-pointer group"
+                >
+                  <td className="py-3 px-6 font-mono text-[12px] text-navy-950 font-medium">
+                    {account.id}
+                  </td>
+                  <td className="py-3 px-4 font-mono text-[12px] text-right text-slate-700 tabular-nums">
+                    {account.events.toLocaleString()}
+                  </td>
+                  <td className="py-3 px-4 font-mono text-[12px] text-right text-slate-700 tabular-nums">
+                    {account.repos}
+                  </td>
+                  <td className="py-3 px-4 font-mono text-[12px] text-right text-slate-700 tabular-nums">
+                    {account.activeHours}
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <span
+                      className={`inline-block font-mono text-[11px] font-semibold px-2 py-0.5 rounded-xs border ${
+                        account.isAnomaly
+                          ? 'text-rose-700 bg-rose-50 border-rose-200'
+                          : 'text-slate-700 bg-slate-100 border-slate-200'
+                      }`}
+                    >
+                      {account.score.toFixed(3)}
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <span className="inline-block font-mono text-[11px] font-medium px-2 py-0.5 bg-slate-100 text-navy-900 border border-slate-200 rounded-xs">
+                      {account.cluster}
+                    </span>
+                  </td>
+                  <td className="py-3 px-6 text-right">
+                    <span className="inline-flex items-center gap-1 font-mono text-[11px] text-slate-400 group-hover:text-navy-950 transition-colors">
+                      <span>INSPECT</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
                   </td>
                 </tr>
-              ) : (
-                paginatedAccounts.map((account) => (
-                  <tr
-                    key={account.id}
-                    onClick={onOpenAnalyzeModal}
-                    className="hover:bg-surface-hover/80 transition-colors cursor-pointer group"
-                  >
-                    <td className="py-3 px-4 font-code-md text-code-md text-on-surface">
-                      <div className="flex items-center gap-space-xs">
-                        <Fingerprint className="w-4 h-4 text-secondary shrink-0" />
-                        <span className="font-medium">{account.id.slice(0, 8)}...</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 font-code-md text-code-md text-right tabular-nums">
-                      {account.events.toLocaleString()}
-                    </td>
-                    <td className="py-3 px-4 font-code-md text-code-md text-right tabular-nums">
-                      {account.repos}
-                    </td>
-                    <td className="py-3 px-4 font-code-md text-code-md text-right tabular-nums">
-                      {account.activeHours}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <span
-                        className={`inline-flex items-center font-code-md text-code-md font-semibold px-2 py-0.5 rounded ${
-                          account.isAnomaly
-                            ? 'text-accent-anomaly bg-rose-50 border border-rose-200'
-                            : 'text-on-surface bg-surface-container'
-                        }`}
-                      >
-                        {account.score.toFixed(3)}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <span className="inline-flex items-center justify-center font-code-sm text-code-sm font-medium px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
-                        {account.cluster}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <ChevronRight className="w-4 h-4 text-secondary group-hover:text-primary transition-colors inline-block" />
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination Toolbar */}
-        <div className="px-4 py-3 bg-surface-container-lowest border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-space-sm select-none">
-          <div className="font-body-sm text-body-sm text-secondary">
-            Showing{' '}
-            <span className="font-medium text-on-surface">
-              {filteredAccounts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}–
-              {Math.min(currentPage * itemsPerPage, filteredAccounts.length)}
-            </span>{' '}
-            of <span className="font-medium text-on-surface">{filteredAccounts.length}</span> accounts
-          </div>
-
-          <nav aria-label="Pagination Navigation" className="flex items-center gap-1">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage <= 1}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-hover hover:text-on-surface transition-colors disabled:opacity-30 disabled:pointer-events-none"
-              type="button"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-
-            {Array.from({ length: totalPages }).map((_, idx) => {
-              const page = idx + 1;
-              const isCurrent = page === currentPage;
-              return (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-8 h-8 flex items-center justify-center rounded-lg font-label-md text-label-md transition-colors ${
-                    isCurrent
-                      ? 'bg-primary text-on-primary font-semibold'
-                      : 'text-on-surface-variant hover:bg-surface-hover hover:text-on-surface'
-                  }`}
-                  type="button"
-                >
-                  {page}
-                </button>
-              );
-            })}
-
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage >= totalPages}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-hover hover:text-on-surface transition-colors disabled:opacity-30 disabled:pointer-events-none"
-              type="button"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </nav>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </section>
 
-      {/* Bottom Disclaimer & Methodology note */}
-      <footer className="pt-space-xs flex items-center gap-space-sm text-secondary">
-        <Shield className="w-4 h-4 shrink-0 text-secondary" />
-        <p className="font-body-sm text-body-sm text-secondary">
-          Account IDs are pseudonymized for privacy preservation. Unobserved accounts outside the 152-hour window are excluded.
-        </p>
+      {/* Pagination & Summary Footer - Edge-to-Edge */}
+      <section className="px-6 py-3 bg-white border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 select-none">
+        <div className="font-mono text-[11px] text-slate-500">
+          Showing{' '}
+          <span className="font-semibold text-navy-950">
+            {filteredAccounts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}–
+            {Math.min(currentPage * itemsPerPage, filteredAccounts.length)}
+          </span>{' '}
+          of <span className="font-semibold text-navy-950">{filteredAccounts.length}</span> records
+        </div>
+
+        <nav aria-label="Pagination" className="flex items-center gap-1">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage <= 1}
+            className="w-7 h-7 flex items-center justify-center rounded text-slate-500 hover:bg-slate-100 hover:text-navy-950 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+            type="button"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          {Array.from({ length: totalPages }).map((_, idx) => {
+            const page = idx + 1;
+            const isCurrent = page === currentPage;
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`w-7 h-7 flex items-center justify-center rounded font-mono text-[11px] transition-colors ${
+                  isCurrent
+                    ? 'bg-navy-950 text-white font-bold'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-navy-950'
+                }`}
+                type="button"
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage >= totalPages}
+            className="w-7 h-7 flex items-center justify-center rounded text-slate-500 hover:bg-slate-100 hover:text-navy-950 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+            type="button"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </nav>
+      </section>
+
+      {/* Privacy Note Footer */}
+      <footer className="px-6 py-4 bg-slate-50 text-slate-500 font-mono text-[11px]">
+        PRIVACY NOTICE: Account identifiers are irreversibly hashed and pseudonymized. Unobserved actors outside the 152-hour observation window are excluded from feature modeling.
       </footer>
     </div>
   );
