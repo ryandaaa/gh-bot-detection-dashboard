@@ -125,19 +125,14 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
               <span className="text-slate-600 dark:text-[#a1a1a1] font-medium tracking-tight">{pageTitle}</span>
             </div>
 
-            {/* Right side: Dataset Meta Info + Theme Toggle + Action Button */}
-            <div className="flex items-center gap-2 sm:gap-2.5">
-              {/* Subtle Dataset info (pure typography, no colored dots) */}
-              <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 dark:bg-[#141414] border border-slate-200/80 dark:border-[#262626] text-[11px] text-slate-500 dark:text-[#a1a1a1] font-sans font-medium">
-                GH Archive · 152h · 9.88M Events
-              </div>
-
-              {/* Cloudflare Dark Mode Toggle */}
+            {/* Right side: Borderless Theme Toggle + Action Button */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Cloudflare Dark Mode Toggle (Clean Borderless Icon) */}
               {onToggleTheme && (
                 <button
                   type="button"
                   onClick={onToggleTheme}
-                  className="w-8 h-8 rounded-[4px] border border-slate-200/90 dark:border-[#262626] bg-white dark:bg-[#101010] text-slate-600 dark:text-[#a1a1a1] hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-[#383838] flex items-center justify-center transition-colors shadow-2xs"
+                  className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-[#a1a1a1] dark:hover:text-white rounded-[4px] transition-colors"
                   title={theme === 'dark' ? 'Beralih ke mode terang' : 'Beralih ke Cloudflare dark mode'}
                   aria-label="Toggle Color Theme"
                 >
