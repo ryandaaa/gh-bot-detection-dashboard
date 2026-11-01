@@ -114,34 +114,36 @@ export default function Header({ onOpenAnalyzeModal }) {
       {/* Standalone GitHub Brand Card (Top-Left, exactly on sumbu X of sidebar) */}
       <StandaloneGitHubBrand />
 
-      {/* Floating Navbar Container - Matches Page Content max-w-[1400px] */}
-      <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none px-3 sm:px-4 pl-[68px] sm:pl-[86px] pr-3 sm:pr-4">
-        <header className="max-w-[1400px] mx-auto h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
-          {/* Left side: Clean Breadcrumb */}
-          <div className="flex items-center gap-2 text-[13px] font-sans">
-            <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
-            <span className="text-slate-300 font-light">/</span>
-            <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
-          </div>
-
-          {/* Right side: Dataset Meta Info + Action Button */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Subtle Dataset info (pure typography, no colored dots) */}
-            <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-sans font-medium">
-              GH Archive · 152h · 9.88M Events
+      {/* Floating Navbar Container - Matches Page Content max-w-[1400px] and px-4 sm:px-6 lg:px-8 */}
+      <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none pl-[68px] sm:pl-[86px] pr-3 sm:pr-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <header className="w-full h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
+            {/* Left side: Clean Breadcrumb */}
+            <div className="flex items-center gap-2 text-[13px] font-sans">
+              <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
+              <span className="text-slate-300 font-light">/</span>
+              <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
             </div>
 
-            {/* Action Button */}
-            <button
-              onClick={onOpenAnalyzeModal}
-              className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs"
-              type="button"
-            >
-              <span>Analyze Account</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
-            </button>
-          </div>
-        </header>
+            {/* Right side: Dataset Meta Info + Action Button */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              {/* Subtle Dataset info (pure typography, no colored dots) */}
+              <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-sans font-medium">
+                GH Archive · 152h · 9.88M Events
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={onOpenAnalyzeModal}
+                className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs"
+                type="button"
+              >
+                <span>Analyze Account</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+              </button>
+            </div>
+          </header>
+        </div>
       </div>
     </>
   );

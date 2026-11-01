@@ -498,9 +498,9 @@ export default function Clusters() {
   }).join(' ');
 
   return (
-    <div className="w-full flex flex-col font-sans">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 font-sans">
       {/* Editorial Header Bar */}
-      <section className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <section className="bg-white border border-slate-200/90 rounded-[4px] px-6 py-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-[20px] font-bold text-slate-900 tracking-tight">
             Cluster Explorer
@@ -532,7 +532,7 @@ export default function Clusters() {
       </section>
 
       {/* Main Grid: Left Column 7 cols (PCA Explorer + Archetype Cards), Right Column 5 cols (Radar Chart + Metrics) */}
-      <section className="w-full grid grid-cols-1 lg:grid-cols-12 border-b border-slate-200 bg-white divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+      <section className="w-full grid grid-cols-1 lg:grid-cols-12 border border-slate-200/90 rounded-[4px] shadow-2xs bg-white divide-y lg:divide-y-0 lg:divide-x divide-slate-200 overflow-hidden">
         {/* Left Column */}
         <div className="lg:col-span-7 flex flex-col divide-y divide-slate-200">
           {/* Interactive 2D PCA Universe Explorer */}
