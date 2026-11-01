@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+}
+
+/* Custom Range Slider Styling for Metric Inputs */
+input[type="range"].metric-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e2e8f5;
+  border-radius: 9999px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+input[type="range"].metric-slider:hover {
+  background: #d1d5db;
+}
+
+input[type="range"].metric-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #151c25;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"].metric-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #2563eb;
+}
+
+input[type="range"].metric-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #151c25;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"].metric-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: #2563eb;
+}
+
+/* Modal and Element Animations */
+@keyframes modalBackdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalContentPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-backdrop-animate {
+  animation: modalBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-card-animate {
+  animation: modalContentPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

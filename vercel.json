@@ -1,28 +1,14 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/index.py"
     },
     {
-      "source": "/",
+      "source": "/(.*)",
       "destination": "/index.html"
-    },
-    {
-      "source": "/accounts",
-      "destination": "/accounts.html"
-    },
-    {
-      "source": "/clusters",
-      "destination": "/clusters.html"
-    },
-    {
-      "source": "/evaluation",
-      "destination": "/evaluation.html"
-    },
-    {
-      "source": "/methodology",
-      "destination": "/methodology.html"
     }
   ]
 }

@@ -5,13 +5,19 @@ Deployment-ready for Vercel Serverless Functions and local execution.
 
 import json
 import logging
+import os
+import re
 import warnings
+from collections import Counter
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 
+import httpx
 import joblib
 import numpy as np
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -213,6 +219,89 @@ class PredictResponse(BaseModel):
     features_transformed: Dict[str, float]
 
 
+class UserInfo(BaseModel):
+    username: str
+    name: Optional[str] = None
+    avatar_url: Optional[str] = None
+    bio: Optional[str] = None
+    public_repos: int = 0
+    followers: int = 0
+    created_at: Optional[str] = None
+    html_url: str
+
+
+class RawMetrics(BaseModel):
+    n_events: int
+    n_repos: int
+    active_hours: int
+    push_ratio: float
+    pr_ratio: float
+    issue_ratio: float
+    create_ratio: float
+    social_ratio: float
+    max_repo_share: float
+    hour_entropy: float
+    active_frac: float
+    max_per_hour: int
+
+
+class AnalyzePrediction(BaseModel):
+    score: float
+    threshold: float
+    is_anomaly: bool
+    status: str
+    cluster_id: int
+    cluster_badge: str
+    cluster_title: str
+    cluster_characteristics: List[str]
+    pc1: float
+    pc2: float
+
+
+class AnalyzeGitHubResponse(BaseModel):
+    user_info: UserInfo
+    raw_metrics: RawMetrics
+    prediction: AnalyzePrediction
+
+
+def sanitize_github_username(raw_input: str) -> str:
+    """
+    Extracts clean GitHub username from URL, profile link, or raw handle.
+    Handles:
+      - 'https://github.com/torvalds' -> 'torvalds'
+      - 'https://github.com/torvalds/' -> 'torvalds'
+      - 'http://github.com/mccartyashley284' -> 'mccartyashley284'
+      - 'github.com/hiro-kurage?tab=repositories' -> 'hiro-kurage'
+      - '@nonkh' -> 'nonkh'
+      - 'torvalds' -> 'torvalds'
+    """
+    if not raw_input:
+        return ""
+    s = raw_input.strip()
+    if s.startswith("@"):
+        s = s[1:]
+
+    if "github.com" in s or s.startswith("http://") or s.startswith("https://"):
+        if not s.startswith("http://") and not s.startswith("https://"):
+            s = "https://" + s
+        try:
+            parsed = urlparse(s)
+            path_parts = [p.strip() for p in parsed.path.split("/") if p.strip()]
+            if path_parts:
+                s = path_parts[0]
+            else:
+                s = ""
+        except Exception:
+            pass
+    else:
+        s = s.split("?")[0].split("#")[0].strip("/")
+        if "/" in s:
+            s = s.split("/")[0]
+
+    s = re.sub(r"[^a-zA-Z0-9\-]", "", s).strip()
+    return s
+
+
 # ---------------------------------------------------------
 # API Endpoints
 # ---------------------------------------------------------
@@ -229,7 +318,8 @@ def api_root():
             "/api/metadata",
             "/api/clusters",
             "/api/presets",
-            "/api/predict"
+            "/api/predict",
+            "/api/analyze-github"
         ]
     }
 
@@ -383,4 +473,230 @@ def predict(payload: PredictRequest):
         pc1=round(pc1, 4),
         pc2=round(pc2, 4),
         features_transformed={col: round(features[col], 4) for col in FITUR_COLS}
+    )
+
+
+@app.get("/api/analyze-github", response_model=AnalyzeGitHubResponse)
+@app.get("/analyze-github", response_model=AnalyzeGitHubResponse)
+async def analyze_github(
+    username: Optional[str] = Query(None, description="GitHub username or profile URL"),
+    username_or_url: Optional[str] = Query(None, description="Alternative parameter for GitHub username or profile URL")
+):
+    """
+    Live GitHub Account Lookup & Feature Extraction:
+    1. Sanitizes username/URL input
+    2. Fetches public profile and recent 100 public events from GitHub REST API
+    3. Computes the 11 behavioral features
+    4. Evaluates through ML pipeline (StandardScaler -> Isolation Forest -> K-Means -> PCA)
+    5. Returns user info, raw metrics, and anomaly detection results.
+    """
+    if not MODELS_LOADED:
+        raise HTTPException(status_code=503, detail="Models not loaded")
+
+    raw_target = username or username_or_url
+    if not raw_target:
+        raise HTTPException(
+            status_code=400,
+            detail="Parameter 'username' atau 'username_or_url' wajib disertakan."
+        )
+
+    clean_username = sanitize_github_username(raw_target)
+    if not clean_username:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Input '{raw_target}' tidak menghasilkan username GitHub yang valid."
+        )
+
+    headers = {
+        "User-Agent": "gh-bot-detector-app/1.0",
+        "Accept": "application/vnd.github.v3+json",
+    }
+    gh_token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
+    if gh_token:
+        headers["Authorization"] = f"Bearer {gh_token}"
+
+    async with httpx.AsyncClient(timeout=15.0, headers=headers) as client:
+        # 1. Fetch user profile
+        try:
+            user_resp = await client.get(f"https://api.github.com/users/{clean_username}")
+        except httpx.RequestError as exc:
+            raise HTTPException(
+                status_code=502,
+                detail=f"Gagal menghubungi GitHub API: {str(exc)}"
+            )
+
+        if user_resp.status_code == 404:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Akun GitHub '{clean_username}' tidak ditemukan (404 Not Found)."
+            )
+        elif user_resp.status_code == 403:
+            msg = user_resp.json().get("message", "GitHub API rate limit exceeded.")
+            raise HTTPException(
+                status_code=429 if "rate limit" in msg.lower() else 403,
+                detail=f"GitHub API limit: {msg}"
+            )
+        elif user_resp.status_code != 200:
+            raise HTTPException(
+                status_code=user_resp.status_code,
+                detail=f"GitHub API error ({user_resp.status_code}): {user_resp.text}"
+            )
+
+        user_data = user_resp.json()
+
+        # 2. Fetch up to 100 recent public events
+        try:
+            events_resp = await client.get(
+                f"https://api.github.com/users/{clean_username}/events?per_page=100"
+            )
+        except httpx.RequestError as exc:
+            raise HTTPException(
+                status_code=502,
+                detail=f"Gagal mengambil event dari GitHub API: {str(exc)}"
+            )
+
+        if events_resp.status_code == 404:
+            events = []
+        elif events_resp.status_code == 403:
+            msg = events_resp.json().get("message", "GitHub API rate limit exceeded.")
+            raise HTTPException(
+                status_code=429 if "rate limit" in msg.lower() else 403,
+                detail=f"GitHub API limit: {msg}"
+            )
+        elif events_resp.status_code != 200:
+            raise HTTPException(
+                status_code=events_resp.status_code,
+                detail=f"GitHub API error ({events_resp.status_code}): {events_resp.text}"
+            )
+        else:
+            events = events_resp.json()
+
+    # 3. Check for 0 events
+    if not events or len(events) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Akun '{clean_username}' tidak memiliki aktivitas publik baru untuk dianalisis (0 public events)."
+        )
+
+    n_events = len(events)
+
+    # 4. Extract 11 behavioral features
+    # Repositories
+    repos = [
+        e.get("repo", {}).get("name")
+        for e in events
+        if e.get("repo") and e.get("repo", {}).get("name")
+    ]
+    repo_counts = Counter(repos)
+    n_repos = len(repo_counts) if repo_counts else 1
+    max_repo_share = float(max(repo_counts.values()) / n_events) if (n_events > 0 and repo_counts) else 0.0
+
+    # Event types
+    tipe_counts = Counter(e.get("type") for e in events)
+    frac_push = float(tipe_counts.get("PushEvent", 0) / n_events)
+    frac_create = float(tipe_counts.get("CreateEvent", 0) / n_events)
+
+    tipe_pr = {"PullRequestEvent", "PullRequestReviewEvent", "PullRequestReviewCommentEvent"}
+    frac_pr = float(sum(tipe_counts.get(t, 0) for t in tipe_pr) / n_events)
+
+    tipe_issue = {"IssuesEvent", "IssueCommentEvent"}
+    frac_issue = float(sum(tipe_counts.get(t, 0) for t in tipe_issue) / n_events)
+
+    tipe_social = {"WatchEvent", "ForkEvent"}
+    frac_social = float(sum(tipe_counts.get(t, 0) for t in tipe_social) / n_events)
+
+    # Hourly distribution and active hours
+    hour_keys = []
+    hours_of_day = []
+    for e in events:
+        ts_str = e.get("created_at")
+        if ts_str:
+            try:
+                dt = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+                hour_keys.append(dt.strftime("%Y-%m-%d-%H"))
+                hours_of_day.append(dt.hour)
+            except Exception:
+                pass
+
+    unique_active_hours = set(hour_keys)
+    active_hours_count = len(unique_active_hours)
+    active_frac = float(np.clip(active_hours_count / 152.0, 0.0, 1.0))
+
+    counts_per_hour = Counter(hour_keys)
+    max_per_hour = max(counts_per_hour.values()) if counts_per_hour else 1
+
+    # hour_entropy = -sum(p * log2(p)) / log2(24) from distribution of hours 0-23
+    hod = np.zeros(24)
+    for h in hours_of_day:
+        hod[h] += 1
+    p = hod[hod > 0] / hod.sum() if hod.sum() > 0 else np.array([])
+    hour_entropy = float(-(p * np.log2(p)).sum() / np.log2(24)) if len(p) > 0 else 0.0
+
+    # 5. Model Inference
+    features = {
+        "log_n": float(np.log1p(n_events)),
+        "frac_push": float(np.clip(frac_push, 0.0, 1.0)),
+        "frac_create": float(np.clip(frac_create, 0.0, 1.0)),
+        "frac_pr": float(np.clip(frac_pr, 0.0, 1.0)),
+        "frac_issue": float(np.clip(frac_issue, 0.0, 1.0)),
+        "frac_social": float(np.clip(frac_social, 0.0, 1.0)),
+        "log_events_per_repo": float(np.log1p(n_events / max(n_repos, 1))),
+        "max_repo_share": float(np.clip(max_repo_share, 0.0, 1.0)),
+        "hour_entropy": float(np.clip(hour_entropy, 0.0, 1.0)),
+        "active_frac": active_frac,
+        "log_max_per_hour": float(np.log1p(max_per_hour)),
+    }
+
+    feature_vector = np.array([[features[col] for col in FITUR_COLS]], dtype=np.float64)
+    X_scaled = scaler.transform(feature_vector)
+    score = -float(iso_forest.score_samples(X_scaled)[0])
+    is_anomaly = bool(score >= THRESHOLD)
+    status_label = "Anomaly (Bot-like)" if is_anomaly else "Normal"
+    cluster_id = int(kmeans.predict(X_scaled)[0])
+    pc = pca.transform(X_scaled)[0]
+    pc1 = float(pc[0])
+    pc2 = float(pc[1])
+
+    cluster_info = CLUSTER_PROFILES.get(str(cluster_id), {})
+    cluster_badge = cluster_info.get("badge", f"Cluster {cluster_id}")
+    cluster_title = cluster_info.get("title", f"Cluster {cluster_id}")
+    cluster_characteristics = cluster_info.get("characteristics", [])
+
+    return AnalyzeGitHubResponse(
+        user_info=UserInfo(
+            username=user_data.get("login") or clean_username,
+            name=user_data.get("name"),
+            avatar_url=user_data.get("avatar_url"),
+            bio=user_data.get("bio"),
+            public_repos=int(user_data.get("public_repos") or 0),
+            followers=int(user_data.get("followers") or 0),
+            created_at=user_data.get("created_at"),
+            html_url=user_data.get("html_url") or f"https://github.com/{clean_username}",
+        ),
+        raw_metrics=RawMetrics(
+            n_events=n_events,
+            n_repos=n_repos,
+            active_hours=active_hours_count,
+            push_ratio=round(frac_push, 4),
+            pr_ratio=round(frac_pr, 4),
+            issue_ratio=round(frac_issue, 4),
+            create_ratio=round(frac_create, 4),
+            social_ratio=round(frac_social, 4),
+            max_repo_share=round(max_repo_share, 4),
+            hour_entropy=round(hour_entropy, 4),
+            active_frac=round(active_frac, 4),
+            max_per_hour=int(max_per_hour),
+        ),
+        prediction=AnalyzePrediction(
+            score=round(score, 4),
+            threshold=round(THRESHOLD, 4),
+            is_anomaly=is_anomaly,
+            status=status_label,
+            cluster_id=cluster_id,
+            cluster_badge=cluster_badge,
+            cluster_title=cluster_title,
+            cluster_characteristics=cluster_characteristics,
+            pc1=round(pc1, 4),
+            pc2=round(pc2, 4),
+        ),
     )
