@@ -30,15 +30,15 @@ function StandaloneGitHubBrand() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub Repository ryandaaa/gh-bot-data-detection"
-        className="w-12 h-12 rounded-full bg-navy-950 border border-navy-800 shadow-[0_2px_12px_rgba(10,25,47,0.22)] hover:shadow-[0_4px_18px_rgba(10,25,47,0.35)] hover:bg-navy-900 text-white flex items-center justify-center transition-all group shrink-0"
+        className="w-8 h-8 rounded-full bg-navy-950 dark:bg-[#101010] border border-navy-800 dark:border-[#262626] shadow-[0_2px_10px_rgba(10,25,47,0.18)] dark:shadow-none hover:shadow-[0_4px_14px_rgba(10,25,47,0.3)] hover:bg-navy-900 dark:hover:border-[#3f3f46] text-white flex items-center justify-center transition-all group shrink-0"
         title="View GitHub Repository: ryandaaa/gh-bot-data-detection"
       >
-        <Github className="w-5 h-5 text-white group-hover:scale-105 transition-transform" />
+        <Github className="w-4 h-4 text-white dark:text-[#f5f5f5] group-hover:scale-105 transition-transform" />
       </a>
 
       {/* Rich Metadata Info Card on Hover */}
       {isOpen && (
-        <div className="absolute top-full left-0 sm:left-1 mt-2.5 w-[300px] bg-white border border-slate-200/90 rounded-[6px] shadow-xl p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 font-sans pointer-events-auto">
+        <div className="absolute top-full left-0 sm:left-1 mt-2 w-[300px] bg-white dark:bg-[#101010] border border-slate-200/90 dark:border-[#262626] rounded-[6px] shadow-xl p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 font-sans pointer-events-auto">
           <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-slate-100">
             <div className="min-w-0">
               <div className="font-semibold text-[12px] text-slate-900 truncate">

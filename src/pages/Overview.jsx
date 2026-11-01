@@ -177,7 +177,7 @@ export default function Overview({ onOpenAnalyzeModal }) {
           </p>
         </div>
 
-        {/* Search Input Bar */}
+        {/* Search Input Bar - Edge-to-Edge Integrated Button */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -185,22 +185,22 @@ export default function Overview({ onOpenAnalyzeModal }) {
               onOpenAnalyzeModal(liveInput.trim());
             }
           }}
-          className="relative flex items-center"
+          className="flex items-stretch h-10 border border-slate-200 dark:border-[#262626] rounded-[4px] overflow-hidden bg-slate-50 dark:bg-[#101010] focus-within:border-navy-900 dark:focus-within:border-white transition-colors shadow-2xs"
         >
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-            <Github className="w-4 h-4 text-slate-400" />
+          <div className="flex-1 flex items-center pl-3.5 pr-2 min-w-0">
+            <Github className="w-4 h-4 text-slate-400 shrink-0 mr-2.5" />
+            <input
+              type="text"
+              value={liveInput}
+              onChange={(e) => setLiveInput(e.target.value)}
+              placeholder="Masukkan username atau URL profil GitHub (contoh: torvalds, dependabot[bot], ryandaaa)..."
+              className="w-full h-full bg-transparent border-0 font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] placeholder:text-slate-400 dark:placeholder:text-[#666666] outline-none"
+            />
           </div>
-          <input
-            type="text"
-            value={liveInput}
-            onChange={(e) => setLiveInput(e.target.value)}
-            placeholder="Masukkan username atau URL profil GitHub (contoh: torvalds, dependabot[bot], ryandaaa)..."
-            className="w-full bg-slate-50 dark:bg-[#101010] border border-slate-200 dark:border-[#262626] font-sans text-[13px] text-slate-900 dark:text-[#f5f5f5] pl-10 pr-28 sm:pr-32 py-2 rounded-[4px] outline-none focus:border-navy-900 dark:focus:border-white transition-colors"
-          />
           <button
             type="submit"
             disabled={!liveInput.trim()}
-            className="absolute right-1 top-1 bottom-1 px-3.5 sm:px-4 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium rounded-[3px] transition-colors disabled:opacity-40 flex items-center gap-1.5"
+            className="px-5 bg-navy-950 hover:bg-navy-900 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black font-sans text-[12px] font-medium flex items-center gap-1.5 border-l border-slate-200 dark:border-[#262626] transition-colors disabled:opacity-40 shrink-0"
           >
             <span>Inspect</span>
             <ArrowRight className="w-3.5 h-3.5" />
