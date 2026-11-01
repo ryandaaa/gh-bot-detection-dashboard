@@ -153,7 +153,7 @@ export default function App() {
         <Header onOpenAnalyzeModal={() => openInspector(null)} />
 
         {/* Dynamic Route Content with Page Transition Animation */}
-        <main className="pt-20 sm:pl-[76px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 min-h-screen">
+        <main className="pt-20 sm:pl-[86px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 min-h-screen">
           <div key={location.pathname} className="page-transition">
             <Routes>
               <Route
