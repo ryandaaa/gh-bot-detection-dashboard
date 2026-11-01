@@ -405,7 +405,7 @@ export default function AnalyzeModal({ isOpen, onClose }) {
                   <div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
                       <Search className="w-4 h-4 text-accent-cluster-1" />
-                      <span>Live GitHub Actor Ingestion</span>
+                      <span>Live GitHub Account Lookup</span>
                     </h3>
                     <p className="font-body-sm text-body-sm text-secondary mt-1">
                       Lookup any public GitHub profile or URL. The backend fetches recent timeline events, extracts 11 dimensions, and scores the actor.
@@ -417,7 +417,7 @@ export default function AnalyzeModal({ isOpen, onClose }) {
                       type="text"
                       value={liveUsername}
                       onChange={(e) => setLiveUsername(e.target.value)}
-                      placeholder="e.g. torvalds, dependabot[bot], hiro-kurage, or github.com/..."
+                      placeholder="e.g. torvalds or https://github.com/mccartyashley284"
                       className="flex-1 bg-surface-container-lowest text-on-surface font-code-md text-code-md px-3.5 py-2.5 rounded-xl outline-none border border-border-subtle focus:border-primary/50 shadow-2xs"
                     />
                     <button
@@ -426,9 +426,29 @@ export default function AnalyzeModal({ isOpen, onClose }) {
                       className="px-5 py-2.5 bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-semibold rounded-xl transition-all shadow-sm flex items-center gap-2 disabled:opacity-50"
                     >
                       {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-                      <span>Lookup</span>
+                      <span>Analyze Profile</span>
                     </button>
                   </form>
+
+                  {/* Quick-fill chips */}
+                  <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                    <span className="text-xs text-secondary font-medium mr-1">Quick-fill:</span>
+                    {[
+                      { id: 'mccartyashley284', label: 'mccartyashley284 (Spam Bot)' },
+                      { id: 'hiro-kurage', label: 'hiro-kurage (Forex EA)' },
+                      { id: 'nonkh', label: 'nonkh (Commit Spoofer)' },
+                      { id: 'torvalds', label: 'torvalds (Human Contributor)' }
+                    ].map((chip) => (
+                      <button
+                        key={chip.id}
+                        type="button"
+                        onClick={() => handleLiveLookup(null, chip.id)}
+                        className="px-2.5 py-1 rounded-full text-xs bg-surface-container-lowest hover:bg-surface-hover text-on-surface border border-border-subtle transition-colors flex items-center gap-1 active:scale-95"
+                      >
+                        <span>{chip.label}</span>
+                      </button>
+                    ))}
+                  </div>
 
                   {errorMessage && (
                     <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
@@ -465,6 +485,59 @@ export default function AnalyzeModal({ isOpen, onClose }) {
                         <div className="flex gap-4 text-xs text-secondary font-code-sm">
                           <span>Repos: <strong className="text-on-surface">{liveUserData.public_repos}</strong></span>
                           <span>Followers: <strong className="text-on-surface">{liveUserData.followers}</strong></span>
+                          <span>Events Sampled: <strong className="text-on-surface">{liveRawMetrics?.n_events || 0}</strong></span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {liveRawMetrics && (
+                    <div className="p-4 rounded-xl bg-surface-container-lowest border border-border-subtle space-y-2.5">
+                      <div className="flex items-center justify-between border-b border-border-subtle/60 pb-1.5">
+                        <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">
+                          11 Extracted Behavioral Metrics
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('simulation')}
+                          className="text-xs text-primary hover:underline font-semibold flex items-center gap-1"
+                        >
+                          <Sliders className="w-3 h-3" />
+                          <span>Simulate in Manual Tab</span>
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Push Ratio</span>
+                          <span className="font-semibold font-code-sm">{(liveRawMetrics.push_ratio * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">PR / Review</span>
+                          <span className="font-semibold font-code-sm">{(liveRawMetrics.pr_ratio * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Issue Activity</span>
+                          <span className="font-semibold font-code-sm">{(liveRawMetrics.issue_ratio * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Create Ratio</span>
+                          <span className="font-semibold font-code-sm">{(liveRawMetrics.create_ratio * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Max Repo Share</span>
+                          <span className="font-semibold font-code-sm">{(liveRawMetrics.max_repo_share * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Hour Entropy</span>
+                          <span className="font-semibold font-code-sm">{liveRawMetrics.hour_entropy.toFixed(2)}</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Active Hours</span>
+                          <span className="font-semibold font-code-sm">{liveRawMetrics.active_hours}h</span>
+                        </div>
+                        <div className="bg-surface-bright p-2 rounded-lg border border-border-subtle/50">
+                          <span className="text-secondary block">Max / Hour</span>
+                          <span className="font-semibold font-code-sm">{liveRawMetrics.max_per_hour} evt/h</span>
                         </div>
                       </div>
                     </div>
