@@ -21,7 +21,7 @@ function StandaloneGitHubBrand() {
 
   return (
     <div
-      className="fixed top-3 left-3 sm:left-4 z-40 select-none"
+      className="fixed top-3 left-3 sm:left-4 z-40 w-12 sm:w-[58px] h-12 flex items-center justify-center select-none"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -30,15 +30,15 @@ function StandaloneGitHubBrand() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub Repository ryandaaa/gh-bot-data-detection"
-        className="w-10 sm:w-[58px] h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300 flex items-center justify-center text-slate-700 hover:text-navy-950 transition-all group"
-        title="View GitHub Repository"
+        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-navy-950 border border-navy-800 shadow-[0_2px_12px_rgba(10,25,47,0.22)] hover:shadow-[0_4px_18px_rgba(10,25,47,0.35)] hover:bg-navy-900 text-white flex items-center justify-center transition-all group"
+        title="View GitHub Repository: ryandaaa/gh-bot-data-detection"
       >
-        <Github className="w-5 h-5 text-slate-700 group-hover:text-navy-950 transition-colors" />
+        <Github className="w-5 h-5 text-white group-hover:scale-105 transition-transform" />
       </a>
 
       {/* Rich Metadata Info Card on Hover */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2.5 w-[290px] bg-white border border-slate-200/90 rounded-[6px] shadow-xl p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 font-sans pointer-events-auto">
+        <div className="absolute top-full left-0 sm:left-1 mt-2.5 w-[290px] bg-white border border-slate-200/90 rounded-[6px] shadow-xl p-3.5 z-50 animate-in fade-in zoom-in-95 duration-100 font-sans pointer-events-auto">
           <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-slate-100">
             <div className="min-w-0">
               <div className="font-semibold text-[12px] text-slate-900 truncate">
