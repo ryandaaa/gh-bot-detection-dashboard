@@ -1,130 +1,117 @@
 """
-Generate high-resolution OpenGraph image (1200x630) for GH Intelligence dashboard.
+Generate Ultra-Minimalist OpenGraph image (1200x630) for GH Intelligence.
+Strictly NO gradients. Pure flat matte #101010 canvas with crisp typography.
+Optimized for WhatsApp, Telegram, Twitter/X, Discord, and LinkedIn.
 """
 from PIL import Image, ImageDraw, ImageFont
-import math
 from pathlib import Path
 
 W, H = 1200, 630
-img = Image.new("RGBA", (W, H), (16, 16, 16, 255)) # #101010
+
+# Pure flat matte dark background (#101010) - NO gradients
+BG_COLOR = (16, 16, 16, 255)
+BORDER_COLOR = (38, 38, 38, 255)      # #262626
+SURFACE_COLOR = (22, 22, 22, 255)     # #161616
+SURFACE_BORDER = (42, 42, 42, 255)    # #2a2a2a
+
+TEXT_PRIMARY = (255, 255, 255, 255)   # Pure white
+TEXT_SECONDARY = (161, 161, 161, 255) # Light neutral
+TEXT_MUTED = (115, 115, 115, 255)     # Mid gray
+TEXT_FAINT = (82, 82, 82, 255)        # Dark gray
+
+img = Image.new("RGB", (W, H), BG_COLOR[:3])
 draw = ImageDraw.Draw(img)
 
-# 1. Subtle Radial Gradients & Accents in background
-# Draw subtle deep blue/indigo glow in the top-right
-glow_center_x, glow_center_y = 1000, 100
-for r in range(400, 0, -10):
-    alpha = int(22 * (1 - r / 400))
-    draw.ellipse([glow_center_x - r, glow_center_y - r, glow_center_x + r, glow_center_y + r], 
-                 fill=(37, 99, 235, alpha))
-
-# Draw subtle emerald/cyan glow in bottom-left
-glow2_x, glow2_y = 100, 550
-for r in range(350, 0, -10):
-    alpha = int(14 * (1 - r / 350))
-    draw.ellipse([glow2_x - r, glow2_y - r, glow2_x + r, glow2_y + r], 
-                 fill=(5, 150, 105, alpha))
-
-# 2. Modern Grid Lines (subtle technical blueprint)
-grid_color = (38, 38, 38, 70)
-for x in range(60, W, 60):
-    draw.line([(x, 0), (x, H)], fill=grid_color, width=1)
-for y in range(60, H, 60):
-    draw.line([(0, y), (W, y)], fill=grid_color, width=1)
-
-# Outer Card Hairline Border
-draw.rounded_rectangle([20, 20, W - 20, H - 20], radius=16, outline=(42, 42, 42, 255), width=1)
+# Outer hairline framing (16px inset)
+draw.rectangle([24, 24, W - 25, H - 25], outline=BORDER_COLOR[:3], width=1)
 
 # Fonts
 bold_font_path = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 reg_font_path = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 mono_font_path = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
+mono_reg_path = "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf"
 
-font_logo = ImageFont.truetype(bold_font_path, 22)
-font_badge = ImageFont.truetype(mono_font_path, 12)
-font_title = ImageFont.truetype(bold_font_path, 44)
-font_sub = ImageFont.truetype(reg_font_path, 18)
-font_metric_val = ImageFont.truetype(bold_font_path, 28)
-font_metric_lbl = ImageFont.truetype(reg_font_path, 13)
-font_footer = ImageFont.truetype(reg_font_path, 14)
-font_footer_bold = ImageFont.truetype(bold_font_path, 14)
+font_brand = ImageFont.truetype(bold_font_path, 22)
+font_brand_sub = ImageFont.truetype(reg_font_path, 14)
+font_title = ImageFont.truetype(bold_font_path, 48)
+font_sub = ImageFont.truetype(reg_font_path, 20)
+font_desc = ImageFont.truetype(mono_reg_path, 14)
 
-# 3. Header Section (Logo + Pill + Academic Breadcrumb)
-# Brand icon circle
-draw.rounded_rectangle([60, 52, 96, 88], radius=8, fill=(255, 255, 255, 255))
-draw.text((70, 58), "GH", fill=(16, 16, 16, 255), font=font_logo)
+font_card_val = ImageFont.truetype(bold_font_path, 28)
+font_card_lbl = ImageFont.truetype(reg_font_path, 13)
+font_card_sub = ImageFont.truetype(reg_font_path, 11)
 
-draw.text((110, 60), "GH Intelligence", fill=(245, 245, 245, 255), font=font_logo)
+font_footer = ImageFont.truetype(reg_font_path, 13)
+font_footer_bold = ImageFont.truetype(bold_font_path, 13)
+font_tag = ImageFont.truetype(mono_font_path, 11)
 
-# Version Pill
-draw.rounded_rectangle([285, 62, 375, 86], radius=4, fill=(22, 22, 22, 255), outline=(50, 50, 50, 255))
-draw.ellipse([295, 72, 301, 78], fill=(16, 185, 129, 255)) # Green pulse dot
-draw.text((308, 66), "LIVE v1.0", fill=(161, 161, 161, 255), font=font_badge)
+# 1. Top Bar: Brand Mark + Academic Attribution
+# Brand mark
+draw.text((64, 56), "GH Intelligence", fill=TEXT_PRIMARY[:3], font=font_brand)
+draw.text((230, 62), "/", fill=BORDER_COLOR[:3], font=font_brand)
+draw.text((246, 63), "PBL Big Data 2026", fill=TEXT_MUTED[:3], font=font_brand_sub)
 
-# Academic Attribution on top right
-acad_text = "PBL Big Data 2026 · Universitas Riau"
-draw.text((W - 380, 66), acad_text, fill=(140, 140, 140, 255), font=font_footer)
+# Right side tag
+draw.text((W - 360, 63), "Universitas Riau · Fakultas Teknik", fill=TEXT_MUTED[:3], font=font_footer)
 
-# 4. Hero Headline
-draw.text((60, 130), "Detecting & Clustering Stealth Bot Accounts", fill=(255, 255, 255, 255), font=font_title)
-draw.text((60, 185), "on GitHub Activity at Scale", fill=(255, 255, 255, 255), font=font_title)
+# Thin divider below top bar
+draw.line([(64, 102), (W - 64, 102)], fill=BORDER_COLOR[:3], width=1)
 
-# Subtitle
-sub_text_1 = "End-to-end unsupervised data mining pipeline over 9.88M GH Archive events."
-sub_text_2 = "Powered by MongoDB Atlas M10, Isolation Forest (tau=0.5514), and K-Means behavioral clustering."
-draw.text((60, 255), sub_text_1, fill=(161, 161, 161, 255), font=font_sub)
-draw.text((60, 282), sub_text_2, fill=(161, 161, 161, 255), font=font_sub)
+# 2. Main Headline (Ultra-minimalist typographic hierarchy)
+draw.text((64, 138), "GitHub Bot & Anomaly Detection", fill=TEXT_PRIMARY[:3], font=font_title)
+draw.text((64, 200), "Unsupervised Behavioral Mining on 9.88M Events", fill=TEXT_SECONDARY[:3], font=font_sub)
+draw.text((64, 236), "MongoDB Atlas M10  ·  Isolation Forest (tau = 0.5514)  ·  K-Means (k = 7)", fill=TEXT_MUTED[:3], font=font_desc)
 
-# 5. Visual Highlight Cards (4 Key Metrics Cards in a grid)
+# 3. Flat Minimalist Metric Cards (4 equal columns)
 cards = [
-    ("9.88M", "Total Events Ingested", "152 Jam Observasi Bersih", (255, 255, 255)),
-    ("44,200", "Modeled Contributor Profiles", "11 Dimensi Fitur Perilaku", (255, 255, 255)),
-    ("2,210", "Flagged Anomalies", "Kuantil Teratas 5% (Cutoff tau >= 0.5514)", (244, 63, 94)), # Rose
-    ("7 Clusters", "Behavioral Archetypes", "Segmentasi Partisi K-Means", (129, 140, 248)), # Indigo
+    ("9.88M", "Total Events Ingested", "152 jam observasi bersih"),
+    ("44,200", "Modeled Contributor Profiles", "11 dimensi fitur perilaku"),
+    ("Top 5.0%", "Flagged Anomalies", "Skor cutoff tau >= 0.5514"),
+    ("7 Clusters", "Behavioral Archetypes", "Segmentasi partisi K-Means"),
 ]
 
-card_w = 250
-card_h = 110
+card_w = 248
+card_h = 104
 gap = 26
-start_x = 60
-start_y = 350
+start_x = 64
+start_y = 310
 
-for idx, (val, title, subtitle, color) in enumerate(cards):
+for idx, (val, title, subtitle) in enumerate(cards):
     cx = start_x + idx * (card_w + gap)
     cy = start_y
-    # Card background & hairline border
-    draw.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=8, fill=(22, 22, 22, 255), outline=(45, 45, 45, 255), width=1)
+    # Solid flat card with hairline border
+    draw.rectangle([cx, cy, cx + card_w, cy + card_h], fill=SURFACE_COLOR[:3], outline=SURFACE_BORDER[:3], width=1)
     
-    # Value
-    draw.text((cx + 18, cy + 16), val, fill=color, font=font_metric_val)
+    # Primary metric value
+    draw.text((cx + 16, cy + 16), val, fill=TEXT_PRIMARY[:3], font=font_card_val)
     # Title
-    draw.text((cx + 18, cy + 54), title, fill=(220, 220, 220, 255), font=font_metric_lbl)
+    draw.text((cx + 16, cy + 54), title, fill=TEXT_SECONDARY[:3], font=font_card_lbl)
     # Subtitle
-    draw.text((cx + 18, cy + 76), subtitle, fill=(115, 115, 115, 255), font=ImageFont.truetype(reg_font_path, 11))
+    draw.text((cx + 16, cy + 74), subtitle, fill=TEXT_MUTED[:3], font=font_card_sub)
 
-# 6. Bottom Meta Bar (Dividing hairline + Supervisor & Student tags)
-draw.line([(60, 500), (W - 60, 500)], fill=(38, 38, 38, 255), width=1)
+# 4. Lower Divider Line
+draw.line([(64, 465), (W - 64, 465)], fill=BORDER_COLOR[:3], width=1)
 
-# Supervisor
-draw.text((60, 535), "Pembimbing: ", fill=(115, 115, 115, 255), font=font_footer)
-draw.text((155, 535), "Assoc. Prof. Dr. Rahmad Kurniawan, ST., MIT.", fill=(220, 220, 220, 255), font=font_footer_bold)
+# 5. Footer Section: People & Technology
+# Supervisor & Researcher
+draw.text((64, 500), "Pembimbing:", fill=TEXT_MUTED[:3], font=font_footer)
+draw.text((150, 500), "Assoc. Prof. Dr. Rahmad Kurniawan, ST., MIT.", fill=TEXT_PRIMARY[:3], font=font_footer_bold)
 
-# Student
-draw.text((560, 535), "Peneliti: ", fill=(115, 115, 115, 255), font=font_footer)
-draw.text((625, 535), "Ryanda Valents Anakri (@ryandaaa)", fill=(220, 220, 220, 255), font=font_footer_bold)
+draw.text((64, 524), "Peneliti:      ", fill=TEXT_MUTED[:3], font=font_footer)
+draw.text((150, 524), "Ryanda Valents Anakri (@ryandaaa)", fill=TEXT_SECONDARY[:3], font=font_footer_bold)
 
-# Tech Stack Pills on bottom right
-tech_badges = ["React 18", "FastAPI", "MongoDB Atlas", "Vercel"]
-badge_x = W - 60
-for badge in reversed(tech_badges):
-    bbox = font_badge.getbbox(badge)
-    bw = (bbox[2] - bbox[0]) + 16
-    badge_x -= (bw + 8)
-    draw.rounded_rectangle([badge_x, 532, badge_x + bw, 556], radius=4, fill=(26, 26, 26, 255), outline=(45, 45, 45, 255))
-    draw.text((badge_x + 8, 537), badge, fill=(161, 161, 161, 255), font=font_badge)
+# Flat Tech Stack Pills on bottom right
+tech_badges = ["Vercel", "FastAPI", "React 18", "MongoDB Atlas"]
+bx = W - 64
+for badge in tech_badges:
+    bbox = font_tag.getbbox(badge)
+    bw = (bbox[2] - bbox[0]) + 18
+    bx -= (bw + 10)
+    draw.rectangle([bx, 506, bx + bw, 532], fill=SURFACE_COLOR[:3], outline=SURFACE_BORDER[:3], width=1)
+    draw.text((bx + 9, 513), badge, fill=TEXT_SECONDARY[:3], font=font_tag)
 
-# Save to public/og-image.png
-out_dir = Path("/home/ryanda/project/gh-bot-detection-dashboard/public")
-out_dir.mkdir(parents=True, exist_ok=True)
-out_path = out_dir / "og-image.png"
+# Save to public/og-image.png (Optimized RGB PNG, under 80 KB)
+out_path = Path("/home/ryanda/project/gh-bot-detection-dashboard/public/og-image.png")
 img.save(out_path, format="PNG", optimize=True)
-print(f"Successfully generated OpenGraph image: {out_path} ({out_path.stat().st_size} bytes)")
+size_kb = out_path.stat().st_size / 1024
+print(f"Generated ultra-minimalist OG image: {out_path} ({size_kb:.1f} KB)")
