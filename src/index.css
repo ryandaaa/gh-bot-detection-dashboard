@@ -9,6 +9,7 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #f8fafc;
     color: #0f172a;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
   
   /* Hairline borders & crisp rendering */
@@ -138,7 +139,7 @@ input[type="range"].metric-slider::-moz-range-thumb:hover {
   animation: pageFadeSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Thin Active Navy Hover Border on all visible cards, panels, and boxes - Soft & Muted */
+/* Thin Active Navy Hover Border on all visible cards, panels, and boxes - Light Mode */
 [class*="rounded"][class*="border"],
 .bg-white.border,
 .bg-white\/95.border,
@@ -146,7 +147,7 @@ input[type="range"].metric-slider::-moz-range-thumb:hover {
 section.border,
 header.border,
 aside [class*="border"] {
-  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.15s ease;
 }
 
 [class*="rounded"][class*="border"]:hover,
@@ -159,4 +160,205 @@ aside [class*="border"]:hover {
   border-color: rgba(10, 25, 47, 0.42) !important;
 }
 
+/* ==========================================================================
+   AUTHENTIC CLOUDFLARE KUMO DARK THEME SYSTEM
+   Extracted directly from @cloudflare/kumo design tokens:
+   - Canvas: oklch(10% 0 0) -> #101010
+   - Card Background: IDENTICAL TO CANVAS -> #101010
+   - Lines & Borders: oklch(32% 0 0) -> #262626
+   - Hover Border: #383838 (with subtle Cloudflare Orange highlight)
+   - Primary Text: oklch(97% 0 0) -> #f5f5f5
+   - Subtle Text: oklch(70.8% 0 0) -> #a1a1a1
+   - Brand Accent: #f6821f (Cloudflare Orange)
+   ========================================================================== */
 
+html.dark,
+[data-mode="dark"] {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #101010 !important;
+  color: #f5f5f5 !important;
+}
+
+/* 1. Page Background & Canvas */
+.dark,
+.dark body,
+.dark main,
+.dark .bg-slate-50,
+.dark .min-h-screen {
+  background-color: #101010 !important;
+  color: #f5f5f5 !important;
+}
+
+/* 2. CARD BACKGROUND IS IDENTICAL TO PAGE BACKGROUND (#101010) */
+.dark .bg-white,
+.dark .bg-white\/95,
+.dark .bg-white\/90,
+.dark .bg-white\/80,
+.dark aside,
+.dark header,
+.dark section,
+.dark section[class*="bg-"],
+.dark div[class*="rounded"][class*="border"],
+.dark section[class*="rounded"][class*="border"] {
+  background-color: #101010 !important;
+}
+
+/* 3. Hairline Cloudflare Neutral Borders (#262626) */
+.dark * {
+  border-color: #262626;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-200\/90,
+.dark .border-slate-200\/80,
+.dark .border-slate-200\/70,
+.dark .border-slate-200\/60,
+.dark .border-slate-100,
+.dark .border-slate-300,
+.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #262626 !important;
+}
+
+/* 4. Card Hover Border in Dark Mode - Crisp outline transition */
+.dark [class*="rounded"][class*="border"]:hover,
+.dark .bg-white.border:hover,
+.dark .bg-white\/95.border:hover,
+.dark section.border:hover,
+.dark header.border:hover,
+.dark aside [class*="border"]:hover {
+  border-color: #3f3f46 !important;
+}
+
+/* 5. Typography Hierarchy (Cloudflare Kumo neutral scale) */
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #f5f5f5 !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #a1a1a1 !important;
+}
+
+.dark .text-slate-400,
+.dark .text-slate-300 {
+  color: #737373 !important;
+}
+
+/* 6. Subtle Interactive Surfaces (Pills, Chips, Dropdowns, Table headers) */
+.dark .bg-slate-100,
+.dark .bg-slate-200,
+.dark .bg-slate-200\/70,
+.dark .bg-slate-50\/70,
+.dark .bg-slate-50\/80,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/40 {
+  background-color: #161616 !important;
+}
+
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover {
+  background-color: #1c1c1c !important;
+}
+
+/* 7. Tables */
+.dark table thead tr {
+  background-color: #141414 !important;
+  border-color: #262626 !important;
+}
+
+.dark table tbody tr {
+  border-color: #1a1a1a !important;
+}
+
+.dark table tbody tr:hover {
+  background-color: #161616 !important;
+}
+
+/* 8. Inputs & Forms */
+.dark input[type="text"],
+.dark input[type="search"] {
+  background-color: #101010 !important;
+  border-color: #262626 !important;
+  color: #f5f5f5 !important;
+}
+
+.dark input[type="text"]::placeholder,
+.dark input[type="search"]::placeholder {
+  color: #666666 !important;
+}
+
+/* 9. Inspector Drawer & Overlays */
+.dark aside[aria-label="Account Inspector"] {
+  background-color: #101010 !important;
+  border-color: #262626 !important;
+}
+
+.dark aside[aria-label="Account Inspector"] .bg-slate-50,
+.dark aside[aria-label="Account Inspector"] .bg-white {
+  background-color: #101010 !important;
+  border-color: #262626 !important;
+}
+
+/* 10. Range Sliders in Dark Mode */
+.dark input[type="range"].metric-slider {
+  background: #262626;
+}
+
+.dark input[type="range"].metric-slider:hover {
+  background: #333333;
+}
+
+.dark input[type="range"].metric-slider::-webkit-slider-thumb {
+  background: #f6821f; /* Cloudflare orange */
+  border-color: #ea580c;
+}
+
+.dark input[type="range"].metric-slider::-moz-range-thumb {
+  background: #f6821f;
+  border-color: #ea580c;
+}
+
+/* 11. Buttons & Accents */
+.dark .bg-navy-950 {
+  background-color: #f6821f !important; /* Cloudflare orange */
+  color: #ffffff !important;
+  border-color: #ea580c !important;
+}
+
+.dark .bg-navy-950:hover {
+  background-color: #ea580c !important;
+}
+
+.dark .text-navy-950,
+.dark .text-navy-900 {
+  color: #f5f5f5 !important;
+}
+
+/* 12. Alert Cards in Dark Mode */
+.dark .bg-rose-50\/50,
+.dark .bg-rose-50\/40,
+.dark .bg-rose-50 {
+  background-color: rgba(69, 10, 10, 0.25) !important;
+  border-color: rgba(153, 27, 27, 0.5) !important;
+}
+
+.dark .bg-emerald-50\/50,
+.dark .bg-emerald-50\/40,
+.dark .bg-emerald-50 {
+  background-color: rgba(6, 78, 59, 0.25) !important;
+  border-color: rgba(6, 95, 70, 0.5) !important;
+}
+
+/* 13. Scrollbar in Dark Mode */
+.dark ::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #f6821f;
+}

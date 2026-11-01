@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ArrowRight, Github, ExternalLink } from 'lucide-react';
+import { ArrowRight, Github, ExternalLink, Sun, Moon } from 'lucide-react';
 
 /**
  * Standalone Floating GitHub Brand Card (Top-Left)
@@ -87,7 +87,7 @@ function StandaloneGitHubBrand() {
   );
 }
 
-export default function Header({ onOpenAnalyzeModal }) {
+export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleTheme }) {
   const location = useLocation();
 
   const getPageTitle = (pathname) => {
@@ -117,20 +117,37 @@ export default function Header({ onOpenAnalyzeModal }) {
       {/* Floating Navbar Container - Matches Page Content max-w-[1400px] and px-4 sm:px-6 lg:px-8 */}
       <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none pl-[68px] sm:pl-[86px] pr-3 sm:pr-4">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <header className="w-full h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
+          <header className="w-full h-12 bg-white/95 dark:bg-[#101010] backdrop-blur-md border border-slate-200/90 dark:border-[#262626] rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
             {/* Left side: Clean Breadcrumb */}
             <div className="flex items-center gap-2 text-[13px] font-sans">
-              <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
-              <span className="text-slate-300 font-light">/</span>
-              <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
+              <span className="text-slate-900 dark:text-[#f5f5f5] font-bold tracking-tight">GH Intelligence</span>
+              <span className="text-slate-300 dark:text-[#333333] font-light">/</span>
+              <span className="text-slate-600 dark:text-[#a1a1a1] font-medium tracking-tight">{pageTitle}</span>
             </div>
 
-            {/* Right side: Dataset Meta Info + Action Button */}
-            <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Right side: Dataset Meta Info + Theme Toggle + Action Button */}
+            <div className="flex items-center gap-2 sm:gap-2.5">
               {/* Subtle Dataset info (pure typography, no colored dots) */}
-              <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-sans font-medium">
+              <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 dark:bg-[#141414] border border-slate-200/80 dark:border-[#262626] text-[11px] text-slate-500 dark:text-[#a1a1a1] font-sans font-medium">
                 GH Archive · 152h · 9.88M Events
               </div>
+
+              {/* Cloudflare Dark Mode Toggle */}
+              {onToggleTheme && (
+                <button
+                  type="button"
+                  onClick={onToggleTheme}
+                  className="w-8 h-8 rounded-[4px] border border-slate-200/90 dark:border-[#262626] bg-white dark:bg-[#101010] text-slate-600 dark:text-[#a1a1a1] hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-[#383838] flex items-center justify-center transition-colors shadow-2xs"
+                  title={theme === 'dark' ? 'Beralih ke mode terang' : 'Beralih ke Cloudflare dark mode'}
+                  aria-label="Toggle Color Theme"
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-4 h-4 text-amber-400" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-slate-600" />
+                  )}
+                </button>
+              )}
 
               {/* Action Button */}
               <button

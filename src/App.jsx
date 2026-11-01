@@ -121,20 +121,49 @@ function ScrollToTopButton() {
 
 export default function App() {
   const location = useLocation();
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('gh-bot-theme') || 'dark';
+  });
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [initialLiveTarget, setInitialLiveTarget] = useState(null);
 
-  const openInspector = (account = null) => {
-    setSelectedAccount(account);
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-mode', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-mode', 'light');
+    }
+    localStorage.setItem('gh-bot-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const openInspector = (accountOrTarget = null) => {
+    if (typeof accountOrTarget === 'string') {
+      setSelectedAccount(null);
+      setInitialLiveTarget(accountOrTarget);
+    } else if (accountOrTarget && accountOrTarget.liveTarget) {
+      setSelectedAccount(null);
+      setInitialLiveTarget(accountOrTarget.liveTarget);
+    } else {
+      setSelectedAccount(accountOrTarget);
+      setInitialLiveTarget(null);
+    }
     setIsInspectorOpen(true);
   };
 
   const closeInspector = () => {
     setIsInspectorOpen(false);
+    setInitialLiveTarget(null);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#101010] text-slate-900 dark:text-[#f5f5f5] flex flex-col font-sans transition-colors duration-150">
       {/* Real-Time Reading Scroll Progress Bar */}
       <ReadingProgressBar />
 
@@ -150,15 +179,19 @@ export default function App() {
       {/* Main Content Layout Wrapper */}
       <div className="flex-1 flex flex-col min-w-0 transition-all duration-200">
         {/* Floating Top Navbar Card (Matches Content Max-Width) */}
-        <Header onOpenAnalyzeModal={() => openInspector(null)} />
+        <Header
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onOpenAnalyzeModal={() => openInspector(null)}
+        />
 
         {/* Dynamic Route Content with Page Transition Animation */}
-        <main className="pt-20 pl-[68px] sm:pl-[86px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 min-h-screen">
+        <main className="pt-20 pl-[68px] sm:pl-[86px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 dark:bg-[#101010] min-h-screen transition-colors duration-150">
           <div key={location.pathname} className="page-transition">
             <Routes>
               <Route
                 path="/"
-                element={<Overview onOpenAnalyzeModal={() => openInspector(null)} />}
+                element={<Overview onOpenAnalyzeModal={(target) => openInspector(target)} />}
               />
               <Route
                 path="/accounts"
@@ -188,6 +221,7 @@ export default function App() {
         isOpen={isInspectorOpen}
         onClose={closeInspector}
         selectedAccount={selectedAccount}
+        initialLiveTarget={initialLiveTarget}
       />
     </div>
   );

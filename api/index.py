@@ -3,6 +3,7 @@ FastAPI Backend for GitHub Bot Detection Dashboard
 Deployment-ready for Vercel Serverless Functions and local execution.
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -229,6 +230,8 @@ class UserInfo(BaseModel):
     followers: int = 0
     created_at: Optional[str] = None
     html_url: str
+    is_official_bot: Optional[bool] = False
+    user_type: Optional[str] = "User"
 
 
 class RawMetrics(BaseModel):
@@ -572,33 +575,38 @@ async def analyze_github(
             )
 
         user_data = user_resp.json()
+        user_type = user_data.get("type", "User")
+        is_official_bot = bool(
+            user_type == "Bot" or
+            clean_username.lower().endswith("[bot]") or
+            clean_username.lower().endswith("-bot") or
+            "[bot]" in (user_data.get("name") or "").lower()
+        )
 
-        # 2. Fetch up to 100 recent public events
+        # 2. Fetch up to 300 recent public events across 3 pages (GitHub hard limit is 300)
+        events = []
         try:
-            events_resp = await client.get(
-                f"https://api.github.com/users/{clean_username}/events?per_page=100"
-            )
-        except httpx.RequestError as exc:
-            raise HTTPException(
-                status_code=502,
-                detail=f"Gagal mengambil event dari GitHub API: {str(exc)}"
-            )
-
-        if events_resp.status_code == 404:
-            events = []
-        elif events_resp.status_code == 403:
-            msg = events_resp.json().get("message", "GitHub API rate limit exceeded.")
-            raise HTTPException(
-                status_code=429 if "rate limit" in msg.lower() else 403,
-                detail=f"GitHub API limit: {msg}"
-            )
-        elif events_resp.status_code != 200:
-            raise HTTPException(
-                status_code=events_resp.status_code,
-                detail=f"GitHub API error ({events_resp.status_code}): {events_resp.text}"
-            )
-        else:
-            events = events_resp.json()
+            page_tasks = [
+                client.get(f"https://api.github.com/users/{clean_username}/events?per_page=100&page={p}")
+                for p in [1, 2, 3]
+            ]
+            page_resps = await asyncio.gather(*page_tasks, return_exceptions=True)
+            for r in page_resps:
+                if isinstance(r, httpx.Response) and r.status_code == 200:
+                    page_items = r.json()
+                    if isinstance(page_items, list):
+                        events.extend(page_items)
+                elif isinstance(r, httpx.Response) and r.status_code == 403:
+                    msg = r.json().get("message", "GitHub API rate limit exceeded.")
+                    if "rate limit" in msg.lower():
+                        raise HTTPException(
+                            status_code=429,
+                            detail=f"GitHub API limit: {msg}"
+                        )
+        except HTTPException:
+            raise
+        except Exception as exc:
+            logger.warning(f"Error fetching pages for {clean_username}: {exc}")
 
     # 3. Check for 0 events
     if not events or len(events) == 0:
@@ -701,6 +709,8 @@ async def analyze_github(
             followers=int(user_data.get("followers") or 0),
             created_at=user_data.get("created_at"),
             html_url=user_data.get("html_url") or f"https://github.com/{clean_username}",
+            is_official_bot=is_official_bot,
+            user_type=user_type,
         ),
         raw_metrics=RawMetrics(
             n_events=n_events,

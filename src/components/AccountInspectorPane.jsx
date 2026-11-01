@@ -269,7 +269,7 @@ const SAMPLE_ACCOUNTS = [
   { id: 'nonkh', label: 'nonkh', role: 'Spoofer', type: 'bot' }
 ];
 
-export default function AccountInspectorPane({ isOpen, onClose, selectedAccount }) {
+export default function AccountInspectorPane({ isOpen, onClose, selectedAccount, initialLiveTarget }) {
   const navigate = useNavigate();
   // 'modeled' (when selectedAccount provided), 'simulation', or 'live'
   const [activeTab, setActiveTab] = useState(selectedAccount ? 'modeled' : 'live');
@@ -345,11 +345,16 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
       setModeledAccountState(modeledData);
       setResult(modeledData);
+    } else if (isOpen && initialLiveTarget && !selectedAccount) {
+      setActiveTab('live');
+      setModeledAccountState(null);
+      setLiveUsername(initialLiveTarget);
+      handleLiveLookup(null, initialLiveTarget);
     } else if (!selectedAccount && isOpen) {
       setActiveTab('live');
       setModeledAccountState(null);
     }
-  }, [selectedAccount, isOpen]);
+  }, [selectedAccount, isOpen, initialLiveTarget]);
 
   if (!isOpen) return null;
 
@@ -1020,12 +1025,19 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
                       </div>
-                      <span className="font-sans text-[12px] text-slate-500 block truncate">
-                        @{liveUserData.username}
-                      </span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="font-sans text-[12px] text-slate-500 block truncate">
+                          @{liveUserData.username}
+                        </span>
+                        {liveUserData.is_official_bot && (
+                          <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-[4px] bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 shrink-0">
+                            Verified GitHub Bot
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center gap-3 text-[11px] text-slate-500 mt-1">
                         <span>Repos: <strong className="text-slate-900 font-medium">{liveUserData.public_repos}</strong></span>
-                        <span>Events Sampled: <strong className="text-slate-900 font-medium">{liveRawMetrics?.n_events || 0}</strong></span>
+                        <span>Events Sampled: <strong className="text-slate-900 font-medium">{liveRawMetrics?.n_events || 0}</strong> <span className="text-[10px] text-slate-400">/ 300 max</span></span>
                       </div>
                     </div>
                   </div>
