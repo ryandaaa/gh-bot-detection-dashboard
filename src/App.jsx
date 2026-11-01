@@ -52,8 +52,19 @@ function TopProgressBar() {
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(() => {
+    return localStorage.getItem('sidebar_minimized') === 'true';
+  });
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+
+  const toggleSidebarMinimized = () => {
+    setIsSidebarMinimized((prev) => {
+      const next = !prev;
+      localStorage.setItem('sidebar_minimized', String(next));
+      return next;
+    });
+  };
 
   const openInspector = (account = null) => {
     setSelectedAccount(account);
@@ -69,18 +80,25 @@ export default function App() {
       {/* Top Route Progress Bar */}
       <TopProgressBar />
 
-      {/* Sidebar (Desktop fixed 240px + Mobile drawer) */}
+      {/* Floating Modern Sidebar (Desktop floating card + Mobile drawer) */}
       <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        isMinimized={isSidebarMinimized}
+        onToggleMinimize={toggleSidebarMinimized}
       />
 
       {/* Main Content Layout Wrapper */}
-      <div className="pl-0 lg:pl-[240px] flex-1 flex flex-col min-w-0 transition-all duration-200">
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out pl-0 ${
+          isSidebarMinimized ? 'lg:pl-[88px]' : 'lg:pl-[244px]'
+        }`}
+      >
         {/* Header (Fixed 56px height) */}
         <Header
           onOpenSidebar={() => setIsSidebarOpen(true)}
           onOpenAnalyzeModal={() => openInspector(null)}
+          isSidebarMinimized={isSidebarMinimized}
         />
 
         {/* Dynamic Route Content - Edge-to-Edge Full Bleed */}

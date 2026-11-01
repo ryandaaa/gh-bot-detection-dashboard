@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu, ArrowRight } from 'lucide-react';
 
-export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
+export default function Header({ onOpenSidebar, onOpenAnalyzeModal, isSidebarMinimized = false }) {
   const location = useLocation();
 
   const getPageTitle = (pathname) => {
@@ -25,7 +25,11 @@ export default function Header({ onOpenSidebar, onOpenAnalyzeModal }) {
   const pageTitle = getPageTitle(location.pathname);
 
   return (
-    <header className="fixed top-0 left-0 lg:left-[240px] right-0 h-14 bg-white border-b border-slate-200 z-20 px-5 sm:px-6 flex items-center justify-between transition-all duration-200 select-none">
+    <header
+      className={`fixed top-0 left-0 right-0 h-14 bg-white/95 backdrop-blur-xs border-b border-slate-200 z-20 px-5 sm:px-6 flex items-center justify-between transition-all duration-300 ease-in-out select-none ${
+        isSidebarMinimized ? 'lg:left-[88px]' : 'lg:left-[244px]'
+      }`}
+    >
       {/* Left side: Mobile menu toggle + Clean Minimalist Breadcrumb */}
       <div className="flex items-center gap-3">
         <button
