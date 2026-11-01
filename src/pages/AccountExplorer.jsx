@@ -286,22 +286,20 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 font-sans">
-      {/* Editorial Header Card - Modular, No duplicate button */}
-      <section className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Editorial Page Header - Calm, Clean, Focused */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-slate-200/80 pb-4">
         <div>
-          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
+          <h1 className="text-[20px] font-bold text-slate-900 tracking-tight">
             Account Explorer
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Filter, inspect, and evaluate modeled accounts based on 11 behavioral features and anomaly scores across observation blocks.
+            Filter, inspect, and evaluate modeled accounts based on 11 behavioral features and anomaly scores.
           </p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="font-mono text-[11px] font-semibold text-navy-800 bg-navy-50 border border-navy-200/70 px-2.5 py-1 rounded-[4px] uppercase tracking-wider">
-            {filteredAccounts.length} ACCOUNTS MATCHED
-          </span>
+        <div className="text-[11px] font-medium text-slate-500">
+          {filteredAccounts.length.toLocaleString()} accounts matched
         </div>
-      </section>
+      </div>
 
       {/* Query & Filter Toolbar - Modular Card */}
       <section className="bg-white border border-slate-200/90 rounded-[4px] p-4 shadow-2xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
@@ -318,7 +316,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               setCurrentPage(1);
             }}
             placeholder="Search pseudonymized ID (e.g. a91f, c7d2)..."
-            className="w-full bg-slate-50/50 text-navy-950 font-mono text-[12px] pl-8 pr-3 py-1.5 rounded-[4px] border border-slate-300 outline-none focus:border-navy-800 focus:bg-white transition-colors"
+            className="w-full bg-slate-50/50 text-slate-900 font-sans text-[13px] pl-8 pr-3 py-1.5 rounded-[4px] border border-slate-300 outline-none focus:border-navy-900 focus:bg-white transition-colors"
           />
         </div>
 
@@ -331,11 +329,11 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               setSelectedBlock(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+            className="bg-white text-slate-700 font-sans text-[12px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-900 cursor-pointer"
           >
-            <option value="all">BLOCK: ALL</option>
-            <option value="block-a">BLOCK: BLOCK A</option>
-            <option value="block-b">BLOCK: BLOCK B</option>
+            <option value="all">All Blocks</option>
+            <option value="block-a">Block A (78h)</option>
+            <option value="block-b">Block B (74h)</option>
           </select>
 
           {/* Cluster Selector */}
@@ -345,16 +343,16 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               setSelectedCluster(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+            className="bg-white text-slate-700 font-sans text-[12px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-900 cursor-pointer"
           >
-            <option value="all">CLUSTER: ALL</option>
-            <option value="C0">C0: BURST PUSHERS</option>
-            <option value="C1">C1: HEAVY PUSHERS</option>
-            <option value="C2">C2: MULTI-REPO PUSH</option>
-            <option value="C3">C3: AUTOMATED CI</option>
-            <option value="C4">C4: TOOLING BOTS</option>
-            <option value="C5">C5: PUSH & CREATE</option>
-            <option value="C6">C6: 24/7 CONTINUOUS</option>
+            <option value="all">All Clusters</option>
+            <option value="C0">C0 · Burst Pushers</option>
+            <option value="C1">C1 · Heavy Pushers</option>
+            <option value="C2">C2 · Multi-Repo Push</option>
+            <option value="C3">C3 · Automated CI</option>
+            <option value="C4">C4 · Tooling Bots</option>
+            <option value="C5">C5 · Push & Create</option>
+            <option value="C6">C6 · 24/7 High Vol</option>
           </select>
 
           {/* Status Selector */}
@@ -364,11 +362,11 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               setSelectedStatus(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-white text-slate-700 font-mono text-[11px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-800 cursor-pointer"
+            className="bg-white text-slate-700 font-sans text-[12px] py-1.5 px-3 rounded-[4px] border border-slate-300 outline-none focus:border-navy-900 cursor-pointer"
           >
-            <option value="all">STATUS: ALL</option>
-            <option value="anomaly">ANOMALY CANDIDATE (≥ 0.5514)</option>
-            <option value="normal">NORMAL BEHAVIOR</option>
+            <option value="all">All Statuses</option>
+            <option value="anomaly">Anomaly Only (τ ≥ 0.5514)</option>
+            <option value="normal">Normal Only (τ &lt; 0.5514)</option>
           </select>
         </div>
       </section>
@@ -378,26 +376,26 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider select-none">
-                <th className="py-2.5 px-6 font-semibold" scope="col">
+              <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-sans text-[11px] font-semibold select-none">
+                <th className="py-2.5 px-6" scope="col">
                   Account ID
                 </th>
-                <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                <th className="py-2.5 px-4 text-right" scope="col">
                   Events
                 </th>
-                <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                <th className="py-2.5 px-4 text-right" scope="col">
                   Repos
                 </th>
-                <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                <th className="py-2.5 px-4 text-right" scope="col">
                   Active Window
                 </th>
-                <th className="py-2.5 px-4 font-semibold text-right" scope="col">
+                <th className="py-2.5 px-4 text-right" scope="col">
                   Anomaly Score
                 </th>
-                <th className="py-2.5 px-4 font-semibold text-center" scope="col">
+                <th className="py-2.5 px-4 text-center" scope="col">
                   Cluster
                 </th>
-                <th className="py-2.5 px-6 font-semibold text-right w-20" scope="col">
+                <th className="py-2.5 px-6 text-right w-20" scope="col">
                   Action
                 </th>
               </tr>

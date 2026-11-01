@@ -70,22 +70,20 @@ export default function Methodology() {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 font-sans">
-      {/* Header Card - Modular, No duplicate button */}
-      <section className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Editorial Page Header - Calm, Clean, Clear Focus */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-slate-200/80 pb-4">
         <div>
-          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
+          <h1 className="text-[20px] font-bold text-slate-900 tracking-tight">
             Methodology & Architecture
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Research design, data pipeline, behavioral feature definitions, and analytical approach for anomaly detection across GitHub public activity streams.
+            Research design, big data pipeline, 11-dimensional feature engineering, and unsupervised analytical architecture.
           </p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="font-mono text-[11px] font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-[4px] uppercase tracking-wider">
-            PIPELINE V1.4.2 · VERIFIED
-          </span>
+        <div className="text-[11px] font-medium text-slate-500">
+          PBL Big Data 2026 · Universitas Riau
         </div>
-      </section>
+      </div>
 
       {/* Main Two-Column Layout */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -165,7 +163,7 @@ export default function Methodology() {
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
                   Section 01
                 </span>
-                <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5">
+                <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5">
                   Research Pipeline
                 </h2>
               </div>
@@ -212,7 +210,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 02
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               Dataset Sampling & Observation Windows
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed">
@@ -225,7 +223,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 03
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               Data Engineering & Index Optimization
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
@@ -245,7 +243,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 04
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               11 Behavioral Features
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
@@ -272,7 +270,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 05
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               Machine Learning & Anomaly Detection
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
@@ -288,7 +286,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 06
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               Evaluation Methodology & Benchmarks
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed">
@@ -301,7 +299,7 @@ export default function Methodology() {
             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold font-mono">
               Section 07
             </span>
-            <h2 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight mt-0.5 mb-3">
+            <h2 className="text-[16px] font-semibold text-slate-900 tracking-tight mt-0.5 mb-3">
               Privacy Preservation & Ethical Boundaries
             </h2>
             <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-[4px] text-[12px] text-slate-600 leading-relaxed">

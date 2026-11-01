@@ -161,22 +161,20 @@ export default function Evaluation() {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 font-sans">
-      {/* Editorial Header Card */}
-      <section className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Editorial Page Header - Calm, Clean, Clear Focus */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-slate-200/80 pb-4">
         <div>
-          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
+          <h1 className="text-[20px] font-bold text-slate-900 tracking-tight">
             Model Evaluation & Benchmarks
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Empirical discrimination benchmarks, temporal stability across disjoint observation blocks, and MongoDB query execution latency.
+            Empirical discrimination benchmarks, temporal stability across disjoint observation blocks, and MongoDB query latency.
           </p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="font-mono text-[11px] font-semibold text-navy-800 bg-navy-50 border border-navy-200/70 px-2.5 py-1 rounded-[4px] uppercase tracking-wider">
-            BENCHMARK VERIFIED · BLOCK A / B
-          </span>
+        <div className="text-[11px] font-medium text-slate-500">
+          Benchmark Verified · Block A & B
         </div>
-      </section>
+      </div>
 
       {/* Section 1: Model Discrimination & Interactive ROC/PR Visualizer */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -186,31 +184,31 @@ export default function Evaluation() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white border border-slate-200/90 rounded-[4px] p-5 shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold font-mono">
-                  ROC-AUC
+                <span className="text-[12px] text-slate-500 font-medium">
+                  ROC-AUC Score
                 </span>
-                <span className="text-[10px] text-blue-800 bg-blue-50 px-1.5 py-0.5 border border-blue-200 rounded-[4px] font-semibold font-mono">
-                  +36.0% LIFT
+                <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 rounded-[4px] font-medium">
+                  +36.0% Lift
                 </span>
               </div>
-              <div className="text-3xl font-bold text-navy-950 mt-2 tracking-tight font-mono">
+              <div className="text-3xl font-bold text-slate-900 mt-2 tracking-tight">
                 0.809
               </div>
               <p className="text-[12px] text-slate-500 mt-1">
-                Isolation Forest vs. <strong className="text-slate-800 font-mono">0.595</strong> Volume Baseline
+                Isolation Forest vs. <strong className="text-slate-800 font-medium">0.595</strong> Volume Baseline
               </p>
             </div>
 
             <div className="bg-white border border-slate-200/90 rounded-[4px] p-5 shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold font-mono">
-                  PR-AUC
+                <span className="text-[12px] text-slate-500 font-medium">
+                  PR-AUC Score
                 </span>
-                <span className="text-[10px] text-emerald-800 bg-emerald-50 px-1.5 py-0.5 border border-emerald-200 rounded-[4px] font-semibold font-mono">
-                  +153% LIFT
+                <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 rounded-[4px] font-medium">
+                  +153% Lift
                 </span>
               </div>
-              <div className="text-3xl font-bold text-navy-950 mt-2 tracking-tight font-mono">
+              <div className="text-3xl font-bold text-slate-900 mt-2 tracking-tight">
                 0.301
               </div>
               <p className="text-[12px] text-slate-500 mt-1">
@@ -223,11 +221,11 @@ export default function Evaluation() {
           <div className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
+                <h2 className="text-[14px] font-semibold text-slate-900">
                   Model Discrimination Matrix
                 </h2>
-                <span className="text-[10px] text-slate-500 uppercase font-mono">
-                  SUPERVISED VALIDATION
+                <span className="text-[11px] text-slate-500 font-medium">
+                  Supervised Benchmark
                 </span>
               </div>
               <p className="text-[12px] text-slate-500 mb-4">
@@ -237,22 +235,22 @@ export default function Evaluation() {
               <div className="overflow-x-auto border border-slate-200 rounded-[4px]">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-200 font-mono">
-                      <th className="py-2.5 px-3.5 font-semibold">Method</th>
-                      <th className="py-2.5 px-3.5 font-semibold text-right">ROC-AUC ↑</th>
-                      <th className="py-2.5 px-3.5 font-semibold text-right">PR-AUC ↑</th>
-                      <th className="py-2.5 px-3.5 font-semibold text-right">Cohen's κ</th>
+                    <tr className="bg-slate-50 text-slate-500 text-[11px] font-semibold border-b border-slate-200">
+                      <th className="py-2.5 px-3.5">Method</th>
+                      <th className="py-2.5 px-3.5 text-right">ROC-AUC ↑</th>
+                      <th className="py-2.5 px-3.5 text-right">PR-AUC ↑</th>
+                      <th className="py-2.5 px-3.5 text-right">Cohen's κ</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-[13px]">
                     <tr className="bg-slate-50/50">
-                      <td className="py-3 px-3.5 font-semibold text-navy-950">
+                      <td className="py-3 px-3.5 font-semibold text-slate-900">
                         Isolation Forest (11 Features)
                       </td>
-                      <td className="py-3 px-3.5 text-right font-bold text-navy-950 font-mono">
+                      <td className="py-3 px-3.5 text-right font-bold text-slate-900 font-mono">
                         0.809
                       </td>
-                      <td className="py-3 px-3.5 text-right font-bold text-navy-950 font-mono">
+                      <td className="py-3 px-3.5 text-right font-bold text-slate-900 font-mono">
                         0.301
                       </td>
                       <td className="py-3 px-3.5 text-right font-semibold text-emerald-700 font-mono">
@@ -275,27 +273,27 @@ export default function Evaluation() {
             {/* Confusion Matrix Mini-Grid at Current Threshold */}
             <div className="mt-5 pt-4 border-t border-slate-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-navy-950 uppercase tracking-wide font-mono">
+                <span className="text-[12px] font-semibold text-slate-900">
                   Live Confusion Matrix @ τ = {currentMetrics.tau.toFixed(4)}
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono">N = 44,200 Accounts</span>
+                <span className="text-[11px] text-slate-500">N = 44,200 Accounts</span>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-                <div className="p-2 bg-emerald-50 border border-emerald-200 rounded-[4px] flex justify-between items-center">
-                  <span className="text-emerald-900">True Positives (TP):</span>
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="p-2.5 bg-emerald-50/70 border border-emerald-200 rounded-[4px] flex justify-between items-center">
+                  <span className="text-emerald-900 font-medium">True Positives (TP):</span>
                   <strong className="text-emerald-800 text-[12px]">{currentMetrics.tp.toLocaleString()}</strong>
                 </div>
-                <div className="p-2 bg-rose-50 border border-rose-200 rounded-[4px] flex justify-between items-center">
-                  <span className="text-rose-900">False Positives (FP):</span>
+                <div className="p-2.5 bg-rose-50/70 border border-rose-200 rounded-[4px] flex justify-between items-center">
+                  <span className="text-rose-900 font-medium">False Positives (FP):</span>
                   <strong className="text-rose-800 text-[12px]">{currentMetrics.fp.toLocaleString()}</strong>
                 </div>
-                <div className="p-2 bg-amber-50 border border-amber-200 rounded-[4px] flex justify-between items-center">
-                  <span className="text-amber-900">False Negatives (FN):</span>
+                <div className="p-2.5 bg-amber-50/70 border border-amber-200 rounded-[4px] flex justify-between items-center">
+                  <span className="text-amber-900 font-medium">False Negatives (FN):</span>
                   <strong className="text-amber-800 text-[12px]">{currentMetrics.fn.toLocaleString()}</strong>
                 </div>
-                <div className="p-2 bg-slate-50 border border-slate-200 rounded-[4px] flex justify-between items-center">
-                  <span className="text-slate-700">True Negatives (TN):</span>
-                  <strong className="text-navy-950 text-[12px]">{currentMetrics.tn.toLocaleString()}</strong>
+                <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-[4px] flex justify-between items-center">
+                  <span className="text-slate-700 font-medium">True Negatives (TN):</span>
+                  <strong className="text-slate-900 text-[12px]">{currentMetrics.tn.toLocaleString()}</strong>
                 </div>
               </div>
             </div>
@@ -307,7 +305,7 @@ export default function Evaluation() {
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
               <div>
-                <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
+                <h2 className="text-[14px] font-semibold text-slate-900">
                   Interactive ROC & PR Curve
                 </h2>
                 <p className="text-[12px] text-slate-500 mt-0.5">
@@ -319,21 +317,21 @@ export default function Evaluation() {
               <div className="inline-flex border border-slate-300 rounded-[4px] overflow-hidden shadow-2xs shrink-0">
                 <button
                   onClick={() => setActiveCurve('roc')}
-                  className={`px-3 py-1 text-[11px] font-mono font-medium transition-colors ${
+                  className={`px-3 py-1 text-[11px] font-medium transition-colors ${
                     activeCurve === 'roc' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
                   }`}
                   type="button"
                 >
-                  ROC CURVE
+                  ROC Curve
                 </button>
                 <button
                   onClick={() => setActiveCurve('pr')}
-                  className={`px-3 py-1 text-[11px] font-mono font-medium transition-colors border-l border-slate-200 ${
+                  className={`px-3 py-1 text-[11px] font-medium transition-colors border-l border-slate-200 ${
                     activeCurve === 'pr' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
                   }`}
                   type="button"
                 >
-                  PR CURVE
+                  PR Curve
                 </button>
               </div>
             </div>
@@ -542,38 +540,38 @@ export default function Evaluation() {
       <section className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs space-y-4">
         <div className="pb-3 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
+            <h2 className="text-[14px] font-semibold text-slate-900">
               Temporal Stability & Inter-Block Agreement
             </h2>
             <p className="text-[12px] text-slate-500">
               Evaluating behavioral persistence across disjoint 76-hour observation windows (Block A vs Block B).
             </p>
           </div>
-          <span className="font-mono text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-[4px]">
-            ΔT = 76 HOURS
+          <span className="text-[11px] font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-[4px]">
+            Δt = 76 hours gap
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 bg-slate-50/70 border border-slate-200/90 rounded-[4px]">
-            <span className="font-mono text-[10px] text-slate-500 uppercase block">Rank Correlation</span>
-            <div className="text-2xl font-bold font-mono text-navy-950 mt-1">ρ = 0.720</div>
+            <span className="text-[11px] text-slate-500 font-medium block">Rank Correlation</span>
+            <div className="text-2xl font-bold text-slate-900 mt-1">ρ = 0.720</div>
             <p className="text-[11px] text-slate-600 mt-1">
               Spearman rank correlation confirms stable relative anomaly ordering across observation blocks.
             </p>
           </div>
 
           <div className="p-4 bg-slate-50/70 border border-slate-200/90 rounded-[4px]">
-            <span className="font-mono text-[10px] text-slate-500 uppercase block">Recurrence Rate</span>
-            <div className="text-2xl font-bold font-mono text-navy-950 mt-1">52.9%</div>
+            <span className="text-[11px] text-slate-500 font-medium block">Recurrence Rate</span>
+            <div className="text-2xl font-bold text-slate-900 mt-1">52.9%</div>
             <p className="text-[11px] text-slate-600 mt-1">
               Accounts flagged as anomalous in Block A that remain anomalous in Block B (10.2× lift over baseline).
             </p>
           </div>
 
           <div className="p-4 bg-slate-50/70 border border-slate-200/90 rounded-[4px]">
-            <span className="font-mono text-[10px] text-slate-500 uppercase block">Random Baseline</span>
-            <div className="text-2xl font-bold font-mono text-slate-600 mt-1">5.2%</div>
+            <span className="text-[11px] text-slate-500 font-medium block">Random Baseline</span>
+            <div className="text-2xl font-bold text-slate-500 mt-1">5.2%</div>
             <p className="text-[11px] text-slate-600 mt-1">
               Uniform probability of random recurrence under null hypothesis without behavioral memory.
             </p>
@@ -585,8 +583,8 @@ export default function Evaluation() {
       <section className="bg-white border border-slate-200/90 rounded-[4px] p-6 shadow-2xs space-y-5">
         <div className="pb-3 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
-              NoSQL Query Benchmark Visualizer
+            <h2 className="text-[14px] font-semibold text-slate-900">
+              NoSQL Query Latency Benchmark
             </h2>
             <p className="text-[12px] text-slate-500 mt-0.5">
               MongoDB Atlas M30 cluster comparing unindexed COLLSCAN vs compound B-Tree index (account_id, created_at).
@@ -597,21 +595,21 @@ export default function Evaluation() {
           <div className="inline-flex border border-slate-300 rounded-[4px] overflow-hidden shadow-2xs shrink-0">
             <button
               onClick={() => setLatencyScale('linear')}
-              className={`px-3 py-1.5 text-[11px] font-mono font-medium transition-colors ${
+              className={`px-3 py-1.5 text-[11px] font-medium transition-colors ${
                 latencyScale === 'linear' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
               type="button"
             >
-              LINEAR SCALE (SECONDS)
+              Linear Scale (Seconds)
             </button>
             <button
               onClick={() => setLatencyScale('log')}
-              className={`px-3 py-1.5 text-[11px] font-mono font-medium transition-colors border-l border-slate-200 ${
+              className={`px-3 py-1.5 text-[11px] font-medium transition-colors border-l border-slate-200 ${
                 latencyScale === 'log' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
               type="button"
             >
-              LOGARITHMIC SCALE (LOG₁₀ MS)
+              Logarithmic Scale (log₁₀ ms)
             </button>
           </div>
         </div>

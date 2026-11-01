@@ -502,7 +502,7 @@ export default function Clusters() {
       {/* Editorial Header Bar */}
       <section className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-[20px] font-bold text-navy-950 tracking-tight uppercase">
+          <h1 className="text-[20px] font-bold text-slate-900 tracking-tight">
             Cluster Explorer
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
@@ -517,7 +517,7 @@ export default function Clusters() {
                 selectedBlock === 'A' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
             >
-              BLOCK A (T0-T76)
+              Block A (78h)
             </button>
             <button
               onClick={() => setSelectedBlock('B')}
@@ -525,7 +525,7 @@ export default function Clusters() {
                 selectedBlock === 'B' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
             >
-              BLOCK B (T76-T152)
+              Block B (74h)
             </button>
           </div>
         </div>
@@ -539,15 +539,15 @@ export default function Clusters() {
           <div className="p-6">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
               <div>
-                <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
-                  Interactive 2D PCA Universe Explorer
+                <h2 className="text-[14px] font-semibold text-slate-900">
+                  2D PCA Universe Explorer
                 </h2>
                 <p className="text-[12px] text-slate-500">
                   Principal Component Analysis projection of 11-dimensional feature vectors.
                 </p>
               </div>
               <div className="flex items-center gap-3 text-[12px] text-slate-600">
-                <span>Variance explained: <strong className="text-navy-950 font-semibold">68.4%</strong></span>
+                <span>Variance explained: <strong className="text-slate-900 font-semibold">68.4%</strong></span>
               </div>
             </div>
 
@@ -870,7 +870,7 @@ export default function Clusters() {
           {/* Archetypes Selector Grid */}
           <div className="p-6">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[14px] font-bold text-navy-950 uppercase tracking-wider">
+              <h2 className="text-[14px] font-semibold text-slate-900">
                 Behavioral Archetypes (7 Clusters)
               </h2>
               <span className="text-[11px] text-slate-500">
@@ -934,7 +934,7 @@ export default function Clusters() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: activeCluster.color }} />
-                <h3 className="text-[16px] font-bold text-navy-950 uppercase tracking-tight">
+                <h3 className="text-[16px] font-bold text-slate-900 tracking-tight">
                   {activeCluster.title}
                 </h3>
               </div>
@@ -943,8 +943,8 @@ export default function Clusters() {
               </span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-slate-500 uppercase block">Total Accounts</span>
-              <span className="text-2xl font-bold text-navy-950 font-mono">
+              <span className="text-[11px] text-slate-500 block">Total Accounts</span>
+              <span className="text-2xl font-bold text-slate-900">
                 {activeCluster.accounts}
               </span>
             </div>
@@ -953,16 +953,16 @@ export default function Clusters() {
           {/* Metrics Trio Strip */}
           <div className="grid grid-cols-3 border border-slate-200 divide-x divide-slate-200 text-center bg-slate-50/50 rounded-[4px] overflow-hidden">
             <div className="p-3">
-              <span className="text-[10px] text-slate-500 uppercase block">Anomaly Rate</span>
+              <span className="text-[11px] text-slate-500 block">Anomaly Rate</span>
               <span className="text-base font-bold text-rose-600">{activeCluster.anomalyRate}</span>
             </div>
             <div className="p-3">
-              <span className="text-[10px] text-slate-500 uppercase block">Mean Score</span>
-              <span className="text-base font-bold text-navy-950">μ {activeCluster.score}</span>
+              <span className="text-[11px] text-slate-500 block">Mean Score</span>
+              <span className="text-base font-bold text-slate-900">μ {activeCluster.score}</span>
             </div>
             <div className="p-3">
-              <span className="text-[10px] text-slate-500 uppercase block">Median Evt</span>
-              <span className="text-base font-bold text-navy-950 font-mono">{activeCluster.events}</span>
+              <span className="text-[11px] text-slate-500 block">Median Evt</span>
+              <span className="text-base font-bold text-slate-900">{activeCluster.events}</span>
             </div>
           </div>
 
