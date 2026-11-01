@@ -23,7 +23,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Floating Modern Navigation Dock */}
+      {/* Floating Modern Navigation Dock - Enlarged & Breathable */}
       <aside
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -35,13 +35,13 @@ export default function Sidebar() {
           bottom-3 left-1/2 -translate-x-1/2 top-auto"
       >
         <div
-          className={`bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.06)]
+          className={`bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_6px_28px_rgba(0,0,0,0.06)]
             flex transition-all duration-200 ease-out
             /* Mobile styles: rounded pill horizontal bar */
-            flex-row items-center gap-1.5 p-1.5 rounded-full
-            /* Desktop styles: rounded standalone card vertical dock, auto-expanding width on hover */
-            sm:flex-col sm:items-stretch sm:rounded-[8px] sm:p-1.5
-            ${isHovered ? 'sm:w-[172px] sm:shadow-[0_8px_30px_rgba(0,0,0,0.1)]' : 'sm:w-[50px]'}
+            flex-row items-center gap-2 p-1.5 rounded-full
+            /* Desktop styles: enlarged rounded standalone card, generous breathing room */
+            sm:flex-col sm:items-stretch sm:rounded-[8px] sm:p-2 sm:gap-2
+            ${isHovered ? 'sm:w-[188px] sm:shadow-[0_10px_36px_rgba(0,0,0,0.1)]' : 'sm:w-[58px]'}
           `}
         >
           {navItems.map((item) => {
@@ -54,21 +54,18 @@ export default function Sidebar() {
                 className={({ isActive }) =>
                   `group relative flex items-center rounded-[6px] transition-all duration-150 ${
                     isActive
-                      ? 'bg-slate-100 text-navy-950 font-semibold'
+                      ? 'bg-slate-100 text-navy-950 font-semibold shadow-2xs'
                       : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-normal'
-                  } sm:h-9 sm:px-2.5 h-10 px-3`
+                  } sm:h-10 sm:px-3 h-10 px-3`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    {/* Left Active Indicator Bar (Desktop only) */}
-                    {isActive && (
-                      <span className="hidden sm:block absolute left-0 top-2 bottom-2 w-[3px] bg-navy-950 rounded-r-[2px]" />
-                    )}
+                    {/* NO SIDELINE BAR - Pure background highlight */}
 
-                    {/* Icon */}
+                    {/* Icon - slightly enlarged (18px) for breathing room */}
                     <Icon
-                      className={`w-4 h-4 shrink-0 transition-colors ${
+                      className={`w-[18px] h-[18px] shrink-0 transition-colors ${
                         isActive ? 'text-navy-950' : 'text-slate-400 group-hover:text-slate-700'
                       }`}
                     />
@@ -77,7 +74,7 @@ export default function Sidebar() {
                     <span
                       className={`hidden sm:inline-block overflow-hidden whitespace-nowrap text-[13px] font-sans transition-all duration-200 ${
                         isHovered
-                          ? 'max-w-[110px] opacity-100 ml-2.5'
+                          ? 'max-w-[120px] opacity-100 ml-3'
                           : 'max-w-0 opacity-0 ml-0'
                       }`}
                     >
