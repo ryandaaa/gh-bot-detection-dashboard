@@ -186,6 +186,7 @@ PRESETS: List[Dict[str, Any]] = [
 # Request & Response Schemas
 # ---------------------------------------------------------
 class PredictRequest(BaseModel):
+    features: Optional[Dict[str, Any]] = None
     n_events: Optional[float] = Field(None, description="Total events (n)")
     n_repos: Optional[float] = Field(1.0, description="Number of distinct repositories")
     jam_aktif: Optional[float] = Field(None, description="Active hours count")
@@ -370,6 +371,25 @@ def predict(payload: PredictRequest):
     """
     if not MODELS_LOADED:
         raise HTTPException(status_code=503, detail="Models not loaded")
+
+    # Unpack nested features dict if passed
+    if payload.features and isinstance(payload.features, dict):
+        f = payload.features
+        if "n_events" in f and payload.n_events is None: payload.n_events = f.get("n_events")
+        if "n_repos" in f and (payload.n_repos == 1.0 or payload.n_repos is None): payload.n_repos = f.get("n_repos")
+        if "jam_aktif" in f and payload.jam_aktif is None: payload.jam_aktif = f.get("jam_aktif")
+        if "frac_push" in f and payload.frac_push == 0.0: payload.frac_push = float(f.get("frac_push", 0.0))
+        if "frac_create" in f and payload.frac_create == 0.0: payload.frac_create = float(f.get("frac_create", 0.0))
+        if "frac_pr" in f and payload.frac_pr == 0.0: payload.frac_pr = float(f.get("frac_pr", 0.0))
+        if "frac_issue" in f and payload.frac_issue == 0.0: payload.frac_issue = float(f.get("frac_issue", 0.0))
+        if "frac_social" in f and payload.frac_social == 0.0: payload.frac_social = float(f.get("frac_social", 0.0))
+        if "max_repo_share" in f and payload.max_repo_share == 1.0: payload.max_repo_share = float(f.get("max_repo_share", 1.0))
+        if "hour_entropy" in f and payload.hour_entropy == 0.5: payload.hour_entropy = float(f.get("hour_entropy", 0.5))
+        if "active_frac" in f and payload.active_frac is None: payload.active_frac = f.get("active_frac")
+        if "max_per_hour" in f and payload.max_per_hour is None: payload.max_per_hour = f.get("max_per_hour")
+        if "log_n" in f and payload.log_n is None: payload.log_n = f.get("log_n")
+        if "log_events_per_repo" in f and payload.log_events_per_repo is None: payload.log_events_per_repo = f.get("log_events_per_repo")
+        if "log_max_per_hour" in f and payload.log_max_per_hour is None: payload.log_max_per_hour = f.get("log_max_per_hour")
 
     # 1. Feature normalization and log transforms
     # log_n

@@ -13,8 +13,155 @@ import {
   ArrowRight,
   User,
   Sliders,
-  Sparkles
+  Sparkles,
+  Copy,
+  Check,
+  Database,
+  Layers
 } from 'lucide-react';
+
+const CLUSTER_META = {
+  0: {
+    cluster_id: 0,
+    code: 'C0',
+    title: 'Cluster 0 · Burst Pushers (Stealth)',
+    badge: 'Burst Pushers (Stealth)',
+    color: '#2563eb',
+    anomalyRate: '12.7%',
+    scoreMean: 0.482,
+    characteristics: 'Pola burst spike berkecepatan tinggi dengan jeda lama pada repositori tunggal (entropi rendah 0.29).',
+    features: {
+      frac_push: 0.9446,
+      frac_create: 0.0495,
+      frac_pr: 0.0046,
+      frac_issue: 0.0012,
+      frac_social: 0.0001,
+      max_repo_share: 0.7645,
+      hour_entropy: 0.2895,
+      max_per_hour: 32
+    }
+  },
+  1: {
+    cluster_id: 1,
+    code: 'C1',
+    title: 'Cluster 1 · Heavy Pushers (Normal)',
+    badge: 'Heavy Pushers (Normal)',
+    color: '#64748b',
+    anomalyRate: '0.0%',
+    scoreMean: 0.375,
+    characteristics: 'Distribusi jam kerja natural manusia dengan ritme sirkadian normal pada 1 repositori utama.',
+    features: {
+      frac_push: 0.9441,
+      frac_create: 0.0386,
+      frac_pr: 0.0116,
+      frac_issue: 0.0057,
+      frac_social: 0.0,
+      max_repo_share: 0.9380,
+      hour_entropy: 0.7471,
+      max_per_hour: 5
+    }
+  },
+  2: {
+    cluster_id: 2,
+    code: 'C2',
+    title: 'Cluster 2 · Multi-Repo Pushers',
+    badge: 'Multi-Repo Pushers',
+    color: '#0f172a',
+    anomalyRate: '3.5%',
+    scoreMean: 0.446,
+    characteristics: 'Aktivitas tersebar di banyak repositori simultan dengan variasi create branch/tag yang teratur.',
+    features: {
+      frac_push: 0.7408,
+      frac_create: 0.1792,
+      frac_pr: 0.0549,
+      frac_issue: 0.0250,
+      frac_social: 0.0001,
+      max_repo_share: 0.3589,
+      hour_entropy: 0.7327,
+      max_per_hour: 6
+    }
+  },
+  3: {
+    cluster_id: 3,
+    code: 'C3',
+    title: 'Cluster 3 · Automated CI / Bots',
+    badge: 'Automated CI / Bots',
+    color: '#dc2626',
+    anomalyRate: '42.9%',
+    scoreMean: 0.548,
+    characteristics: 'Tingkat otomasi tinggi dengan rasio PR (22.1%) dan Issue (40.5%) mendominasi operasi repositori serta frekuensi eksekusi mesin berkala.',
+    features: {
+      frac_push: 0.2648,
+      frac_create: 0.1089,
+      frac_pr: 0.2211,
+      frac_issue: 0.4051,
+      frac_social: 0.0001,
+      max_repo_share: 0.7057,
+      hour_entropy: 0.7763,
+      max_per_hour: 18
+    }
+  },
+  4: {
+    cluster_id: 4,
+    code: 'C4',
+    title: 'Cluster 4 · Tooling / Social Bots',
+    badge: 'Tooling / Social Bots',
+    color: '#d97706',
+    anomalyRate: '46.6%',
+    scoreMean: 0.548,
+    characteristics: 'Eksekusi event sosial (star/watch/fork) dan tooling otomatis pada beragam target repositori publik.',
+    features: {
+      frac_push: 0.6624,
+      frac_create: 0.1894,
+      frac_pr: 0.0475,
+      frac_issue: 0.0465,
+      frac_social: 0.0542,
+      max_repo_share: 0.4645,
+      hour_entropy: 0.6863,
+      max_per_hour: 7
+    }
+  },
+  5: {
+    cluster_id: 5,
+    code: 'C5',
+    title: 'Cluster 5 · Push & Create Archetype',
+    badge: 'Push & Create Archetype',
+    color: '#7c3aed',
+    anomalyRate: '4.1%',
+    scoreMean: 0.436,
+    characteristics: 'Kombinasi commit reguler disertai pembuatan repositori baru atau cabang eksperimental secara berimbang.',
+    features: {
+      frac_push: 0.5366,
+      frac_create: 0.3031,
+      frac_pr: 0.1122,
+      frac_issue: 0.0480,
+      frac_social: 0.0001,
+      max_repo_share: 0.8757,
+      hour_entropy: 0.7605,
+      max_per_hour: 5
+    }
+  },
+  6: {
+    cluster_id: 6,
+    code: 'C6',
+    title: 'Cluster 6 · 24/7 Continuous Pushers',
+    badge: '24/7 Continuous Pushers',
+    color: '#059669',
+    anomalyRate: '8.5%',
+    scoreMean: 0.454,
+    characteristics: 'Aktivitas intensif non-stop hampir 24 jam sehari (entropi 0.93) tanpa jeda istirahat malam biologis.',
+    features: {
+      frac_push: 0.9350,
+      frac_create: 0.0426,
+      frac_pr: 0.0135,
+      frac_issue: 0.0088,
+      frac_social: 0.0,
+      max_repo_share: 0.9005,
+      hour_entropy: 0.9295,
+      max_per_hour: 12
+    }
+  }
+};
 
 const PRESETS = [
   {
@@ -124,7 +271,8 @@ const SAMPLE_ACCOUNTS = [
 
 export default function AccountInspectorPane({ isOpen, onClose, selectedAccount }) {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('live'); // 'live' or 'simulation'
+  // 'modeled' (when selectedAccount provided), 'simulation', or 'live'
+  const [activeTab, setActiveTab] = useState(selectedAccount ? 'modeled' : 'live');
   const [liveUsername, setLiveUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [fetchProgress, setFetchProgress] = useState(0);
@@ -132,9 +280,11 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
   const [selectedPreset, setSelectedPreset] = useState('black-hat-seo');
   const [features, setFeatures] = useState(PRESETS[0].features);
   const [result, setResult] = useState(null);
+  const [modeledAccountState, setModeledAccountState] = useState(null);
   const [liveUserData, setLiveUserData] = useState(null);
   const [liveRawMetrics, setLiveRawMetrics] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   // Close on Escape key
   useEffect(() => {
@@ -150,27 +300,64 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
   // Handle selectedAccount prop when opened from Accounts table
   useEffect(() => {
     if (selectedAccount && isOpen) {
-      setActiveTab('simulation');
-      setSelectedPreset('custom');
-      const customF = {
+      setActiveTab('modeled');
+      const cId = selectedAccount.clusterId !== undefined ? selectedAccount.clusterId : 3;
+      const cMeta = CLUSTER_META[cId] || CLUSTER_META[3];
+
+      const empiricalFeatures = {
         n_events: selectedAccount.events || 100,
         n_repos: selectedAccount.repos || 1,
-        jam_aktif: Math.round((selectedAccount.activeFraction || 0.5) * 152),
-        frac_push: 0.85,
-        frac_create: 0.05,
-        frac_pr: 0.05,
-        frac_issue: 0.05,
-        frac_social: 0.0,
-        max_repo_share: 0.9,
-        hour_entropy: 0.75,
-        max_per_hour: 15
+        jam_aktif: Math.round((selectedAccount.activeFraction || 0.2) * 152),
+        frac_push: cMeta.features.frac_push,
+        frac_create: cMeta.features.frac_create,
+        frac_pr: cMeta.features.frac_pr,
+        frac_issue: cMeta.features.frac_issue,
+        frac_social: cMeta.features.frac_social,
+        max_repo_share: cMeta.features.max_repo_share,
+        hour_entropy: cMeta.features.hour_entropy,
+        max_per_hour: cMeta.features.max_per_hour
       };
-      setFeatures(customF);
-      runPrediction(customF);
+
+      setFeatures(empiricalFeatures);
+      setSelectedPreset('custom');
+
+      const isAnomaly = selectedAccount.isAnomaly ?? (selectedAccount.score >= 0.5514);
+      const modeledData = {
+        id: selectedAccount.id,
+        score: selectedAccount.score,
+        threshold: 0.5514,
+        is_anomaly: isAnomaly,
+        status: isAnomaly ? 'Automated Bot / Anomaly' : 'Organic Contributor',
+        cluster_id: cId,
+        cluster_code: cMeta.code || selectedAccount.cluster,
+        cluster_badge: cMeta.badge,
+        cluster_title: cMeta.title,
+        cluster_characteristics: cMeta.characteristics,
+        events: selectedAccount.events,
+        repos: selectedAccount.repos,
+        activeHours: selectedAccount.activeHours || `${((selectedAccount.activeFraction || 0.2) * 100).toFixed(1)}%`,
+        activeFraction: selectedAccount.activeFraction || 0.2,
+        block: selectedAccount.block,
+        features: empiricalFeatures,
+        pc1: isAnomaly ? 1.58 : -0.72,
+        pc2: isAnomaly ? 0.84 : -0.28
+      };
+
+      setModeledAccountState(modeledData);
+      setResult(modeledData);
+    } else if (!selectedAccount && isOpen) {
+      setActiveTab('live');
+      setModeledAccountState(null);
     }
   }, [selectedAccount, isOpen]);
 
   if (!isOpen) return null;
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
 
   const applyPreset = (presetId) => {
     setSelectedPreset(presetId);
@@ -194,7 +381,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
     runPrediction(updated);
   };
 
-  // Local feature-based inference
+  // Local feature-based inference via FastAPI /api/predict
   const runPrediction = async (f = features) => {
     setLoading(true);
     setErrorMessage(null);
@@ -204,7 +391,19 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
       const active_frac = f.jam_aktif / 152.0;
       const log_max_per_hour = Math.log1p(f.max_per_hour);
 
+      // Support both flat fields and nested features dict
       const payload = {
+        n_events: f.n_events,
+        n_repos: f.n_repos,
+        jam_aktif: f.jam_aktif,
+        frac_push: f.frac_push,
+        frac_create: f.frac_create,
+        frac_pr: f.frac_pr,
+        frac_issue: f.frac_issue,
+        frac_social: f.frac_social,
+        max_repo_share: f.max_repo_share,
+        hour_entropy: f.hour_entropy,
+        max_per_hour: f.max_per_hour,
         features: {
           log_n,
           frac_push: f.frac_push,
@@ -249,7 +448,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
         score: parseFloat(score.toFixed(4)),
         threshold: 0.5514,
         is_anomaly: score >= 0.5514,
-        status: score >= 0.5514 ? 'Anomaly (Bot-like)' : 'Normal Contributor',
+        status: score >= 0.5514 ? 'Automated Bot / Anomaly' : 'Organic Contributor',
         cluster_id: score >= 0.5514 ? 0 : 1,
         cluster_badge: score >= 0.5514 ? 'Burst Pushers' : 'Organic Contributors',
         cluster_characteristics: [
@@ -277,7 +476,6 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
     setFetchProgress(18);
     setFetchStage('Menghubungi GitHub REST API...');
 
-    // Progress timeline simulation tracking network & inference stages
     const t1 = setTimeout(() => {
       setFetchProgress(46);
       setFetchStage('Mengambil riwayat event linimasa publik (n=100)...');
@@ -307,7 +505,6 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
       setFetchProgress(100);
       setFetchStage('Profil berhasil diklasifikasikan');
 
-      // Brief 150ms pause so user sees 100% completion before revealing data
       await new Promise((r) => setTimeout(r, 150));
 
       setLiveUserData(data.user_info);
@@ -378,6 +575,38 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
         {/* Segmented Mode Selector */}
         <div className="px-6 py-2.5 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between shrink-0">
           <div className="inline-flex p-0.5 bg-slate-200/70 rounded-[4px]">
+            {selectedAccount && (
+              <button
+                onClick={() => {
+                  setActiveTab('modeled');
+                  setErrorMessage(null);
+                  if (modeledAccountState) setResult(modeledAccountState);
+                }}
+                className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
+                  activeTab === 'modeled'
+                    ? 'bg-white text-navy-950 shadow-2xs font-semibold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Akun Termodel
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setActiveTab('simulation');
+                setErrorMessage(null);
+                if (activeTab !== 'simulation') {
+                  runPrediction(features);
+                }
+              }}
+              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
+                activeTab === 'simulation'
+                  ? 'bg-white text-navy-950 shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Parameter Simulator
+            </button>
             <button
               onClick={() => {
                 setActiveTab('live');
@@ -385,37 +614,259 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               }}
               className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
                 activeTab === 'live'
-                  ? 'bg-white text-navy-950 shadow-2xs'
+                  ? 'bg-white text-navy-950 shadow-2xs font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Live GitHub API
             </button>
-            <button
-              onClick={() => {
-                setActiveTab('simulation');
-                setErrorMessage(null);
-                if (!result) applyPreset('black-hat-seo');
-              }}
-              className={`px-3 py-1 text-[12px] font-medium rounded-[3px] transition-all ${
-                activeTab === 'simulation'
-                  ? 'bg-white text-navy-950 shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Parameter Simulator
-            </button>
           </div>
 
           <span className="font-sans text-[11px] text-slate-500">
-            {activeTab === 'live' ? 'Mode Online' : 'Mode Sintesis'}
+            {activeTab === 'modeled'
+              ? 'Dataset Atlas'
+              : activeTab === 'simulation'
+              ? 'Mode Sintesis'
+              : 'Mode Online'}
           </span>
         </div>
 
         {/* Scrollable Content Body */}
         <div className="flex-1 overflow-y-auto">
-          {activeTab === 'live' ? (
-            /* TAB 1: LIVE GITHUB ACCOUNT LOOKUP */
+          {/* TAB 1: MODELED ACCOUNT VIEW (WHEN OPENED FROM TABLE ROW) */}
+          {activeTab === 'modeled' && modeledAccountState ? (
+            <div className="p-6 space-y-5 animate-in fade-in duration-150">
+              {/* Account Identity Header Card */}
+              <div className="p-4 bg-slate-50 border border-slate-200/90 rounded-[6px] space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-medium text-slate-500 flex items-center gap-1.5">
+                    <Database className="w-3.5 h-3.5 text-slate-400" />
+                    <span>ID Pseudonim MongoDB Atlas</span>
+                  </span>
+                  <span className="text-[10px] font-mono font-medium px-2 py-0.5 bg-white border border-slate-200 text-slate-600 rounded-[3px]">
+                    {modeledAccountState.block === 'block-a' ? 'Block A · 78h' : 'Block B · 74h'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-2">
+                  <div className="font-mono text-[14px] font-bold text-slate-900 tracking-tight select-all">
+                    #{modeledAccountState.id}
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(modeledAccountState.id)}
+                    className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-[4px] transition-colors"
+                    title="Salin ID Pseudonim"
+                    type="button"
+                  >
+                    {copied ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                </div>
+
+                <div className="pt-2 border-t border-slate-200/70 grid grid-cols-3 gap-2 text-[11px]">
+                  <div>
+                    <span className="text-slate-400 block text-[10px]">Total Events</span>
+                    <strong className="text-slate-800 font-semibold text-[12px]">
+                      {modeledAccountState.events?.toLocaleString()}
+                    </strong>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[10px]">Distinct Repos</span>
+                    <strong className="text-slate-800 font-semibold text-[12px]">
+                      {modeledAccountState.repos} repos
+                    </strong>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[10px]">Jendela Aktif</span>
+                    <strong className="text-slate-800 font-semibold text-[12px]">
+                      {modeledAccountState.activeHours}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Primary Verdict Hero Card (Exact Score from Dataset) */}
+              <div
+                className={`p-4 border rounded-[6px] ${
+                  modeledAccountState.is_anomaly
+                    ? 'bg-rose-50/50 border-rose-200'
+                    : 'bg-emerald-50/50 border-emerald-200'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {modeledAccountState.is_anomaly ? (
+                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+                    ) : (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    )}
+                    <span
+                      className={`font-sans text-[13px] font-bold ${
+                        modeledAccountState.is_anomaly ? 'text-rose-700' : 'text-emerald-700'
+                      }`}
+                    >
+                      {modeledAccountState.is_anomaly
+                        ? 'Automated Bot / Anomaly'
+                        : 'Organic Contributor'}
+                    </span>
+                  </div>
+                  <span className="font-mono text-[11px] font-semibold text-slate-500">
+                    {modeledAccountState.is_anomaly ? 'Score ≥ τ' : 'Score < τ'}
+                  </span>
+                </div>
+
+                <p className="text-[12px] text-slate-600 mt-2 leading-relaxed">
+                  {modeledAccountState.is_anomaly
+                    ? 'Skor anomali empiris akun ini melampaui ambang batas cutoff Isolation Forest (τ = 0.5514). Pola interaksi menunjukkan deviasi signifikan dari perilaku organik manusia.'
+                    : 'Skor akun berada di bawah ambang batas anomali, mengindikasikan ritme pengembangan perangkat lunak yang konsisten dengan pola kerja alami manusia.'}
+                </p>
+
+                {/* Score & Gauge Bar */}
+                <div className="mt-4 pt-3 border-t border-slate-200/60">
+                  <div className="flex items-baseline justify-between mb-1.5">
+                    <span className="text-[12px] text-slate-500">
+                      Anomaly Score:{' '}
+                      <strong
+                        className={`font-mono text-[14px] font-bold ${
+                          modeledAccountState.is_anomaly ? 'text-rose-600' : 'text-emerald-600'
+                        }`}
+                      >
+                        {modeledAccountState.score?.toFixed(4)}
+                      </strong>
+                    </span>
+                    <span className="text-[11px] text-slate-400 font-mono">
+                      Ambang Batas τ: {modeledAccountState.threshold?.toFixed(4)}
+                    </span>
+                  </div>
+
+                  <div className="relative w-full h-2 bg-slate-200/80 rounded-[2px] overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-300 ${
+                        modeledAccountState.is_anomaly ? 'bg-rose-600' : 'bg-emerald-600'
+                      }`}
+                      style={{
+                        width: `${Math.min(
+                          Math.max((modeledAccountState.score / 1.0) * 100, 4),
+                          100
+                        )}%`
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 6-Cell Empirical Behavioral Metrics */}
+              <div>
+                <h4 className="text-[12px] font-semibold text-slate-900 mb-2 flex items-center justify-between">
+                  <span>Profil Fitur Perilaku Termodel</span>
+                  <span className="text-[11px] font-normal text-slate-400">
+                    Rerata Klaster {modeledAccountState.cluster_code}
+                  </span>
+                </h4>
+                <div className="grid grid-cols-2 gap-2 text-[12px]">
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">Push Ratio</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {((modeledAccountState.features?.frac_push || 0) * 100).toFixed(1)}%
+                    </strong>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">PR / Review Ratio</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {((modeledAccountState.features?.frac_pr || 0) * 100).toFixed(1)}%
+                    </strong>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">Issue Activity Ratio</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {((modeledAccountState.features?.frac_issue || 0) * 100).toFixed(1)}%
+                    </strong>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">Repo Concentration</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {((modeledAccountState.features?.max_repo_share || 0) * 100).toFixed(1)}%
+                    </strong>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">Hour Entropy (24h)</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {modeledAccountState.features?.hour_entropy?.toFixed(2)}
+                    </strong>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span className="text-slate-500 text-[11px] block">Est. Peak Velocity</span>
+                    <strong className="text-slate-900 font-semibold text-[13px] font-mono">
+                      {modeledAccountState.features?.max_per_hour} evt/h
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* K-Means Archetype Attribution */}
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-[6px]">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] font-medium text-slate-500 flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Atribusi Klaster K-Means</span>
+                  </span>
+                  <span className="text-[11px] font-semibold text-navy-950 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px]">
+                    {modeledAccountState.cluster_code}
+                  </span>
+                </div>
+                <div className="text-[13px] font-semibold text-slate-900">
+                  {modeledAccountState.cluster_title}
+                </div>
+                <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                  {modeledAccountState.cluster_characteristics}
+                </p>
+
+                <div className="mt-3 pt-2.5 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
+                  <span className="text-slate-500 font-mono">
+                    PCA: PC1={modeledAccountState.pc1?.toFixed(2)}, PC2={modeledAccountState.pc2?.toFixed(2)}
+                  </span>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      navigate('/clusters');
+                    }}
+                    className="text-navy-900 hover:text-navy-700 font-medium inline-flex items-center gap-1 transition-colors"
+                  >
+                    <span>Lihat di Klaster</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Interactive Bridge to Parameter Simulator */}
+              <div className="p-4 bg-navy-950 text-white rounded-[6px] shadow-sm flex flex-col gap-2.5">
+                <div className="flex items-center gap-2">
+                  <Sliders className="w-4 h-4 text-blue-300 shrink-0" />
+                  <span className="text-[13px] font-semibold text-white">
+                    Uji Sensitivitas di Parameter Simulator
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  Kloning parameter akun #{modeledAccountState.id.slice(0, 8)} ini ke simulator interaktif untuk menguji respons skor Isolation Forest terhadap perubahan volume atau rasio event.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('simulation');
+                    runPrediction(features);
+                  }}
+                  className="mt-1 w-full py-2 px-3 bg-white hover:bg-slate-100 text-navy-950 font-sans text-[12px] font-semibold rounded-[4px] transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <span>Buka di Parameter Simulator</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          ) : activeTab === 'live' ? (
+            /* TAB 2: LIVE GITHUB ACCOUNT LOOKUP */
             <div className="p-6 space-y-6">
               {/* Input Section */}
               <div className="space-y-3">
@@ -536,20 +987,6 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                           <Skeleton className="h-4 w-12" />
                         </div>
                       ))}
-                    </div>
-                  </div>
-
-                  {/* Archetype Attribution Skeleton Card */}
-                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-[4px] space-y-2.5">
-                    <div className="flex justify-between">
-                      <Skeleton className="h-3 w-28" />
-                      <Skeleton className="h-4 w-16" />
-                    </div>
-                    <Skeleton className="h-4 w-36" />
-                    <Skeleton className="h-3 w-full" />
-                    <div className="pt-2.5 border-t border-slate-200/80 flex justify-between items-center">
-                      <Skeleton className="h-3 w-32" />
-                      <Skeleton className="h-3 w-24" />
                     </div>
                   </div>
                 </div>
@@ -732,7 +1169,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               )}
             </div>
           ) : (
-            /* TAB 2: MANUAL FEATURE SIMULATOR */
+            /* TAB 3: MANUAL FEATURE PARAMETER SIMULATOR */
             <div className="p-6 space-y-6">
               {/* Presets Grid */}
               <div>
@@ -775,7 +1212,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
                     <span className="text-slate-600">Event Volume (n_events)</span>
-                    <strong className="text-slate-900">{features.n_events}</strong>
+                    <strong className="text-slate-900 font-mono">{features.n_events}</strong>
                   </div>
                   <input
                     type="range"
@@ -791,7 +1228,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
                     <span className="text-slate-600">Distinct Repositories (n_repos)</span>
-                    <strong className="text-slate-900">{features.n_repos}</strong>
+                    <strong className="text-slate-900 font-mono">{features.n_repos}</strong>
                   </div>
                   <input
                     type="range"
@@ -807,7 +1244,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
                     <span className="text-slate-600">Active Observation Hours</span>
-                    <strong className="text-slate-900">{features.jam_aktif}h / 152h</strong>
+                    <strong className="text-slate-900 font-mono">{features.jam_aktif}h / 152h</strong>
                   </div>
                   <input
                     type="range"
@@ -824,7 +1261,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   <div>
                     <div className="flex justify-between text-[11px] mb-1">
                       <span className="text-slate-600">Push Ratio</span>
-                      <strong className="text-slate-900">{(features.frac_push * 100).toFixed(0)}%</strong>
+                      <strong className="text-slate-900 font-mono">{(features.frac_push * 100).toFixed(0)}%</strong>
                     </div>
                     <input
                       type="range"
@@ -840,7 +1277,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   <div>
                     <div className="flex justify-between text-[11px] mb-1">
                       <span className="text-slate-600">PR Ratio</span>
-                      <strong className="text-slate-900">{(features.frac_pr * 100).toFixed(0)}%</strong>
+                      <strong className="text-slate-900 font-mono">{(features.frac_pr * 100).toFixed(0)}%</strong>
                     </div>
                     <input
                       type="range"
@@ -856,7 +1293,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   <div>
                     <div className="flex justify-between text-[11px] mb-1">
                       <span className="text-slate-600">Repo Share</span>
-                      <strong className="text-slate-900">{(features.max_repo_share * 100).toFixed(0)}%</strong>
+                      <strong className="text-slate-900 font-mono">{(features.max_repo_share * 100).toFixed(0)}%</strong>
                     </div>
                     <input
                       type="range"
@@ -872,7 +1309,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   <div>
                     <div className="flex justify-between text-[11px] mb-1">
                       <span className="text-slate-600">Hour Entropy</span>
-                      <strong className="text-slate-900">{features.hour_entropy.toFixed(2)}</strong>
+                      <strong className="text-slate-900 font-mono">{features.hour_entropy.toFixed(2)}</strong>
                     </div>
                     <input
                       type="range"
@@ -890,7 +1327,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               {/* Simulation Result Box */}
               {result && (
                 <div
-                  className={`p-4 border rounded-[4px] ${
+                  className={`p-4 border rounded-[6px] ${
                     isAnomaly
                       ? 'bg-rose-50/40 border-rose-200'
                       : 'bg-emerald-50/40 border-emerald-200'
@@ -902,9 +1339,9 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                         isAnomaly ? 'text-rose-700' : 'text-emerald-700'
                       }`}
                     >
-                      {isAnomaly ? 'Anomaly (Bot-like)' : 'Normal Contributor'}
+                      {isAnomaly ? 'Automated Bot / Anomaly' : 'Organic Contributor'}
                     </span>
-                    <span className="text-[11px] font-medium text-slate-500">
+                    <span className="text-[11px] font-medium text-slate-500 font-mono">
                       Score: <strong className="text-slate-900">{score.toFixed(4)}</strong> (Cutoff {threshold})
                     </span>
                   </div>
@@ -918,8 +1355,13 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                     />
                   </div>
 
-                  <div className="mt-2 text-[11px] text-slate-500">
-                    Teratribusi: <strong className="text-slate-800">{result.cluster_badge || `Cluster ${result.cluster_id}`}</strong>
+                  <div className="mt-2 text-[11px] text-slate-500 flex items-center justify-between">
+                    <span>
+                      Teratribusi: <strong className="text-slate-800">{result.cluster_badge || `Cluster ${result.cluster_id}`}</strong>
+                    </span>
+                    <span className="font-mono text-slate-400 text-[10px]">
+                      {isAnomaly ? 'Deviasi Otomasi' : 'Pola Organik'}
+                    </span>
                   </div>
                 </div>
               )}

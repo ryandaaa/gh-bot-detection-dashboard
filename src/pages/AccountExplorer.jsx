@@ -214,97 +214,97 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
         </div>
       </div>
 
-      {/* Unified Table Container with Full-Height Integrated Toolbar (Anti Box-in-a-Box) */}
-      <section className="bg-white border border-slate-200/90 rounded-[4px] shadow-2xs relative overflow-visible">
-        {/* Full-Height Integrated Toolbar */}
-        <div className="h-11 border-b border-slate-200 flex flex-col md:flex-row items-stretch divide-y md:divide-y-0 md:divide-x divide-slate-200 bg-white relative z-20 overflow-visible rounded-t-[4px]">
-          {/* Integrated Search Input (Full Height, No Inner Border or Whitespace) */}
-          <div className="flex-1 h-full flex items-center px-4 gap-2.5 min-w-0">
-            <Search className="w-4 h-4 text-slate-400 shrink-0" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
+      {/* Standalone Filter & Search Toolbar Pill */}
+      <div className="bg-white border border-slate-200/90 rounded-[6px] shadow-2xs flex flex-col md:flex-row items-stretch divide-y md:divide-y-0 md:divide-x divide-slate-200 relative z-20 overflow-visible">
+        {/* Integrated Search Input (Full Height, No Inner Border or Whitespace) */}
+        <div className="flex-1 h-11 flex items-center px-4 gap-2.5 min-w-0">
+          <Search className="w-4 h-4 text-slate-400 shrink-0" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+            placeholder="Cari ID pseudonim (contoh: a91f, c7d2)..."
+            className="w-full h-full bg-transparent text-[13px] text-slate-900 placeholder:text-slate-400 outline-none font-sans"
+          />
+          {search && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearch('');
                 setCurrentPage(1);
               }}
-              placeholder="Cari ID pseudonim (contoh: a91f, c7d2)..."
-              className="w-full h-full bg-transparent text-[13px] text-slate-900 placeholder:text-slate-400 outline-none font-sans"
-            />
-            {search && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearch('');
-                  setCurrentPage(1);
-                }}
-                className="p-1 text-slate-400 hover:text-slate-600 rounded-[2px] transition-colors"
-                title="Hapus pencarian"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-
-          {/* Full-Height Filter Dropdowns with Custom CSS Popovers */}
-          <div className="flex items-stretch divide-x divide-slate-200 shrink-0 relative overflow-visible">
-            {/* Block Selector */}
-            <CustomDropdown
-              labelPrefix="Block:"
-              value={selectedBlock}
-              align="left"
-              onChange={(val) => {
-                setSelectedBlock(val);
-                setCurrentPage(1);
-              }}
-              options={[
-                { value: 'all', label: 'All Blocks' },
-                { value: 'block-a', label: 'Block A (78 jam)' },
-                { value: 'block-b', label: 'Block B (74 jam)' },
-              ]}
-            />
-
-            {/* Cluster Selector */}
-            <CustomDropdown
-              labelPrefix="Cluster:"
-              value={selectedCluster}
-              align="right"
-              onChange={(val) => {
-                setSelectedCluster(val);
-                setCurrentPage(1);
-              }}
-              options={[
-                { value: 'all', label: 'All Clusters' },
-                { value: 'C0', label: 'C0 · Burst Pushers' },
-                { value: 'C1', label: 'C1 · Heavy Pushers' },
-                { value: 'C2', label: 'C2 · Multi-Repo Push' },
-                { value: 'C3', label: 'C3 · Automated CI' },
-                { value: 'C4', label: 'C4 · Tooling Bots' },
-                { value: 'C5', label: 'C5 · Push & Create' },
-                { value: 'C6', label: 'C6 · 24/7 High Vol' },
-              ]}
-            />
-
-            {/* Status Selector */}
-            <CustomDropdown
-              labelPrefix="Status:"
-              value={selectedStatus}
-              align="right"
-              onChange={(val) => {
-                setSelectedStatus(val);
-                setCurrentPage(1);
-              }}
-              options={[
-                { value: 'all', label: 'All Statuses' },
-                { value: 'anomaly', label: 'Hanya Anomali (τ ≥ 0.5514)' },
-                { value: 'normal', label: 'Hanya Normal (τ < 0.5514)' },
-              ]}
-            />
-          </div>
+              className="p-1 text-slate-400 hover:text-slate-600 rounded-[2px] transition-colors"
+              title="Hapus pencarian"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
+        {/* Full-Height Filter Dropdowns with Custom CSS Popovers */}
+        <div className="flex items-stretch divide-x divide-slate-200 shrink-0 relative overflow-visible h-11">
+          {/* Block Selector */}
+          <CustomDropdown
+            labelPrefix="Block:"
+            value={selectedBlock}
+            align="left"
+            onChange={(val) => {
+              setSelectedBlock(val);
+              setCurrentPage(1);
+            }}
+            options={[
+              { value: 'all', label: 'All Blocks' },
+              { value: 'block-a', label: 'Block A (78 jam)' },
+              { value: 'block-b', label: 'Block B (74 jam)' },
+            ]}
+          />
+
+          {/* Cluster Selector */}
+          <CustomDropdown
+            labelPrefix="Cluster:"
+            value={selectedCluster}
+            align="right"
+            onChange={(val) => {
+              setSelectedCluster(val);
+              setCurrentPage(1);
+            }}
+            options={[
+              { value: 'all', label: 'All Clusters' },
+              { value: 'C0', label: 'C0 · Burst Pushers' },
+              { value: 'C1', label: 'C1 · Heavy Pushers' },
+              { value: 'C2', label: 'C2 · Multi-Repo Push' },
+              { value: 'C3', label: 'C3 · Automated CI' },
+              { value: 'C4', label: 'C4 · Tooling Bots' },
+              { value: 'C5', label: 'C5 · Push & Create' },
+              { value: 'C6', label: 'C6 · 24/7 High Vol' },
+            ]}
+          />
+
+          {/* Status Selector */}
+          <CustomDropdown
+            labelPrefix="Status:"
+            value={selectedStatus}
+            align="right"
+            onChange={(val) => {
+              setSelectedStatus(val);
+              setCurrentPage(1);
+            }}
+            options={[
+              { value: 'all', label: 'All Statuses' },
+              { value: 'anomaly', label: 'Hanya Anomali (τ ≥ 0.5514)' },
+              { value: 'normal', label: 'Hanya Normal (τ < 0.5514)' },
+            ]}
+          />
+        </div>
+      </div>
+
+      {/* Standalone Data Table Card */}
+      <section className="bg-white border border-slate-200/90 rounded-[6px] shadow-2xs overflow-hidden">
         {/* Data Table */}
-        <div className="overflow-x-auto rounded-b-[4px]">
+        <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-sans text-[11px] font-semibold select-none">
