@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from './Skeleton';
 import {
   X,
   Play,
@@ -126,6 +127,8 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
   const [activeTab, setActiveTab] = useState('live'); // 'live' or 'simulation'
   const [liveUsername, setLiveUsername] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fetchProgress, setFetchProgress] = useState(0);
+  const [fetchStage, setFetchStage] = useState('');
   const [selectedPreset, setSelectedPreset] = useState('black-hat-seo');
   const [features, setFeatures] = useState(PRESETS[0].features);
   const [result, setResult] = useState(null);
@@ -262,7 +265,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
     }
   };
 
-  // Live GitHub account lookup
+  // Live GitHub account lookup with real-time fetch progress
   const handleLiveLookup = async (e, manualUsername = null) => {
     if (e) e.preventDefault();
     const target = manualUsername || liveUsername;
@@ -271,6 +274,24 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
     setLoading(true);
     setErrorMessage(null);
     setLiveUsername(target);
+    setFetchProgress(18);
+    setFetchStage('Connecting to GitHub REST API...');
+
+    // Progress timeline simulation tracking network & inference stages
+    const t1 = setTimeout(() => {
+      setFetchProgress(46);
+      setFetchStage('Querying recent public timeline events (n=100)...');
+    }, 240);
+
+    const t2 = setTimeout(() => {
+      setFetchProgress(72);
+      setFetchStage('Extracting 11-D behavioral vectors (push ratio, entropy)...');
+    }, 550);
+
+    const t3 = setTimeout(() => {
+      setFetchProgress(90);
+      setFetchStage('Executing Isolation Forest & K-Means inference...');
+    }, 850);
 
     try {
       const res = await fetch(`/api/analyze-github?username=${encodeURIComponent(target.trim())}`);
@@ -280,6 +301,15 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
       }
 
       const data = await res.json();
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      setFetchProgress(100);
+      setFetchStage('Profile classified successfully');
+
+      // Brief 150ms pause so user sees 100% completion before revealing data
+      await new Promise((r) => setTimeout(r, 150));
+
       setLiveUserData(data.user_info);
       setLiveRawMetrics(data.raw_metrics);
       setResult(data.prediction);
@@ -299,6 +329,9 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
         });
       }
     } catch (err) {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
       setErrorMessage(err.message || 'Failed to fetch live GitHub account profile.');
     } finally {
       setLoading(false);
@@ -434,8 +467,93 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 </div>
               )}
 
-              {/* RESULT STATE OR EMPTY STATE */}
-              {result && liveUserData ? (
+              {/* SKELETON + REAL-TIME PROGRESS, OR LOADED RESULT, OR EMPTY STATE */}
+              {loading ? (
+                <div className="space-y-4 animate-in fade-in duration-150">
+                  {/* Real-time Fetch Progress Card */}
+                  <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-[4px] space-y-2">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <div className="flex items-center gap-2 text-slate-700 font-medium truncate">
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-navy-800 shrink-0" />
+                        <span className="truncate">{fetchStage}</span>
+                      </div>
+                      <span className="font-mono text-slate-900 font-semibold shrink-0 ml-2">
+                        {fetchProgress}%
+                      </span>
+                    </div>
+
+                    <div className="relative w-full h-1.5 bg-slate-200 rounded-[2px] overflow-hidden">
+                      <div
+                        className="h-full bg-navy-900 transition-all duration-300 ease-out"
+                        style={{ width: `${fetchProgress}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Profile Identity Skeleton Card */}
+                  <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-[4px] flex items-center gap-3">
+                    <Skeleton className="w-11 h-11 shrink-0" />
+                    <div className="flex-1 space-y-2">
+                      <div className="flex justify-between items-center">
+                        <Skeleton className="h-3.5 w-32" />
+                        <Skeleton className="h-3 w-4" />
+                      </div>
+                      <Skeleton className="h-3 w-20" />
+                      <div className="flex gap-3 pt-0.5">
+                        <Skeleton className="h-2.5 w-16" />
+                        <Skeleton className="h-2.5 w-24" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Verdict Hero Banner Skeleton */}
+                  <div className="p-4 border border-slate-200 rounded-[4px] bg-slate-50/50 space-y-3">
+                    <div className="flex justify-between items-center">
+                      <Skeleton className="h-4 w-44" />
+                      <Skeleton className="h-3 w-24" />
+                    </div>
+                    <Skeleton className="h-3 w-full" />
+                    <Skeleton className="h-3 w-4/5" />
+                    <div className="pt-3 border-t border-slate-200/60 space-y-2">
+                      <div className="flex justify-between">
+                        <Skeleton className="h-3 w-28" />
+                        <Skeleton className="h-3 w-24" />
+                      </div>
+                      <Skeleton className="h-2 w-full" />
+                    </div>
+                  </div>
+
+                  {/* 4-Cell Behavioral Metrics Grid Skeleton */}
+                  <div className="space-y-2">
+                    <Skeleton className="h-3 w-44" />
+                    <div className="grid grid-cols-2 gap-2">
+                      {[...Array(4)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="p-3 bg-slate-50 border border-slate-200 rounded-[4px] space-y-2"
+                        >
+                          <Skeleton className="h-2.5 w-20" />
+                          <Skeleton className="h-4 w-12" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Archetype Attribution Skeleton Card */}
+                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-[4px] space-y-2.5">
+                    <div className="flex justify-between">
+                      <Skeleton className="h-3 w-28" />
+                      <Skeleton className="h-4 w-16" />
+                    </div>
+                    <Skeleton className="h-4 w-36" />
+                    <Skeleton className="h-3 w-full" />
+                    <div className="pt-2.5 border-t border-slate-200/80 flex justify-between items-center">
+                      <Skeleton className="h-3 w-32" />
+                      <Skeleton className="h-3 w-24" />
+                    </div>
+                  </div>
+                </div>
+              ) : result && liveUserData ? (
                 <div className="space-y-5 animate-in fade-in duration-200">
                   {/* Account Identity Header */}
                   <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-[4px] flex items-center gap-3">
