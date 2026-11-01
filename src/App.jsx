@@ -51,20 +51,8 @@ function TopProgressBar() {
 }
 
 export default function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(() => {
-    return localStorage.getItem('sidebar_minimized') === 'true';
-  });
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
-
-  const toggleSidebarMinimized = () => {
-    setIsSidebarMinimized((prev) => {
-      const next = !prev;
-      localStorage.setItem('sidebar_minimized', String(next));
-      return next;
-    });
-  };
 
   const openInspector = (account = null) => {
     setSelectedAccount(account);
@@ -80,29 +68,16 @@ export default function App() {
       {/* Top Route Progress Bar */}
       <TopProgressBar />
 
-      {/* Floating Modern Sidebar (Desktop floating card + Mobile drawer) */}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-        isMinimized={isSidebarMinimized}
-        onToggleMinimize={toggleSidebarMinimized}
-      />
+      {/* Floating Centered Modern Navigation Dock (Stand-alone Card with Smooth Hover Expansion) */}
+      <Sidebar />
 
       {/* Main Content Layout Wrapper */}
-      <div
-        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out pl-0 ${
-          isSidebarMinimized ? 'lg:pl-[88px]' : 'lg:pl-[244px]'
-        }`}
-      >
-        {/* Header (Fixed 56px height) */}
-        <Header
-          onOpenSidebar={() => setIsSidebarOpen(true)}
-          onOpenAnalyzeModal={() => openInspector(null)}
-          isSidebarMinimized={isSidebarMinimized}
-        />
+      <div className="flex-1 flex flex-col min-w-0 transition-all duration-200">
+        {/* Floating Top Navbar Card */}
+        <Header onOpenAnalyzeModal={() => openInspector(null)} />
 
-        {/* Dynamic Route Content - Edge-to-Edge Full Bleed */}
-        <main className="pt-14 flex-1 w-full bg-slate-50 min-h-screen">
+        {/* Dynamic Route Content */}
+        <main className="pt-20 sm:pl-[72px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 min-h-screen">
           <Routes>
             <Route
               path="/"

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Menu, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
-export default function Header({ onOpenSidebar, onOpenAnalyzeModal, isSidebarMinimized = false }) {
+export default function Header({ onOpenAnalyzeModal }) {
   const location = useLocation();
 
   const getPageTitle = (pathname) => {
@@ -26,30 +26,28 @@ export default function Header({ onOpenSidebar, onOpenAnalyzeModal, isSidebarMin
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 h-14 bg-white/95 backdrop-blur-xs border-b border-slate-200 z-20 px-5 sm:px-6 flex items-center justify-between transition-all duration-300 ease-in-out select-none ${
-        isSidebarMinimized ? 'lg:left-[88px]' : 'lg:left-[244px]'
-      }`}
+      className="fixed top-3 left-3 right-3 sm:left-4 sm:right-4 h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] z-30 px-3.5 sm:px-5 flex items-center justify-between transition-all duration-200 select-none"
     >
-      {/* Left side: Mobile menu toggle + Clean Minimalist Breadcrumb */}
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onOpenSidebar}
-          className="lg:hidden p-1.5 -ml-1 text-slate-600 hover:text-navy-950 hover:bg-slate-100 rounded-[4px] transition-colors focus:outline-none"
-          aria-label="Open navigation menu"
-        >
-          <Menu className="w-4 h-4" />
-        </button>
-
-        {/* Minimalist Clean Breadcrumb */}
+      {/* Left side: Brand Monogram + Clean Minimalist Breadcrumb */}
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="w-6 h-6 rounded-[4px] bg-navy-950 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
+          GH
+        </div>
         <div className="flex items-center gap-2 text-[13px] font-sans">
-          <span className="text-slate-400 font-medium tracking-tight">GH Intelligence</span>
+          <span className="text-slate-900 font-bold tracking-tight">GH Intelligence</span>
           <span className="text-slate-300 font-light">/</span>
-          <span className="text-navy-950 font-semibold tracking-tight">{pageTitle}</span>
+          <span className="text-slate-600 font-medium tracking-tight">{pageTitle}</span>
         </div>
       </div>
 
-      {/* Right side: Action Button */}
-      <div className="flex items-center gap-3">
+      {/* Right side: Dataset Meta Info + Action Button */}
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Subtle Dataset info (pure typography, no colored dots) */}
+        <div className="hidden md:flex items-center px-2.5 py-1 rounded-[4px] bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-sans font-medium">
+          GH Archive · 152h · 9.88M Events
+        </div>
+
+        {/* Action Button */}
         <button
           onClick={onOpenAnalyzeModal}
           className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs"
