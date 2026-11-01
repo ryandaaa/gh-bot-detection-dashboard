@@ -16,17 +16,17 @@ const POPULATION_BASELINE = {
 };
 
 const RADAR_METRICS = [
-  { key: 'log_n', label: 'Volume (log n)', min: 2.0, max: 6.0, format: v => v.toFixed(2), desc: 'Log-transformed total event volume over observation window.' },
-  { key: 'frac_push', label: 'Push Ratio', min: 0.0, max: 1.0, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Ratio of push operations among all recorded events.' },
-  { key: 'frac_create', label: 'Create Ratio', min: 0.0, max: 0.4, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Proportion of repository, tag, or branch creation events.' },
-  { key: 'frac_pr', label: 'PR Ratio', min: 0.0, max: 0.3, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Pull request opening, review, and comment operations.' },
-  { key: 'frac_issue', label: 'Issue Ratio', min: 0.0, max: 0.5, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Issue creation and issue commenting activity.' },
-  { key: 'frac_social', label: 'Social Ratio', min: 0.0, max: 0.06, format: v => `${(v * 100).toFixed(2)}%`, desc: 'Social signaling: watch, star, fork operations.' },
-  { key: 'log_events_per_repo', label: 'Events/Repo', min: 1.0, max: 5.0, format: v => v.toFixed(2), desc: 'Log concentration of event volume within repositories.' },
-  { key: 'max_repo_share', label: 'Repo Concentr.', min: 0.2, max: 1.0, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Fraction of total actions directed at top single repository.' },
-  { key: 'hour_entropy', label: '24h Entropy', min: 0.1, max: 1.0, format: v => v.toFixed(2), desc: 'Circadian temporal uniformity across 24 clock hours.' },
-  { key: 'active_frac', label: 'Active Hours', min: 0.05, max: 0.8, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Fraction of 152 observation hours with ≥1 event.' },
-  { key: 'log_max_per_hour', label: 'Peak Hour Rate', min: 1.0, max: 4.0, format: v => v.toFixed(2), desc: 'Log maximum event count observed in a single hour.' },
+  { key: 'log_n', label: 'Volume (log n)', min: 2.0, max: 6.0, format: v => v.toFixed(2), desc: 'Logaritma total volume event selama jendela observasi.' },
+  { key: 'frac_push', label: 'Push Ratio', min: 0.0, max: 1.0, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Proporsi operasi Git push terhadap seluruh aktivitas tercatat.' },
+  { key: 'frac_create', label: 'Create Ratio', min: 0.0, max: 0.4, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Proporsi pembuatan repositori, tag, atau cabang kerja (branch).' },
+  { key: 'frac_pr', label: 'PR Ratio', min: 0.0, max: 0.3, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Aktivitas pull request: pembukaan, peninjauan, dan komentar review.' },
+  { key: 'frac_issue', label: 'Issue Ratio', min: 0.0, max: 0.5, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Aktivitas pembukaan laporan masalah (issue) dan komentar diskusi.' },
+  { key: 'frac_social', label: 'Social Ratio', min: 0.0, max: 0.06, format: v => `${(v * 100).toFixed(2)}%`, desc: 'Sinyal sosial interaktif: pemberian bintang (star), pantauan (watch), dan forking.' },
+  { key: 'log_events_per_repo', label: 'Events/Repo', min: 1.0, max: 5.0, format: v => v.toFixed(2), desc: 'Konsentrasi rata-rata volume event pada setiap repositori.' },
+  { key: 'max_repo_share', label: 'Repo Concentr.', min: 0.2, max: 1.0, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Fraksi aktivitas yang terkonsentrasi pada satu repositori utama.' },
+  { key: 'hour_entropy', label: '24h Entropy', min: 0.1, max: 1.0, format: v => v.toFixed(2), desc: 'Keseragaman sirkadian waktu aktivitas sepanjang 24 jam sehari.' },
+  { key: 'active_frac', label: 'Active Hours', min: 0.05, max: 0.8, format: v => `${(v * 100).toFixed(1)}%`, desc: 'Proporsi jam aktif dengan minimal satu event selama 152 jam pengamatan.' },
+  { key: 'log_max_per_hour', label: 'Peak Hour Rate', min: 1.0, max: 4.0, format: v => v.toFixed(2), desc: 'Logaritma volume event tertinggi yang terjadi dalam satu jam puncak.' },
 ];
 
 const FALLBACK_CLUSTERS = {
@@ -506,7 +506,7 @@ export default function Clusters() {
             Cluster Explorer
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Behavioral clustering archetypes derived from K-Means (k=7) over 11 standardized dimensions with 2D PCA projection.
+            Arketipe klasterisasi perilaku berbasis K-Means (k=7) pada 11 dimensi fitur terstandarisasi dengan proyeksi 2D PCA.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -517,7 +517,7 @@ export default function Clusters() {
                 selectedBlock === 'A' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
             >
-              Block A (78h)
+              Block A (78 jam)
             </button>
             <button
               onClick={() => setSelectedBlock('B')}
@@ -525,7 +525,7 @@ export default function Clusters() {
                 selectedBlock === 'B' ? 'bg-navy-950 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
               }`}
             >
-              Block B (74h)
+              Block B (74 jam)
             </button>
           </div>
         </div>
@@ -543,11 +543,11 @@ export default function Clusters() {
                   2D PCA Universe Explorer
                 </h2>
                 <p className="text-[12px] text-slate-500">
-                  Principal Component Analysis projection of 11-dimensional feature vectors.
+                  Proyeksi Principal Component Analysis (PCA) dari vektor fitur perilaku 11 dimensi.
                 </p>
               </div>
               <div className="flex items-center gap-3 text-[12px] text-slate-600">
-                <span>Variance explained: <strong className="text-slate-900 font-semibold">68.4%</strong></span>
+                <span>Varians terjelaskan: <strong className="text-slate-900 font-semibold">68.4%</strong></span>
               </div>
             </div>
 
@@ -584,7 +584,7 @@ export default function Clusters() {
                   onClick={handleResetView}
                   className="ml-auto text-[11px] text-navy-800 hover:text-navy-950 underline font-medium"
                 >
-                  Clear Isolation
+                  Hapus Isolasi
                 </button>
               )}
             </div>
@@ -812,7 +812,7 @@ export default function Clusters() {
                     <div>
                       <span className="text-slate-500 block">Threshold Status:</span>
                       <span className="text-slate-700">
-                        {hoveredPoint.score >= 0.5514 ? 'τ ≥ 0.5514 (Cutoff)' : 'Within normal bounds'}
+                        {hoveredPoint.score >= 0.5514 ? 'τ ≥ 0.5514 (Cutoff Anomali)' : 'Dalam rentang batas normal'}
                       </span>
                     </div>
                   </div>
@@ -839,7 +839,7 @@ export default function Clusters() {
                       : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
-                  All (7)
+                  Semua (7)
                 </button>
                 {Object.keys(clusters).map((key) => {
                   const cl = clusters[key];
@@ -874,7 +874,7 @@ export default function Clusters() {
                 Behavioral Archetypes (7 Clusters)
               </h2>
               <span className="text-[11px] text-slate-500">
-                Click archetype to inspect spider radar & vectors
+                Pilih arketipe untuk memeriksa radar fitur 11 dimensi dan perilakunya
               </span>
             </div>
 
@@ -974,7 +974,7 @@ export default function Clusters() {
                   11-Dimension Feature Radar
                 </h4>
                 <p className="text-[11px] text-slate-500">
-                  Cluster archetype polygon vs normal population baseline.
+                  Poligon arketipe klaster dibandingkan dengan baseline rata-rata populasi normal.
                 </p>
               </div>
               {/* Radar Legend */}
@@ -1112,7 +1112,7 @@ export default function Clusters() {
                   </p>
                   <div className="flex items-center justify-between pt-2 mt-2 border-t border-slate-100 text-[11px]">
                     <span className="text-slate-600">
-                      Cluster Value: <strong className="text-navy-950">{RADAR_METRICS[hoveredAxis].format(activeCluster.fitur_mean[RADAR_METRICS[hoveredAxis].key])}</strong>
+                      Nilai Klaster: <strong className="text-navy-950">{RADAR_METRICS[hoveredAxis].format(activeCluster.fitur_mean[RADAR_METRICS[hoveredAxis].key])}</strong>
                     </span>
                     <span className="text-slate-500">
                       Baseline: {RADAR_METRICS[hoveredAxis].format(POPULATION_BASELINE[RADAR_METRICS[hoveredAxis].key])}
@@ -1121,7 +1121,7 @@ export default function Clusters() {
                 </div>
               ) : (
                 <div className="text-[11px] text-slate-500 text-center py-1">
-                  Hover any axis or point on the spider radar to inspect metric values & deviations.
+                  Arahkan kursor pada sumbu atau titik pada radar spider untuk memeriksa nilai metrik dan deviasinya.
                 </div>
               )}
             </div>

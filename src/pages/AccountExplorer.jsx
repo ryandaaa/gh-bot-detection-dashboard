@@ -206,11 +206,11 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
             Account Explorer
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Filter, inspect, and evaluate modeled accounts based on 11 behavioral features and anomaly scores across observation blocks.
+            Penyaringan, inspeksi, dan evaluasi akun termodel berdasarkan 11 fitur perilaku dan skor anomali lintas-blok observasi.
           </p>
         </div>
         <div className="text-[11px] font-medium text-slate-500">
-          Showing <strong className="text-slate-900">{filteredAccounts.length.toLocaleString()}</strong> modeled accounts
+          Menampilkan <strong className="text-slate-900">{filteredAccounts.length.toLocaleString()}</strong> akun termodel
         </div>
       </div>
 
@@ -228,7 +228,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
                 setSearch(e.target.value);
                 setCurrentPage(1);
               }}
-              placeholder="Search pseudonymized ID (e.g. a91f, c7d2)..."
+              placeholder="Cari ID pseudonim (contoh: a91f, c7d2)..."
               className="w-full h-full bg-transparent text-[13px] text-slate-900 placeholder:text-slate-400 outline-none font-sans"
             />
             {search && (
@@ -239,7 +239,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
                   setCurrentPage(1);
                 }}
                 className="p-1 text-slate-400 hover:text-slate-600 rounded-[2px] transition-colors"
-                title="Clear search query"
+                title="Hapus pencarian"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -259,8 +259,8 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               }}
               options={[
                 { value: 'all', label: 'All Blocks' },
-                { value: 'block-a', label: 'Block A (78h)' },
-                { value: 'block-b', label: 'Block B (74h)' },
+                { value: 'block-a', label: 'Block A (78 jam)' },
+                { value: 'block-b', label: 'Block B (74 jam)' },
               ]}
             />
 
@@ -296,8 +296,8 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               }}
               options={[
                 { value: 'all', label: 'All Statuses' },
-                { value: 'anomaly', label: 'Anomaly Only (τ ≥ 0.5514)' },
-                { value: 'normal', label: 'Normal Only (τ < 0.5514)' },
+                { value: 'anomaly', label: 'Hanya Anomali (τ ≥ 0.5514)' },
+                { value: 'normal', label: 'Hanya Normal (τ < 0.5514)' },
               ]}
             />
           </div>
@@ -335,7 +335,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
               {paginatedAccounts.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-16 text-center text-slate-500 text-[13px]">
-                    No accounts match the selected filters or search query.
+                    Tidak ada data akun yang sesuai dengan filter atau kata kunci pencarian.
                   </td>
                 </tr>
               ) : (
@@ -389,12 +389,12 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
         {/* Pagination & Summary Footer */}
         <div className="px-6 py-3 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 select-none">
           <div className="text-[12px] text-slate-500">
-            Showing{' '}
+            Menampilkan{' '}
             <strong className="text-slate-900 font-semibold">
               {filteredAccounts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}–
               {Math.min(currentPage * itemsPerPage, filteredAccounts.length)}
             </strong>{' '}
-            of <strong className="text-slate-900 font-semibold">{filteredAccounts.length}</strong> records
+            dari <strong className="text-slate-900 font-semibold">{filteredAccounts.length}</strong> data akun
           </div>
 
           <nav aria-label="Pagination" className="flex items-center gap-1">
@@ -449,7 +449,7 @@ export default function AccountExplorer({ onOpenAnalyzeModal }) {
       {/* Privacy Notice Bar */}
       <footer className="px-5 py-3 bg-white border border-slate-200/90 rounded-[4px] shadow-2xs text-slate-500 text-[11px] flex items-center justify-between">
         <span>
-          Privacy Notice: Account identifiers are irreversibly hashed and pseudonymized (SHA-256 slice).
+          Pemberitahuan Privasi: Identifikator akun telah di-hash secara satu arah dan disamarkan (potongan SHA-256) untuk menjaga integritas data.
         </span>
         <span className="font-mono text-slate-400">
           MongoDB Atlas · user_profiles

@@ -19,27 +19,27 @@ export default function Methodology() {
   };
 
   const stages = [
-    { id: 'pipeline-architecture', num: 1, title: 'Research Pipeline', desc: 'End-to-end ingestion flow' },
-    { id: 'dataset-sampling', num: 2, title: 'Dataset & Sampling', desc: '152-hour observation span' },
-    { id: 'data-engineering', num: 3, title: 'Data Engineering', desc: 'MongoDB aggregation layer' },
-    { id: 'feature-engineering', num: 4, title: 'Behavioral Features', desc: '11 statistical & entropy metrics' },
+    { id: 'pipeline-architecture', num: 1, title: 'Research Pipeline', desc: 'Alur ingesti end-to-end' },
+    { id: 'dataset-sampling', num: 2, title: 'Dataset & Sampling', desc: 'Rentang observasi 152 jam' },
+    { id: 'data-engineering', num: 3, title: 'Data Engineering', desc: 'Lapisan agregasi MongoDB' },
+    { id: 'feature-engineering', num: 4, title: 'Behavioral Features', desc: '11 metrik statistik & entropi' },
     { id: 'machine-learning', num: 5, title: 'ML & Clustering', desc: 'Isolation Forest & K-Means' },
-    { id: 'evaluation-methodology', num: 6, title: 'Evaluation Metrics', desc: 'ROC, PR-AUC & temporal drift' },
-    { id: 'privacy-boundaries', num: 7, title: 'Privacy & Boundaries', desc: 'Pseudonymization boundaries' },
+    { id: 'evaluation-methodology', num: 6, title: 'Evaluation Metrics', desc: 'ROC, PR-AUC & drift temporal' },
+    { id: 'privacy-boundaries', num: 7, title: 'Privacy & Boundaries', desc: 'Batasan pseudonimisasi data' },
   ];
 
   const featuresList = [
-    { name: 'log_n', label: 'Log Total Events', desc: 'Log-transformed event volume log(1 + n) to compress heavy-tailed power distributions.' },
-    { name: 'frac_push', label: 'Fraction of Push Events', desc: 'Ratio of PushEvent to total events. High values (>0.9) characterize commit loop scripts.' },
-    { name: 'frac_create', label: 'Fraction of Create Events', desc: 'Ratio of repository, branch, or tag creations.' },
-    { name: 'frac_pr', label: 'Fraction of PR Events', desc: 'Ratio of PullRequestEvent. Tooling bots (Dependabot) show high PR volume.' },
-    { name: 'frac_issue', label: 'Fraction of Issue Events', desc: 'Ratio of IssuesEvent and IssueCommentEvent interactions.' },
-    { name: 'frac_social', label: 'Fraction of Social Events', desc: 'Ratio of WatchEvent (Stars) and ForkEvent indicating social graph interaction.' },
-    { name: 'log_events_per_repo', label: 'Events Per Repo', desc: 'Log ratio log(1 + n_events / n_repos) capturing activity dispersal.' },
-    { name: 'max_repo_share', label: 'Max Repo Concentration', desc: 'Proportion of total events dedicated to the single most active repository [0, 1].' },
-    { name: 'hour_entropy', label: 'Normalized 24h Entropy', desc: 'Shannon entropy across 24 circadian hours. Near 0 = burst spike; Near 1 = continuous 24/7 bot.' },
-    { name: 'active_frac', label: 'Active Hour Fraction', desc: 'Proportion of total observation hours in which the account triggered at least 1 action.' },
-    { name: 'log_max_per_hour', label: 'Peak Velocity', desc: 'Log of the maximum event count executed within any single clock hour.' },
+    { name: 'log_n', label: 'Log Total Events', desc: 'Transformasi logaritma volume event log(1 + n) untuk mengompresi distribusi ekor tebal (heavy-tailed power law).' },
+    { name: 'frac_push', label: 'Fraction of Push Events', desc: 'Rasio operasi PushEvent terhadap total event. Nilai tinggi (>0,9) mencirikan skrip commit otomatis.' },
+    { name: 'frac_create', label: 'Fraction of Create Events', desc: 'Rasio pembuatan repositori, cabang kerja (branch), atau tag baru.' },
+    { name: 'frac_pr', label: 'Fraction of PR Events', desc: 'Rasio PullRequestEvent. Bot tooling (seperti Dependabot) memiliki volume PR yang dominan.' },
+    { name: 'frac_issue', label: 'Fraction of Issue Events', desc: 'Rasio interaksi IssuesEvent dan IssueCommentEvent dalam diskusi repositori.' },
+    { name: 'frac_social', label: 'Fraction of Social Events', desc: 'Rasio WatchEvent (Stars) dan ForkEvent yang mengindikasikan interaksi graf sosial.' },
+    { name: 'log_events_per_repo', label: 'Events Per Repo', desc: 'Rasio logaritma log(1 + n_events / n_repos) untuk mengukur dispersi aktivitas repositori.' },
+    { name: 'max_repo_share', label: 'Max Repo Concentration', desc: 'Proporsi total event yang terkonsentrasi pada satu repositori paling aktif [0, 1].' },
+    { name: 'hour_entropy', label: 'Normalized 24h Entropy', desc: 'Entropi Shannon ternormalisasi sepanjang 24 jam sirkadian. Mendekati 0 = burst spike; mendekati 1 = bot aktif non-stop 24/7.' },
+    { name: 'active_frac', label: 'Active Hour Fraction', desc: 'Proporsi jam observasi di mana akun memicu setidaknya 1 aksi aktivitas.' },
+    { name: 'log_max_per_hour', label: 'Peak Velocity', desc: 'Logaritma dari jumlah event maksimum yang dieksekusi dalam satu jam jam dinding.' },
   ];
 
   if (loading) {
@@ -77,7 +77,7 @@ export default function Methodology() {
             Methodology & Architecture
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Research design, big data pipeline, 11-dimensional feature engineering, and unsupervised analytical architecture.
+            Desain penelitian, arsitektur pipeline big data, rekayasa fitur perilaku 11 dimensi, dan kerangka analitik nir-terbimbing (unsupervised).
           </p>
         </div>
         <div className="text-[11px] font-medium text-slate-500">
@@ -135,19 +135,19 @@ export default function Methodology() {
             </div>
             <dl className="space-y-2 text-[12px]">
               <div className="flex justify-between py-1 border-b border-slate-100 font-mono">
-                <dt className="text-slate-500 font-sans">Source</dt>
+                <dt className="text-slate-500 font-sans">Sumber Data</dt>
                 <dd className="font-semibold text-navy-950">GH Archive (APIv3)</dd>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-100 font-mono">
-                <dt className="text-slate-500 font-sans">Interval Block A</dt>
-                <dd className="text-navy-950">76h (T0 → T76)</dd>
+                <dt className="text-slate-500 font-sans">Interval Blok A</dt>
+                <dd className="text-navy-950">76 jam (T0 → T76)</dd>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-100 font-mono">
-                <dt className="text-slate-500 font-sans">Interval Block B</dt>
-                <dd className="text-navy-950">76h (T76 → T152)</dd>
+                <dt className="text-slate-500 font-sans">Interval Blok B</dt>
+                <dd className="text-navy-950">76 jam (T76 → T152)</dd>
               </div>
               <div className="flex justify-between py-1 font-mono">
-                <dt className="text-slate-500 font-sans">Storage Engine</dt>
+                <dt className="text-slate-500 font-sans">Engine Penyimpanan</dt>
                 <dd className="text-navy-950">MongoDB WiredTiger</dd>
               </div>
             </dl>
@@ -172,7 +172,7 @@ export default function Methodology() {
               </span>
             </div>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
-              The processing framework consumes raw activity streams directly from the GitHub public timeline archive, normalizes events into an indexed document schema, derives temporal and structural behavioral matrices, and trains unsupervised learning nodes for cluster and outlier estimation.
+              Kerangka kerja pemrosesan mengonsumsi aliran aktivitas mentah langsung dari arsip linimasa publik GitHub (GH Archive), menormalisasi event ke dalam skema dokumen berindeks, menurunkan matriks perilaku temporal dan struktural, serta melatih model nir-terbimbing untuk estimasi klaster dan deteksi anomali.
             </p>
 
             {/* Pipeline Step Grid */}
@@ -180,27 +180,27 @@ export default function Methodology() {
               <div className="p-3">
                 <div className="text-[10px] text-slate-400 font-bold uppercase font-mono">Step 1</div>
                 <div className="text-[12px] font-bold text-navy-950 mt-1">GH Archive</div>
-                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">JSON Timeline</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Linimasa JSON</div>
               </div>
               <div className="p-3">
                 <div className="text-[10px] text-slate-400 font-bold uppercase font-mono">Step 2</div>
                 <div className="text-[12px] font-bold text-navy-950 mt-1">MongoDB</div>
-                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Aggregation</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Agregasi NoSQL</div>
               </div>
               <div className="p-3">
                 <div className="text-[10px] text-slate-400 font-bold uppercase font-mono">Step 3</div>
-                <div className="text-[12px] font-bold text-navy-950 mt-1">11 Features</div>
-                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Matrices</div>
+                <div className="text-[12px] font-bold text-navy-950 mt-1">11 Fitur</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Matriks Perilaku</div>
               </div>
               <div className="p-3">
                 <div className="text-[10px] text-slate-400 font-bold uppercase font-mono">Step 4</div>
                 <div className="text-[12px] font-bold text-navy-950 mt-1">Isolation Forest</div>
-                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Anomaly Scoring</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Skoring Anomali</div>
               </div>
               <div className="p-3 col-span-2 sm:col-span-1">
                 <div className="text-[10px] text-slate-400 font-bold uppercase font-mono">Step 5</div>
                 <div className="text-[12px] font-bold text-navy-950 mt-1">K-Means (k=7)</div>
-                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Archetypes</div>
+                <div className="text-[10px] text-slate-500 mt-0.5 font-mono">Partisi Arketipe</div>
               </div>
             </div>
           </article>
@@ -214,7 +214,7 @@ export default function Methodology() {
               Dataset Sampling & Observation Windows
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed">
-              To evaluate model reliability and temporal robustness, the timeline is partitioned into two disjoint observation blocks of 76 hours each (total 152 continuous hours). In total, 9.88 million raw events were indexed across 239.6K active actors, resulting in 44,200 modeled accounts meeting the activity threshold criteria.
+              Untuk mengevaluasi keandalan model dan ketahanan temporal, linimasa dipartisi menjadi dua blok observasi independen masing-masing berdurasi 76 jam (total 152 jam kontinu). Sebanyak 9,88 juta event mentah diindeks dari 239,6 ribu aktor aktif, menghasilkan 44.200 akun termodel yang memenuhi kriteria ambang batas aktivitas minimal.
             </p>
           </article>
 
@@ -227,7 +227,7 @@ export default function Methodology() {
               Data Engineering & Index Optimization
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
-              To support rapid aggregation across millions of documents without full collection scans, compound B-Tree indices were constructed on <code className="bg-slate-100 text-navy-950 px-1.5 py-0.5 border border-slate-200 rounded-[4px] font-medium font-mono">&#123; account_id: 1, created_at: 1 &#125;</code>.
+              Untuk mendukung agregasi cepat pada jutaan dokumen tanpa pemindaian koleksi menyeluruh (COLLSCAN), indeks majemuk B-Tree dibangun pada pasangan kunci <code className="bg-slate-100 text-navy-950 px-1.5 py-0.5 border border-slate-200 rounded-[4px] font-medium font-mono">&#123; account_id: 1, created_at: 1 &#125;</code>.
             </p>
             <div className="p-3 bg-slate-50 border border-slate-200/90 rounded-[4px] text-[11px] text-slate-800 font-mono">
               <span className="text-slate-400 block mb-1">// MongoDB Aggregation Pipeline</span>
@@ -247,7 +247,7 @@ export default function Methodology() {
               11 Behavioral Features
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
-              Feature vectors quantify action diversity, repository distribution focus, circadian rhythm entropy, and hourly burst velocities.
+              Vektor fitur mengukur keberagaman aksi Git, fokus distribusi repositori, entropi ritme sirkadian 24 jam, dan kecepatan lonjakan (burst velocity) per jam.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -274,10 +274,10 @@ export default function Methodology() {
               Machine Learning & Anomaly Detection
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
-              We employ <strong>Isolation Forest</strong> for unsupervised outlier isolation without requiring clean negative labels. Trees isolate anomalies with short path lengths because anomalous vectors sit isolated in feature space.
+              Kami menerapkan algoritma <strong>Isolation Forest</strong> untuk isolasi anomali nir-terbimbing tanpa memerlukan label negatif bersih. Struktur pohon mengisolasi titik anomali dengan kedalaman jalur (path length) yang pendek karena vektor anomali berada terisolasi di ruang fitur.
             </p>
             <p className="text-[13px] text-slate-600 leading-relaxed">
-              <strong>K-Means (k=7)</strong> partitions normal and anomalous actors into distinct behavioral archetypes: burst pushers, regular developers, multi-repo committers, tooling bots, and 24/7 continuous loggers.
+              Algoritma <strong>K-Means (k=7)</strong> mempartisi aktor normal dan anomali ke dalam arketipe perilaku yang terpisah secara tegas: burst pushers, developer reguler, multi-repo committers, tooling bots, dan continuous logger 24/7.
             </p>
           </article>
 
@@ -290,7 +290,7 @@ export default function Methodology() {
               Evaluation Methodology & Benchmarks
             </h2>
             <p className="text-[13px] text-slate-600 leading-relaxed">
-              We evaluate using receiver operating characteristic (ROC-AUC 0.809 vs 0.595 baseline), precision-recall area (PR-AUC 0.301 vs 0.119), Spearman rank correlation (ρ = 0.720), and recurrence rate (52.9% vs 5.2% uniform baseline).
+              Evaluasi dilakukan menggunakan kurva karakteristik operasi penerima (ROC-AUC 0,809 vs 0,595 baseline volume tunggal), area kurva presisi-recall (PR-AUC 0,301 vs 0,119 baseline), korelasi peringkat Spearman lintas-blok (ρ = 0,720), serta tingkat rekurensi persistensi perilaku (52,9% vs 5,2% pada baseline acak seragam).
             </p>
           </article>
 
@@ -304,7 +304,7 @@ export default function Methodology() {
             </h2>
             <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-[4px] text-[12px] text-slate-600 leading-relaxed">
               <strong className="text-navy-950 block mb-1">Pseudonymization Policy</strong>
-              All account IDs are irreversibly hashed and pseudonymized. No repository code bodies, personal emails, or private commit messages were scraped or processed during feature extraction.
+              Seluruh identificator akun di-hash secara satu arah dan disamarkan (potongan SHA-256) secara permanen. Tidak ada badan kode sumber repositori, email pribadi kontributor, maupun pesan commit privat yang diambil atau diproses selama tahapan ekstraksi fitur.
             </div>
           </article>
         </div>

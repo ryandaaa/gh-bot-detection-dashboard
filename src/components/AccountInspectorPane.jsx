@@ -275,22 +275,22 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
     setErrorMessage(null);
     setLiveUsername(target);
     setFetchProgress(18);
-    setFetchStage('Connecting to GitHub REST API...');
+    setFetchStage('Menghubungi GitHub REST API...');
 
     // Progress timeline simulation tracking network & inference stages
     const t1 = setTimeout(() => {
       setFetchProgress(46);
-      setFetchStage('Querying recent public timeline events (n=100)...');
+      setFetchStage('Mengambil riwayat event linimasa publik (n=100)...');
     }, 240);
 
     const t2 = setTimeout(() => {
       setFetchProgress(72);
-      setFetchStage('Extracting 11-D behavioral vectors (push ratio, entropy)...');
+      setFetchStage('Mengekstraksi vektor perilaku 11 dimensi (push ratio, entropi)...');
     }, 550);
 
     const t3 = setTimeout(() => {
       setFetchProgress(90);
-      setFetchStage('Executing Isolation Forest & K-Means inference...');
+      setFetchStage('Menjalankan inferensi model Isolation Forest & K-Means...');
     }, 850);
 
     try {
@@ -305,7 +305,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
       clearTimeout(t2);
       clearTimeout(t3);
       setFetchProgress(100);
-      setFetchStage('Profile classified successfully');
+      setFetchStage('Profil berhasil diklasifikasikan');
 
       // Brief 150ms pause so user sees 100% completion before revealing data
       await new Promise((r) => setTimeout(r, 150));
@@ -332,7 +332,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      setErrorMessage(err.message || 'Failed to fetch live GitHub account profile.');
+      setErrorMessage(err.message || 'Gagal mengambil profil akun publik GitHub.');
     } finally {
       setLoading(false);
     }
@@ -363,7 +363,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               Account Inspector
             </h2>
             <p className="font-sans text-[11px] text-slate-500">
-              Real-time behavioral profiling & anomaly scoring
+              Pemodelan perilaku real-time dan evaluasi skor anomali akun
             </p>
           </div>
           <button
@@ -408,7 +408,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
           </div>
 
           <span className="font-sans text-[11px] text-slate-500">
-            {activeTab === 'live' ? 'Online Mode' : 'Synthetic Mode'}
+            {activeTab === 'live' ? 'Mode Online' : 'Mode Sintesis'}
           </span>
         </div>
 
@@ -427,7 +427,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                     type="text"
                     value={liveUsername}
                     onChange={(e) => setLiveUsername(e.target.value)}
-                    placeholder="Enter username or GitHub URL..."
+                    placeholder="Masukkan username atau URL profil GitHub..."
                     className="w-full bg-white border border-slate-300 font-sans text-[13px] text-slate-900 pl-9 pr-24 py-2 rounded-[4px] outline-none focus:border-navy-900 focus:ring-1 focus:ring-navy-900 transition-colors"
                   />
                   <button
@@ -441,7 +441,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
                 {/* Sample Profile Quick-Pills */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[11px] text-slate-400 font-normal mr-1">Quick test:</span>
+                  <span className="text-[11px] text-slate-400 font-normal mr-1">Uji cepat:</span>
                   {SAMPLE_ACCOUNTS.map((acc) => (
                     <button
                       key={acc.id}
@@ -461,7 +461,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                 <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-[12px] rounded-[4px] flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <strong className="font-semibold block">Lookup Failed</strong>
+                    <strong className="font-semibold block">Pencarian Profil Gagal</strong>
                     <span>{errorMessage}</span>
                   </div>
                 </div>
@@ -623,8 +623,8 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
 
                     <p className="text-[12px] text-slate-600 mt-1">
                       {isAnomaly
-                        ? 'High-velocity commit concentration or lack of circadian variance deviates from natural human patterns.'
-                        : 'Activity rhythm and action distribution align with organic software development behavior.'}
+                        ? 'Konsentrasi commit berkecepatan tinggi atau ketiadaan variasi sirkadian menyimpang dari pola aktivitas alami manusia.'
+                        : 'Irama aktivitas dan distribusi tindakan selaras dengan karakteristik pengembangan perangkat lunak secara organik.'}
                     </p>
 
                     {/* Score & Gauge Bar */}
@@ -634,7 +634,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                           Anomaly Score: <strong className="text-slate-900 font-semibold">{score.toFixed(4)}</strong>
                         </span>
                         <span className="text-[11px] text-slate-400">
-                          Threshold Cutoff: {threshold.toFixed(4)}
+                          Ambang Batas Cutoff: {threshold.toFixed(4)}
                         </span>
                       </div>
 
@@ -652,7 +652,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   {/* 4-Cell Key Behavioral Signals */}
                   <div>
                     <h4 className="text-[12px] font-semibold text-slate-900 mb-2">
-                      Extracted Behavioral Dimensions
+                      Dimensi Fitur Perilaku Terekstraksi
                     </h4>
                     <div className="grid grid-cols-2 gap-2 text-[12px]">
                       <div className="p-3 bg-slate-50 border border-slate-200 rounded-[4px]">
@@ -686,7 +686,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   <div className="p-4 bg-slate-50 border border-slate-200 rounded-[4px]">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[11px] font-medium text-slate-500">
-                        K-Means Attribution
+                        Atribusi Klaster K-Means
                       </span>
                       <span className="text-[11px] font-semibold text-navy-950 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px]">
                         Cluster {result.cluster_id ?? 0}
@@ -710,7 +710,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                         }}
                         className="text-navy-900 hover:text-navy-700 font-medium inline-flex items-center gap-1"
                       >
-                        <span>View in Clusters</span>
+                        <span>Lihat di Klaster</span>
                         <ArrowRight className="w-3 h-3" />
                       </button>
                     </div>
@@ -723,10 +723,10 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                     <Sparkles className="w-5 h-5 text-slate-500" />
                   </div>
                   <h3 className="text-[13px] font-semibold text-slate-800">
-                    Ready to Analyze
+                    Siap untuk Analisis
                   </h3>
                   <p className="text-[12px] text-slate-500 max-w-[280px] mx-auto mt-1">
-                    Enter any public GitHub username above or click one of the quick test candidates to evaluate its behavioral signature.
+                    Masukkan username GitHub publik di atas atau klik salah satu profil contoh untuk mengevaluasi sidik jari perilakunya.
                   </p>
                 </div>
               )}
@@ -738,7 +738,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[12px] font-semibold text-slate-900">
-                    Archetype Presets
+                    Arketipe Preset
                   </span>
                   <button
                     onClick={() => applyPreset(selectedPreset !== 'custom' ? selectedPreset : 'black-hat-seo')}
@@ -919,7 +919,7 @@ export default function AccountInspectorPane({ isOpen, onClose, selectedAccount 
                   </div>
 
                   <div className="mt-2 text-[11px] text-slate-500">
-                    Attributed: <strong className="text-slate-800">{result.cluster_badge || `Cluster ${result.cluster_id}`}</strong>
+                    Teratribusi: <strong className="text-slate-800">{result.cluster_badge || `Cluster ${result.cluster_id}`}</strong>
                   </div>
                 </div>
               )}

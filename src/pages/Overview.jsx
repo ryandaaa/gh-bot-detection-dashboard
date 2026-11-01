@@ -33,13 +33,13 @@ export default function Overview() {
 
   // Cluster distribution percentages based on models/cluster_profiles.json
   const clusterData = [
-    { id: 1, name: 'C1: Heavy Pushers', accounts: '17,458', pct: 39.5, color: '#64748b', anomalyRate: '0.0%', desc: 'Single-repo organic push contributor' },
-    { id: 5, name: 'C5: Push & Create', accounts: '8,663', pct: 19.6, color: '#7c3aed', anomalyRate: '4.1%', desc: 'Frequent repo and branch initialization' },
-    { id: 2, name: 'C2: Multi-Repo Push', accounts: '7,956', pct: 18.0, color: '#0f172a', anomalyRate: '3.5%', desc: 'Distributed commits across diverse projects' },
-    { id: 6, name: 'C6: 24/7 High Vol', accounts: '5,613', pct: 12.7, color: '#059669', anomalyRate: '8.5%', desc: 'Continuous round-the-clock commit streams' },
-    { id: 0, name: 'C0: Burst Pushers', accounts: '2,785', pct: 6.3, color: '#2563eb', anomalyRate: '12.7%', desc: 'High velocity short duration burst spikes' },
-    { id: 3, name: 'C3: Automated CI', accounts: '1,547', pct: 3.5, color: '#dc2626', anomalyRate: '42.9%', desc: 'Automated CI tooling (Dependabot/Workflows)' },
-    { id: 4, name: 'C4: Tooling Bots', accounts: '178', pct: 0.4, color: '#d97706', anomalyRate: '46.6%', desc: 'Automated release and maintenance scripts' },
+    { id: 1, name: 'C1: Pendorong Masif', accounts: '17.458', pct: 39.5, color: '#64748b', anomalyRate: '0.0%', desc: 'Kontributor push terpusat pada satu repositori' },
+    { id: 5, name: 'C5: Push & Inisialisasi', accounts: '8.663', pct: 19.6, color: '#7c3aed', anomalyRate: '4.1%', desc: 'Pembuatan repositori dan branch otomatis' },
+    { id: 2, name: 'C2: Pendorong Multi-Repo', accounts: '7.956', pct: 18.0, color: '#0f172a', anomalyRate: '3.5%', desc: 'Aktivitas commit tersebar di banyak proyek' },
+    { id: 6, name: 'C6: Volume Tinggi 24/7', accounts: '5.613', pct: 12.7, color: '#059669', anomalyRate: '8.5%', desc: 'Aliran commit tanpa henti sepanjang waktu' },
+    { id: 0, name: 'C0: Pendorong Sentakan', accounts: '2.785', pct: 6.3, color: '#2563eb', anomalyRate: '12.7%', desc: 'Spike frekuensi tinggi dalam rentang waktu singkat' },
+    { id: 3, name: 'C3: Integrasi CI Otomatis', accounts: '1.547', pct: 3.5, color: '#dc2626', anomalyRate: '42.9%', desc: 'Perkakas CI otomatis (Dependabot/Workflows)' },
+    { id: 4, name: 'C4: Bot Perkakas & Rilis', accounts: '178', pct: 0.4, color: '#d97706', anomalyRate: '46.6%', desc: 'Skrip otomatisasi rilis dan pemeliharaan repositori' },
   ];
 
   // SVG dimensions for density curve
@@ -156,11 +156,11 @@ export default function Overview() {
             Pipeline Overview
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Behavioral modeling and unsupervised bot anomaly detection across 9.88M public GitHub events.
+            Pemodelan perilaku dan deteksi anomali bot nir-terbimbing (unsupervised) pada 9,88 juta event publik GitHub.
           </p>
         </div>
         <div className="text-[11px] font-medium text-slate-500 shrink-0">
-          GH Archive · 152h Ingestion · Block A & B
+          GH Archive · Ingesti 152 Jam · Blok A & B
         </div>
       </div>
 
@@ -176,7 +176,7 @@ export default function Overview() {
               9.88M
             </div>
             <div className="text-[12px] text-slate-500 mt-1">
-              9,884,213 clean events across 152h
+              9.884.213 event bersih selama 152 jam observasi
             </div>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function Overview() {
               44,200
             </div>
             <div className="text-[12px] text-slate-500 mt-1">
-              11 behavioral dimensions extracted
+              11 dimensi fitur perilaku diekstraksi per akun
             </div>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function Overview() {
               2,210
             </div>
             <div className="text-[12px] text-slate-500 mt-1">
-              Top 5.0% quantile (score τ ≥ 0.5514)
+              Kuantil teratas 5,0% (skor ambang batas τ ≥ 0,5514)
             </div>
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function Overview() {
               7
             </div>
             <div className="text-[12px] text-slate-500 mt-1">
-              K-Means unsupervised partition
+              Partisi nir-terbimbing K-Means (k=7)
             </div>
           </div>
         </div>
@@ -241,7 +241,7 @@ export default function Overview() {
               </span>
             </div>
             <p className="text-[12px] text-slate-500 mt-1">
-              Kernel density across 44.2K accounts. Move cursor over curve to inspect live crosshair metrics.
+              Estimasi kepadatan kernel (KDE) pada 44,2 ribu akun. Arahkan kursor pada kurva untuk inspeksi metrik langsung.
             </p>
           </div>
 
@@ -277,9 +277,9 @@ export default function Overview() {
                   </span>
                 </div>
                 <div className="text-slate-300 text-[10px] space-y-0.5">
-                  <div>Percentile: <strong className="text-white">{hoveredScore.percentile.toFixed(1)}%</strong></div>
-                  <div>Estimated Accounts: <strong className="text-white">~{hoveredScore.count.toLocaleString()}</strong></div>
-                  <div>Cutoff: <span className={hoveredScore.isAnomaly ? 'text-rose-400 font-semibold' : 'text-slate-400'}>{hoveredScore.isAnomaly ? 'τ ≥ 0.5514 (Positive)' : 'τ < 0.5514'}</span></div>
+                  <div>Persentil: <strong className="text-white">{hoveredScore.percentile.toFixed(1)}%</strong></div>
+                  <div>Estimasi Akun: <strong className="text-white">~{hoveredScore.count.toLocaleString()}</strong></div>
+                  <div>Cutoff: <span className={hoveredScore.isAnomaly ? 'text-rose-400 font-semibold' : 'text-slate-400'}>{hoveredScore.isAnomaly ? 'τ ≥ 0.5514 (Anomali)' : 'τ < 0.5514'}</span></div>
                 </div>
               </div>
             )}
@@ -397,7 +397,7 @@ export default function Overview() {
               </span>
             </div>
             <p className="text-[12px] text-slate-500 mt-1">
-              Hover over donut segments or list items to inspect contributor archetypes and population share.
+              Arahkan kursor pada segmen donat atau daftar item untuk memeriksa arketipe kontributor dan proporsi populasi.
             </p>
           </div>
 
@@ -564,7 +564,7 @@ export default function Overview() {
                       {activeClusterInfo.name.split(':')[0]}
                     </span>
                     <span className="text-[10px] text-slate-500">
-                      {activeClusterInfo.accounts} accs
+                      {activeClusterInfo.accounts} akun
                     </span>
                   </>
                 ) : (
@@ -572,8 +572,8 @@ export default function Overview() {
                     <span className="text-2xl font-bold text-slate-900 leading-none">
                       7
                     </span>
-                    <span className="text-[10px] font-medium text-slate-500 mt-0.5">Archetypes</span>
-                    <span className="text-[10px] text-slate-400">44.2K total</span>
+                    <span className="text-[10px] font-medium text-slate-500 mt-0.5">Arketipe</span>
+                    <span className="text-[10px] text-slate-400">44,2 ribu total</span>
                   </>
                 )}
               </div>
@@ -631,7 +631,7 @@ export default function Overview() {
               </span>
             </div>
             <p className="text-[12px] text-slate-600 mt-2 leading-relaxed">
-              Substantial performance improvement over the single-dimension volume baseline (0.595), proving multidimensional behavioral discrimination.
+              Peningkatan performa substansial dibandingkan baseline volume dimensi tunggal (0,595), membuktikan efektivitas diskriminasi perilaku multidimensi.
             </p>
           </div>
         </div>
@@ -643,7 +643,7 @@ export default function Overview() {
               Temporal Rank Stability
             </span>
             <span className="text-[11px] font-medium text-slate-600 bg-slate-100 px-2 py-0.5 border border-slate-200 rounded-[4px]">
-              Δt = 76h gap
+              Jeda Δt = 76 jam
             </span>
           </div>
           <div className="mt-3">
@@ -656,7 +656,7 @@ export default function Overview() {
               </span>
             </div>
             <p className="text-[12px] text-slate-600 mt-2 leading-relaxed">
-              Strong rank correlation across independent time blocks confirms behavioral fingerprints remain consistent over disjoint observation windows.
+              Korelasi peringkat yang kuat antar-blok waktu independen membuktikan bahwa sidik jari perilaku akun tetap konsisten pada jendela observasi terpisah.
             </p>
           </div>
         </div>
@@ -681,7 +681,7 @@ export default function Overview() {
               </span>
             </div>
             <p className="text-[12px] text-slate-600 mt-2 leading-relaxed">
-              MongoDB Atlas B-Tree compound index (<code className="text-slate-800 font-medium">ts_1</code>) accelerates temporal range aggregations across 9.9M events from 150s down to milliseconds.
+              Indeks majemuk B-Tree MongoDB Atlas (<code className="text-slate-800 font-medium">ts_1</code>) mempercepat agregasi rentang waktu pada 9,88 juta event dari 150 detik menjadi dalam hitungan milidetik.
             </p>
           </div>
         </div>

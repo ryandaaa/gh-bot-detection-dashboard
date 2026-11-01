@@ -96,40 +96,40 @@ export default function Evaluation() {
   // Database Latency Benchmark Records (with exact docs & speedup)
   const latencyRecords = [
     {
-      window: '24 Hours Window Range',
+      window: 'Rentang Jendela 24 Jam',
       collscan: 8.42,
       collscanMs: 8420,
       ixscan: 0.93,
       ixscanMs: 930,
       speedup: '9.05×',
       reductionPct: '89.0%',
-      scannedColl: '9.88M documents (100% full scan)',
-      scannedIx: '3,840 documents (0.04% index seek)',
-      stageDetail: 'Disk spill averted · Compound index key lookup'
+      scannedColl: '9,88M dokumen (100% full scan)',
+      scannedIx: '3.840 dokumen (0,04% index seek)',
+      stageDetail: 'Disk spill terhindarkan · Pencarian kunci compound index'
     },
     {
-      window: '48 Hours Window Range',
+      window: 'Rentang Jendela 48 Jam',
       collscan: 17.66,
       collscanMs: 17660,
       ixscan: 2.11,
       ixscanMs: 2110,
       speedup: '8.37×',
       reductionPct: '88.1%',
-      scannedColl: '9.88M documents (100% full scan)',
-      scannedIx: '8,410 documents (0.08% index seek)',
-      stageDetail: 'Eliminated temp disk buffer spills to SSD'
+      scannedColl: '9,88M dokumen (100% full scan)',
+      scannedIx: '8.410 dokumen (0,08% index seek)',
+      stageDetail: 'Menghilangkan penulisan buffer disk sementara ke SSD'
     },
     {
-      window: '78 Hours Window Range',
+      window: 'Rentang Jendela 78 Jam',
       collscan: 31.70,
       collscanMs: 31700,
       ixscan: 3.25,
       ixscanMs: 3250,
       speedup: '9.75×',
       reductionPct: '89.7%',
-      scannedColl: '9.88M documents (100% full scan)',
-      scannedIx: '14,200 documents (0.14% index seek)',
-      stageDetail: 'B-Tree leaf scan bounds pipeline latency to <3.5s'
+      scannedColl: '9,88M dokumen (100% full scan)',
+      scannedIx: '14.200 dokumen (0,14% index seek)',
+      stageDetail: 'Pemindaian daun B-Tree membatasi latensi pipeline ke <3,5 detik'
     },
   ];
 
@@ -168,11 +168,11 @@ export default function Evaluation() {
             Model Evaluation & Benchmarks
           </h1>
           <p className="text-[13px] text-slate-500 mt-0.5">
-            Empirical discrimination benchmarks, temporal stability across disjoint observation blocks, and MongoDB query latency.
+            Tolok ukur diskriminasi empiris model, stabilitas temporal lintas-blok observasi independen, dan latensi kueri agregasi MongoDB Atlas.
           </p>
         </div>
         <div className="text-[11px] font-medium text-slate-500">
-          Benchmark Verified · Block A & B
+          Terverifikasi Melalui Benchmark · Blok A & B
         </div>
       </div>
 
@@ -195,7 +195,7 @@ export default function Evaluation() {
                 0.809
               </div>
               <p className="text-[12px] text-slate-500 mt-1">
-                Isolation Forest vs. <strong className="text-slate-800 font-medium">0.595</strong> Volume Baseline
+                Isolation Forest vs. baseline volume dimensi tunggal (<strong className="text-slate-800 font-medium">0,595</strong>)
               </p>
             </div>
 
@@ -212,7 +212,7 @@ export default function Evaluation() {
                 0.301
               </div>
               <p className="text-[12px] text-slate-500 mt-1">
-                Precision-Recall Area under curve (imbalanced positive class)
+                Area di bawah kurva Precision-Recall (pada kelas anomali positif yang timpang)
               </p>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function Evaluation() {
                 </span>
               </div>
               <p className="text-[12px] text-slate-500 mb-4">
-                Comparison of unsupervised behavioral features vs volume heuristics.
+                Perbandingan efektivitas fitur perilaku multidimensi tanpa supervisi terhadap heuristik volume tunggal.
               </p>
 
               <div className="overflow-x-auto border border-slate-200 rounded-[4px]">
@@ -245,7 +245,7 @@ export default function Evaluation() {
                   <tbody className="divide-y divide-slate-100 text-[13px]">
                     <tr className="bg-slate-50/50">
                       <td className="py-3 px-3.5 font-semibold text-slate-900">
-                        Isolation Forest (11 Features)
+                        Isolation Forest (11 Fitur)
                       </td>
                       <td className="py-3 px-3.5 text-right font-bold text-slate-900 font-mono">
                         0.809
@@ -276,7 +276,7 @@ export default function Evaluation() {
                 <span className="text-[12px] font-semibold text-slate-900">
                   Live Confusion Matrix @ τ = {currentMetrics.tau.toFixed(4)}
                 </span>
-                <span className="text-[11px] text-slate-500">N = 44,200 Accounts</span>
+                <span className="text-[11px] text-slate-500">N = 44.200 Akun</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div className="p-2.5 bg-emerald-50/70 border border-emerald-200 rounded-[4px] flex justify-between items-center">
@@ -309,7 +309,7 @@ export default function Evaluation() {
                   Interactive ROC & PR Curve
                 </h2>
                 <p className="text-[12px] text-slate-500 mt-0.5">
-                  Live threshold scrubber with coordinate readout & confusion parameters.
+                  Penggeser ambang batas interaktif dilengkapi pembacaan koordinat dan parameter konfusi real-time.
                 </p>
               </div>
 
@@ -356,7 +356,7 @@ export default function Evaluation() {
 
               {/* Quick Preset Buttons */}
               <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                <span className="text-[10px] text-slate-500 font-mono mr-1">Presets:</span>
+                <span className="text-[10px] text-slate-500 font-mono mr-1">Preset:</span>
                 <button
                   type="button"
                   onClick={() => setPresetThreshold(0.5514)}
@@ -377,7 +377,7 @@ export default function Evaluation() {
                       : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                   }`}
                 >
-                  τ = 0.4500 (High Sensitivity)
+                  τ = 0.4500 (Sensitivitas Tinggi)
                 </button>
                 <button
                   type="button"
@@ -388,7 +388,7 @@ export default function Evaluation() {
                       : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                   }`}
                 >
-                  τ = 0.6500 (High Precision)
+                  τ = 0.6500 (Presisi Tinggi)
                 </button>
               </div>
 
@@ -544,11 +544,11 @@ export default function Evaluation() {
               Temporal Stability & Inter-Block Agreement
             </h2>
             <p className="text-[12px] text-slate-500">
-              Evaluating behavioral persistence across disjoint 76-hour observation windows (Block A vs Block B).
+              Evaluasi persistensi perilaku antar-jendela observasi 76 jam yang independen (Blok A vs Blok B).
             </p>
           </div>
           <span className="text-[11px] font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-[4px]">
-            Δt = 76 hours gap
+            Jeda Δt = 76 jam
           </span>
         </div>
 
@@ -557,7 +557,7 @@ export default function Evaluation() {
             <span className="text-[11px] text-slate-500 font-medium block">Rank Correlation</span>
             <div className="text-2xl font-bold text-slate-900 mt-1">ρ = 0.720</div>
             <p className="text-[11px] text-slate-600 mt-1">
-              Spearman rank correlation confirms stable relative anomaly ordering across observation blocks.
+              Korelasi peringkat Spearman mengonfirmasi kestabilan urutan anomali relatif antar-blok observasi.
             </p>
           </div>
 
@@ -565,7 +565,7 @@ export default function Evaluation() {
             <span className="text-[11px] text-slate-500 font-medium block">Recurrence Rate</span>
             <div className="text-2xl font-bold text-slate-900 mt-1">52.9%</div>
             <p className="text-[11px] text-slate-600 mt-1">
-              Accounts flagged as anomalous in Block A that remain anomalous in Block B (10.2× lift over baseline).
+              Akun yang terdeteksi anomali pada Blok A tetap terdeteksi anomali pada Blok B (peningkatan 10,2× dibanding baseline acak).
             </p>
           </div>
 
@@ -573,7 +573,7 @@ export default function Evaluation() {
             <span className="text-[11px] text-slate-500 font-medium block">Random Baseline</span>
             <div className="text-2xl font-bold text-slate-500 mt-1">5.2%</div>
             <p className="text-[11px] text-slate-600 mt-1">
-              Uniform probability of random recurrence under null hypothesis without behavioral memory.
+              Probabilitas rekurensi acak seragam di bawah hipotesis nol tanpa adanya memori perilaku.
             </p>
           </div>
         </div>
@@ -587,7 +587,7 @@ export default function Evaluation() {
               NoSQL Query Latency Benchmark
             </h2>
             <p className="text-[12px] text-slate-500 mt-0.5">
-              MongoDB Atlas M30 cluster comparing unindexed COLLSCAN vs compound B-Tree index (account_id, created_at).
+              Klaster MongoDB Atlas M30 membandingkan pemindaian koleksi tanpa indeks (COLLSCAN) vs indeks majemuk B-Tree (account_id, created_at).
             </p>
           </div>
 
@@ -600,7 +600,7 @@ export default function Evaluation() {
               }`}
               type="button"
             >
-              Linear Scale (Seconds)
+              Skala Linear (Detik)
             </button>
             <button
               onClick={() => setLatencyScale('log')}
@@ -609,7 +609,7 @@ export default function Evaluation() {
               }`}
               type="button"
             >
-              Logarithmic Scale (log₁₀ ms)
+              Skala Logaritmik (log₁₀ ms)
             </button>
           </div>
         </div>
@@ -687,15 +687,15 @@ export default function Evaluation() {
                 {isHovered && (
                   <div className="mt-3 pt-2.5 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px] text-slate-600">
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase">Scanned Documents:</span>
+                      <span className="text-slate-400 block text-[10px] uppercase">Dokumen Dipindai:</span>
                       <strong className="text-navy-950">{rec.scannedIx}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase">Latency Reduction:</span>
-                      <strong className="text-emerald-700">-{rec.reductionPct} reduction</strong>
+                      <span className="text-slate-400 block text-[10px] uppercase">Reduksi Latensi:</span>
+                      <strong className="text-emerald-700">-{rec.reductionPct} reduksi</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase">Optimization Stage:</span>
+                      <span className="text-slate-400 block text-[10px] uppercase">Tahap Optimasi:</span>
                       <span className="text-navy-950 font-medium">{rec.stageDetail}</span>
                     </div>
                   </div>
@@ -708,10 +708,10 @@ export default function Evaluation() {
         {/* Execution Stage Footnote */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-[12px]">
           <div className="p-3 bg-slate-50 border border-slate-200/90 rounded-[4px]">
-            <span className="font-bold text-navy-950 font-mono">COLLSCAN Stage:</span> Scans 100% of event documents linearly with disk spilling at &gt;48 hours.
+            <span className="font-bold text-navy-950 font-mono">Tahap COLLSCAN:</span> Memindai 100% dokumen event secara linear dengan disk spilling pada rentang waktu &gt;48 jam.
           </div>
           <div className="p-3 bg-slate-50 border border-slate-200/90 rounded-[4px]">
-            <span className="font-bold text-navy-950 font-mono">IXSCAN + FETCH Stage:</span> Bounds queries using B-Tree index, reducing scanned doc ratio to 0.04% of total collection.
+            <span className="font-bold text-navy-950 font-mono">Tahap IXSCAN + FETCH:</span> Membatasi kueri menggunakan indeks B-Tree, mengurangi rasio pemindaian dokumen hingga 0,04% dari total koleksi.
           </div>
         </div>
       </section>
