@@ -30,7 +30,7 @@ function StandaloneGitHubBrand() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub Repository ryandaaa/gh-bot-data-detection"
-        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-navy-950 border border-navy-800 shadow-[0_2px_12px_rgba(10,25,47,0.22)] hover:shadow-[0_4px_18px_rgba(10,25,47,0.35)] hover:bg-navy-900 text-white flex items-center justify-center transition-all group"
+        className="w-12 h-12 rounded-full bg-navy-950 border border-navy-800 shadow-[0_2px_12px_rgba(10,25,47,0.22)] hover:shadow-[0_4px_18px_rgba(10,25,47,0.35)] hover:bg-navy-900 text-white flex items-center justify-center transition-all group shrink-0"
         title="View GitHub Repository: ryandaaa/gh-bot-data-detection"
       >
         <Github className="w-5 h-5 text-white group-hover:scale-105 transition-transform" />
@@ -115,7 +115,7 @@ export default function Header({ onOpenAnalyzeModal }) {
       <StandaloneGitHubBrand />
 
       {/* Floating Navbar Container - Matches Page Content max-w-[1400px] */}
-      <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none px-3 sm:px-4 sm:pl-[86px] sm:pr-4">
+      <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none px-3 sm:px-4 pl-[68px] sm:pl-[86px] pr-3 sm:pr-4">
         <header className="max-w-[1400px] mx-auto h-12 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
           {/* Left side: Clean Breadcrumb */}
           <div className="flex items-center gap-2 text-[13px] font-sans">
