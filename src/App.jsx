@@ -109,7 +109,7 @@ function ScrollToTopButton() {
       type="button"
       onClick={scrollToTop}
       aria-label="Scroll to top of page"
-      className={`fixed bottom-4 right-4 z-40 w-9 h-9 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-md hover:border-slate-300 text-slate-500 hover:text-navy-950 flex items-center justify-center transition-all duration-200 ${
+      className={`fixed bottom-18 sm:bottom-4 right-3 sm:right-4 z-40 w-9 h-9 bg-white/95 dark:bg-[#101010]/95 backdrop-blur-md border border-slate-200/90 dark:border-[#262626] rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-md hover:border-slate-300 dark:hover:border-[#3f3f46] text-slate-500 dark:text-[#a1a1a1] hover:text-navy-950 dark:hover:text-white flex items-center justify-center transition-all duration-200 ${
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'
       }`}
       title="Scroll to top"
@@ -186,7 +186,7 @@ export default function App() {
         />
 
         {/* Dynamic Route Content with Page Transition Animation */}
-        <main className="pt-20 pl-[68px] sm:pl-[86px] pr-3 sm:pr-4 pb-20 sm:pb-12 flex-1 w-full bg-slate-50 dark:bg-[#101010] min-h-screen transition-colors duration-150">
+        <main className="pt-18 sm:pt-20 px-3 sm:pl-[86px] sm:pr-4 pb-24 sm:pb-12 flex-1 w-full bg-slate-50 dark:bg-[#101010] min-h-screen transition-colors duration-150">
           <div key={location.pathname} className="page-transition">
             <Routes>
               <Route

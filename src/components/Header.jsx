@@ -21,7 +21,7 @@ function StandaloneGitHubBrand() {
 
   return (
     <div
-      className="fixed top-3 left-3 sm:left-4 z-40 w-12 sm:w-[58px] h-12 flex items-center justify-center select-none"
+      className="hidden sm:flex fixed top-3 left-4 z-40 sm:w-[58px] h-12 items-center justify-center select-none"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -114,19 +114,19 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
       {/* Standalone GitHub Brand Card (Top-Left, exactly on sumbu X of sidebar) */}
       <StandaloneGitHubBrand />
 
-      {/* Floating Navbar Container - Matches Page Content max-w-[1400px] and px-4 sm:px-6 lg:px-8 */}
-      <div className="fixed top-3 left-0 right-0 z-30 pointer-events-none pl-[68px] sm:pl-[86px] pr-3 sm:pr-4">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <header className="w-full h-12 bg-white/95 dark:bg-[#101010] backdrop-blur-md border border-slate-200/90 dark:border-[#262626] rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3.5 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
+      {/* Floating Navbar Container - Matches Page Content max-w-[1400px] with responsive mobile padding */}
+      <div className="fixed top-2.5 sm:top-3 left-0 right-0 z-30 pointer-events-none px-3 sm:pl-[86px] sm:pr-4">
+        <div className="max-w-[1400px] mx-auto sm:px-6 lg:px-8">
+          <header className="w-full h-11 sm:h-12 bg-white/95 dark:bg-[#101010] backdrop-blur-md border border-slate-200/90 dark:border-[#262626] rounded-[6px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] px-3 sm:px-5 flex items-center justify-between pointer-events-auto transition-all select-none">
             {/* Left side: Clean Breadcrumb */}
-            <div className="flex items-center gap-2 text-[13px] font-sans">
-              <span className="text-slate-900 dark:text-[#f5f5f5] font-bold tracking-tight">GH Intelligence</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[13px] font-sans min-w-0">
+              <span className="text-slate-900 dark:text-[#f5f5f5] font-bold tracking-tight shrink-0">GH Intelligence</span>
               <span className="text-slate-300 dark:text-[#333333] font-light">/</span>
-              <span className="text-slate-600 dark:text-[#a1a1a1] font-medium tracking-tight">{pageTitle}</span>
+              <span className="text-slate-600 dark:text-[#a1a1a1] font-medium tracking-tight truncate">{pageTitle}</span>
             </div>
 
             {/* Right side: Borderless Theme Toggle + Action Button */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               {/* Cloudflare Dark Mode Toggle (Clean Borderless Icon) */}
               {onToggleTheme && (
                 <button
@@ -147,11 +147,12 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
               {/* Action Button */}
               <button
                 onClick={onOpenAnalyzeModal}
-                className="inline-flex items-center gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[12px] font-medium px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs outline-none focus:outline-none focus-visible:outline-none"
+                className="inline-flex items-center gap-1 sm:gap-1.5 bg-navy-950 hover:bg-navy-900 text-white font-sans text-[11px] sm:text-[12px] font-medium px-2.5 sm:px-3.5 py-1.5 rounded-[4px] transition-colors border border-navy-800 shadow-2xs outline-none focus:outline-none focus-visible:outline-none shrink-0"
                 type="button"
               >
-                <span>Analyze Account</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+                <span>Analyze</span>
+                <span className="hidden sm:inline">Account</span>
+                <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-300" />
               </button>
             </div>
           </header>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gh-bot-detection-dashboard.vercel.app/sitemap.xml
