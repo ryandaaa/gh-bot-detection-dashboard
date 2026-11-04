@@ -5,7 +5,8 @@ import {
   Users,
   Network,
   BarChart3,
-  BookOpen
+  BookOpen,
+  UsersRound
 } from 'lucide-react';
 
 export default function Sidebar() {
@@ -17,6 +18,7 @@ export default function Sidebar() {
     { to: '/clusters', label: 'Clusters', icon: Network },
     { to: '/evaluation', label: 'Evaluation', icon: BarChart3 },
     { to: '/methodology', label: 'Methodology', icon: BookOpen },
+    { to: '/team', label: 'Team', icon: UsersRound },
   ];
 
   return (
