@@ -9,6 +9,7 @@ import AccountExplorer from './pages/AccountExplorer';
 import Clusters from './pages/Clusters';
 import Evaluation from './pages/Evaluation';
 import Methodology from './pages/Methodology';
+import Team from './pages/Team';
 
 /**
  * Reading Scroll Progress Bar
@@ -208,6 +209,10 @@ export default function App() {
               <Route
                 path="/methodology"
                 element={<Methodology />}
+              />
+              <Route
+                path="/team"
+                element={<Team />}
               />
               {/* Fallback to overview */}
               <Route path="*" element={<Navigate to="/" replace />} />

@@ -102,6 +102,8 @@ export default function Header({ onOpenAnalyzeModal, theme = 'dark', onToggleThe
         return 'Evaluation';
       case '/methodology':
         return 'Methodology';
+      case '/team':
+        return 'Team';
       default:
         return 'Overview';
     }
